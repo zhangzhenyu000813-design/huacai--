@@ -1,399 +1,273 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
-  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
-  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>新建分发 - 丰链货盘</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style type="text/tailwindcss">
     @theme {
-      --color-primary:              #1a3a5c;
-      --color-primary-container:    #d5e3f0;
-      --color-on-primary:           #ffffff;
-      --color-secondary:            #2db8a0;
-      --color-on-secondary:         #ffffff;
-      --color-background:                 #f5f7fa;
-      --color-surface-container-lowest:   #ffffff;
-      --color-surface:                    #ffffff;
-      --color-surface-container:          #eef0f4;
-      --color-surface-container-high:     #e5e7eb;
-      --color-surface-container-highest:  #d1d5db;
-      --color-on-surface:           #1a202c;
-      --color-on-surface-variant:   #718096;
-      --color-success:  #2db8a0;
-      --color-error:    #ef4444;
-      --color-warning:  #eab308;
-      --color-outline:          #d1d5db;
-      --color-outline-variant:  #e5e7eb;
-      --radius-sm:   0.375rem;
-      --radius-md:   0.5rem;
-      --radius-lg:   0.75rem;
-      --radius-xl:   1rem;
-      --radius-2xl:  1.5rem;
-      --radius-full: 9999px;
-      --shadow-card:   0 2px 8px rgba(0,0,0,0.08);
-      --shadow-float:  0 10px 25px rgba(0,0,0,0.12);
-      --shadow-dialog: 0 25px 50px rgba(0,0,0,0.18);
-      --font-sans: system-ui, -apple-system, sans-serif;
+      --color-ios-bg: #F2F2F7; --color-ios-card: #FFFFFF;
+      --color-ios-blue: #007AFF; --color-ios-green: #34C759; --color-ios-red: #FF3B30;
+      --color-ios-orange: #FF9500; --color-ios-yellow: #FFCC00;
+      --color-ios-gray: #8E8E93; --color-ios-gray2: #AEAEB2; --color-ios-gray3: #C7C7CC;
+      --color-ios-gray4: #D1D1D6; --color-ios-gray5: #E5E5EA; --color-ios-gray6: #F2F2F7;
+      --color-ios-sep: #C6C6C8; --color-ios-label: #1C1C1E; --color-ios-label2: #3C3C43;
+      --color-ios-secondary: #8E8E93; --color-ios-tertiary: #AEAEB2;
+      --color-ios-sea: #1A3A5C; --color-ios-teal-brand: #2DB8A0;
+      --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    ::-webkit-scrollbar { display: none; }
-    body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
-    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
-    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
-    .app-scroll::-webkit-scrollbar { display: none; }
-    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
   </style>
-
-  <script>
-    document.addEventListener('error', function (e) {
-      const img = e.target;
-      if (img.tagName !== 'IMG' || img.dataset.fallback) return;
-      img.dataset.fallback = '1';
-      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      const cat = img.getAttribute('data-category') || '其他';
-      const alt = img.getAttribute('alt') || '';
-      const label = esc(alt.length > 8 ? alt.slice(0, 8) + '…' : alt);
-      const icons = { '人物': '👤', '自然风景': '🏞', '动物': '🐾', '建筑城市': '🏙', '运动体育': '⚽', '交通工具': '🚗', '食物': '🍽', '服饰时尚': '👗', '商业科技': '💼', '游戏娱乐': '🎮', '艺术': '🎨', '其他': '🖼' };
-      const icon = icons[cat] || '🖼';
-      const w = img.width || 400, h = img.height || 300;
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="45%" text-anchor="middle" font-size="${Math.min(w, h) * 0.18}" dominant-baseline="central">${icon}</text><text x="50%" y="68%" text-anchor="middle" font-size="${Math.min(w, h) * 0.07}" fill="%239ca3af" font-family="system-ui,sans-serif" dominant-baseline="central">${label}</text></svg>`;
-      img.src = 'data:image/svg+xml,' + svg;
-    }, true);
-
-    $(function() {
-      // Step 切换逻辑
-      $('.step-btn').click(function() {
-        const step = $(this).data('step');
-        $('.step-btn').removeClass('bg-primary text-white').addClass('bg-surface-container text-on-surface-variant');
-        $(this).removeClass('bg-surface-container text-on-surface-variant').addClass('bg-primary text-white');
-        $('.step-content').addClass('hidden');
-        $(`.step-content[data-step="${step}"]`).removeClass('hidden');
-      });
-
-      // 批次选择
-      $('.batch-option').click(function() {
-        $(this).toggleClass('ring-2 ring-secondary');
-        $(this).find('input[type="checkbox"]').prop('checked', !$(this).find('input[type="checkbox"]').prop('checked'));
-      });
-
-      // 渠道选择
-      $('.channel-option').click(function() {
-        $('.channel-option').removeClass('ring-2 ring-secondary');
-        $(this).addClass('ring-2 ring-secondary');
-        $(this).find('input[type="radio"]').prop('checked', true);
-      });
-
-      // 业务员选择
-      $('.sales-person').click(function() {
-        $(this).toggleClass('ring-2 ring-primary');
-        $(this).find('input[type="checkbox"]').prop('checked', !$(this).find('input[type="checkbox"]').prop('checked'));
-      });
-
-      // 分发方式选择
-      $('.method-option').click(function() {
-        $('.method-option').removeClass('ring-2 ring-secondary');
-        $(this).addClass('ring-2 ring-secondary');
-        $(this).find('input[type="radio"]').prop('checked', true);
-      });
-    });
-  </script>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: var(--font-sans); }
+    body { background: #E8E8ED; display: flex; justify-content: center; }
+    .mobile-frame { width: 393px; height: 100dvh; background: #F2F2F7; margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .app-scroll::-webkit-scrollbar { display: none; }
+    input { font-family: var(--font-sans); font-size: 16px; }
+    .step-dot { width: 8px; height: 8px; border-radius: 50%; background: #D1D1D6; transition: all 0.3s; }
+    .step-dot.active { background: #007AFF; width: 24px; border-radius: 4px; }
+    .step-dot.done { background: #007AFF; }
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+    .batch-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #C7C7CC; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .batch-check.checked { background: #007AFF; border-color: #007AFF; }
+  </style>
 </head>
-
-<body class="bg-background text-on-surface font-sans">
+<body>
 <div class="mobile-frame">
 
-  <!-- @nav:start - 二级页：有返回按钮，无TabBar -->
-  <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4 border-b border-outline-variant/30">
-    <div class="flex items-center gap-3">
-      <button onclick="history.back()" class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
-        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-      </button>
-      <h1 class="text-base font-semibold text-on-surface">新建分发</h1>
+  <header class="shrink-0 bg-ios-bg/90 backdrop-blur-xl">
+    <div class="flex items-center justify-between px-5 h-11">
+      <a href="distribution.html" class="flex items-center gap-0.5 text-ios-blue active:opacity-60 -ml-2 px-2 py-1">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </a>
+      <span class="text-base font-semibold text-ios-label">新建分发</span>
+      <span class="w-10"></span>
+    </div>
+    <!-- 步骤指示器 -->
+    <div class="flex items-center justify-center gap-2 pb-3">
+      <div class="step-dot active" id="dot1"></div>
+      <div class="step-dot" id="dot2"></div>
+      <div class="step-dot" id="dot3"></div>
     </div>
   </header>
 
   <div class="app-scroll">
-    <!-- @main-content:start -->
+    <div class="px-5 pb-28">
 
-    <!-- 步骤指示器 -->
-    <div class="px-4 pt-4 pb-4">
-      <div class="flex items-center gap-1">
-        <button class="step-btn flex-1 text-center text-sm font-medium py-2.5 rounded-xl bg-primary text-white transition-colors" data-step="1">
-          <span class="block">Step 1</span>
-          <span class="block text-[10px] opacity-80 mt-0.5">选择货盘</span>
-        </button>
-        <div class="w-4 h-px bg-outline-variant shrink-0"></div>
-        <button class="step-btn flex-1 text-center text-sm font-medium py-2.5 rounded-xl bg-surface-container text-on-surface-variant transition-colors" data-step="2">
-          <span class="block">Step 2</span>
-          <span class="block text-[10px] opacity-80 mt-0.5">分发渠道</span>
-        </button>
-        <div class="w-4 h-px bg-outline-variant shrink-0"></div>
-        <button class="step-btn flex-1 text-center text-sm font-medium py-2.5 rounded-xl bg-surface-container text-on-surface-variant transition-colors" data-step="3">
-          <span class="block">Step 3</span>
-          <span class="block text-[10px] opacity-80 mt-0.5">分发方式</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Step 1：选择货盘 -->
-    <div class="step-content px-4" data-step="1">
-      <div class="rounded-xl bg-surface shadow-card p-4 mb-4">
-        <h2 class="text-sm font-semibold text-on-surface mb-3">选择货盘批次</h2>
-        <p class="text-sm text-on-surface-variant mb-4">可多选批次组合分发，已选 <span class="text-primary font-medium" id="selectedCount">0</span> 个批次</p>
-        <div class="space-y-3">
-          <div class="batch-option rounded-xl border border-outline-variant/30 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="checkbox" class="rounded border-outline text-primary focus:ring-primary/30 accent-primary" onchange="updateSelectedCount()">
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-on-surface">赤道鱿鱼/原条/300-500</p>
-              <p class="text-sm text-on-surface-variant mt-1">BATCH-2024-001 · 1,200件 · 舟山港冷链A区</p>
+      <!-- Step 1: 选择货盘 -->
+      <div class="step-panel active" id="step1">
+        <p class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mt-3 mb-2 px-1">选择货盘</p>
+        <div class="bg-ios-card rounded-xl overflow-hidden">
+          <div class="flex items-center gap-3 px-4 py-3 border-b border-ios-gray5/60 active:bg-ios-gray6" onclick="toggleCheck(this)">
+            <div class="batch-check checked"><i data-lucide="check" class="w-3.5 h-3.5 text-white"></i></div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-ios-label">赤道鱿鱼 原条 300-500g</p>
+              <p class="text-sm text-ios-tertiary mt-0.5">批次 #EQ20250101 · 1,200件</p>
             </div>
-            <span class="text-sm text-secondary font-medium">¥8.4万</span>
           </div>
-          <div class="batch-option rounded-xl border border-outline-variant/30 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="checkbox" class="rounded border-outline text-primary focus:ring-primary/30 accent-primary" onchange="updateSelectedCount()">
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-on-surface">赤道鱿鱼/原条/300-500</p>
-              <p class="text-sm text-on-surface-variant mt-1">BATCH-2024-002 · 800件 · 舟山港冷链B区</p>
+          <div class="flex items-center gap-3 px-4 py-3 border-b border-ios-gray5/60 active:bg-ios-gray6" onclick="toggleCheck(this)">
+            <div class="batch-check checked"><i data-lucide="check" class="w-3.5 h-3.5 text-white"></i></div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-ios-label">赤道鱿鱼 原条 500-800g</p>
+              <p class="text-sm text-ios-tertiary mt-0.5">批次 #EQ20250108 · 800件</p>
             </div>
-            <span class="text-sm text-secondary font-medium">¥5.6万</span>
           </div>
-          <div class="batch-option rounded-xl border border-outline-variant/30 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="checkbox" class="rounded border-outline text-primary focus:ring-primary/30 accent-primary" onchange="updateSelectedCount()">
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-on-surface">阿根廷鱿鱼/原条/200-300</p>
-              <p class="text-sm text-on-surface-variant mt-1">BATCH-2024-003 · 1,200件 · 宁波冷链中心3库</p>
+          <div class="flex items-center gap-3 px-4 py-3 active:bg-ios-gray6" onclick="toggleCheck(this)">
+            <div class="batch-check"><i data-lucide="check" class="w-3.5 h-3.5 text-white opacity-0"></i></div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-ios-label">阿根廷鱿鱼 原条 200-300g</p>
+              <p class="text-sm text-ios-tertiary mt-0.5">批次 #AG20250110 · 1,200件</p>
             </div>
-            <span class="text-sm text-secondary font-medium">¥14.4万</span>
-          </div>
-          <div class="batch-option rounded-xl border border-outline-variant/30 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="checkbox" class="rounded border-outline text-primary focus:ring-primary/30 accent-primary" onchange="updateSelectedCount()">
-            <div class="flex-1 min-w-0">
-              <p class="text-sm font-medium text-on-surface">南美白虾/盐冻</p>
-              <p class="text-sm text-on-surface-variant mt-1">BATCH-2024-006 · 960件 · 上海洋山冷链2库</p>
-            </div>
-            <span class="text-sm text-secondary font-medium">¥21.6万</span>
           </div>
         </div>
+        <p class="text-sm text-ios-tertiary mt-2 px-1">已选 2 个批次</p>
       </div>
-      <button class="w-full rounded-xl py-3.5 text-sm font-medium bg-secondary text-white hover:bg-[#26a58e] transition-colors" onclick="$('.step-btn[data-step=2]').click()">
-        下一步：选择渠道
-      </button>
-    </div>
 
-    <!-- Step 2：选择分发渠道 -->
-    <div class="step-content px-4 hidden" data-step="2">
-      <!-- 渠道选择 -->
-      <div class="rounded-xl bg-surface shadow-card p-4 mb-4">
-        <h2 class="text-sm font-semibold text-on-surface mb-3">选择分发渠道</h2>
-        <div class="space-y-3 mb-4">
-          <div class="channel-option rounded-xl border border-outline-variant/30 p-4 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="radio" name="channel" value="private" class="accent-primary" checked>
-            <div class="flex-1">
-              <p class="text-sm font-medium text-on-surface">私域业务员</p>
-              <p class="text-sm text-on-surface-variant mt-1">向指定业务员推送链接，业务员点击即自动注册并绑定合作关系</p>
-            </div>
-            <i data-lucide="users" class="w-5 h-5 text-primary"></i>
-          </div>
-          <div class="channel-option rounded-xl border border-outline-variant/30 p-4 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="radio" name="channel" value="public" class="accent-primary">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-on-surface">公域业务员</p>
-              <p class="text-sm text-on-surface-variant mt-1">对所有业务员可见，点击链接注册后可与您建立合作关系</p>
-            </div>
-            <i data-lucide="globe" class="w-5 h-5 text-primary"></i>
-          </div>
-        </div>
-
-        <div id="privateSection">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="text-sm font-semibold text-on-surface">选择/邀请业务员</h3>
-            <button class="text-sm text-secondary font-medium flex items-center gap-1" onclick="alert('🔗 分享链接已复制！\n\n将该链接发送给目标业务员，对方点击后即可：\n1️⃣ 自动完成注册\n2️⃣ 与您建立合作关系\n3️⃣ 查看货盘详情并参与报价')">
-              <i data-lucide="link" class="w-3.5 h-3.5"></i> 分享链接邀请
-            </button>
-          </div>
-
-          <!-- 链接邀请提示 -->
-          <div class="rounded-xl bg-primary/5 border border-primary/10 p-3 mb-3">
-            <div class="flex items-start gap-2.5">
-              <i data-lucide="info" class="w-4 h-4 text-primary shrink-0 mt-0.5"></i>
+      <!-- Step 2: 选择渠道 -->
+      <div class="step-panel" id="step2">
+        <p class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mt-3 mb-2 px-1">分发渠道</p>
+        <div class="bg-ios-card rounded-xl overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60 active:bg-ios-gray6" onclick="selectChannel(this,'private')">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-ios-blue/10 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4 text-ios-blue"></i></div>
               <div>
-                <p class="text-sm font-medium text-primary mb-1">链接即注册，分发即获客</p>
-                <p class="text-[11px] text-on-surface-variant leading-relaxed">
-                  未注册的业务员点击分发货盘链接后，一键完成注册并自动与您建立合作关系。
-                  合作后该业务员将出现在您的「业务员列表」中，后续可直接选择分发。
-                </p>
+                <p class="text-sm font-medium text-ios-label">私域业务员</p>
+                <p class="text-sm text-ios-tertiary">已合作 · 点击即绑定</p>
               </div>
             </div>
+            <div class="w-5 h-5 rounded-full border-2 border-ios-blue bg-ios-blue flex items-center justify-center"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
           </div>
+          <div class="flex items-center justify-between px-4 py-3 active:bg-ios-gray6" onclick="selectChannel(this,'public')">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-ios-orange/10 flex items-center justify-center"><i data-lucide="globe" class="w-4 h-4 text-ios-orange"></i></div>
+              <div>
+                <p class="text-sm font-medium text-ios-label">公域业务员</p>
+                <p class="text-sm text-ios-tertiary">点击注册并建立合作</p>
+              </div>
+            </div>
+            <div class="w-5 h-5 rounded-full border-2 border-ios-gray3"></div>
+          </div>
+        </div>
 
-          <!-- 复制链接快捷入口 -->
-          <div class="rounded-xl bg-surface-container p-3 mb-3 flex items-center justify-between">
+        <p class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mt-6 mb-2 px-1">业务员</p>
+        <div class="bg-ios-card rounded-xl overflow-hidden">
+          <div class="px-4 py-2.5 border-b border-ios-gray5/60">
+            <input type="text" placeholder="搜索或输入手机号" class="w-full text-sm text-ios-label placeholder:text-ios-gray3 outline-none bg-transparent" />
+          </div>
+          <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
+            <div>
+              <p class="text-sm font-medium text-ios-label">张伟</p>
+              <p class="text-sm text-ios-tertiary">138****6789</p>
+            </div>
+            <span class="text-sm text-ios-green">已合作</span>
+          </div>
+          <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
+            <div>
+              <p class="text-sm font-medium text-ios-label">陈明</p>
+              <p class="text-sm text-ios-tertiary">139****2345</p>
+            </div>
+            <span class="text-sm text-ios-green">已合作</span>
+          </div>
+          <div class="flex items-center justify-between px-4 py-3">
+            <div>
+              <p class="text-sm font-medium text-ios-label">王芳</p>
+              <p class="text-sm text-ios-tertiary">137****8901</p>
+            </div>
+            <span class="text-sm text-ios-blue">邀请中</span>
+          </div>
+        </div>
+
+        <!-- 链接即注册提示 -->
+        <div class="bg-ios-blue/5 rounded-xl p-4 mt-4">
+          <div class="flex items-start gap-2">
+            <i data-lucide="link" class="w-4 h-4 text-ios-blue mt-0.5 shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ios-blue">链接即注册，分发即获客</p>
+              <p class="text-sm text-ios-secondary mt-1">分享分发链接给未注册的业务员，对方点击后自动注册并建立合作，同时出现在您的业务员列表中。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: 分发方式 -->
+      <div class="step-panel" id="step3">
+        <p class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mt-3 mb-2 px-1">选择方式</p>
+        <div class="bg-ios-card rounded-xl overflow-hidden">
+          <div class="flex items-center gap-3 px-4 py-3.5 border-b border-ios-gray5/60 active:bg-ios-gray6" onclick="selectMethod(this,0)">
+            <div class="w-10 h-10 rounded-xl bg-ios-blue/10 flex items-center justify-center"><i data-lucide="eye-off" class="w-5 h-5 text-ios-blue"></i></div>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-ios-label">暗拍报价</p>
+              <p class="text-sm text-ios-tertiary">报价保密 · 船东审核 · 可多次报价</p>
+            </div>
+            <div class="method-radio w-5 h-5 rounded-full border-2 border-ios-blue bg-ios-blue flex items-center justify-center"><i data-lucide="check" class="w-3 h-3 text-white"></i></div>
+          </div>
+          <div class="flex items-center gap-3 px-4 py-3.5 border-b border-ios-gray5/60 active:bg-ios-gray6" onclick="selectMethod(this,1)">
+            <div class="w-10 h-10 rounded-xl bg-ios-green/10 flex items-center justify-center"><i data-lucide="tag" class="w-5 h-5 text-ios-green"></i></div>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-ios-label">定价挂牌</p>
+              <p class="text-sm text-ios-tertiary">公开标价 · 直接摘牌 · 即时成交</p>
+            </div>
+            <div class="method-radio w-5 h-5 rounded-full border-2 border-ios-gray3"></div>
+          </div>
+          <div class="flex items-center gap-3 px-4 py-3.5 active:bg-ios-gray6" onclick="selectMethod(this,2)">
+            <div class="w-10 h-10 rounded-xl bg-ios-red/10 flex items-center justify-center"><i data-lucide="gavel" class="w-5 h-5 text-ios-red"></i></div>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-ios-label">竞价拍卖</p>
+              <p class="text-sm text-ios-tertiary">公开竞价 · 价高者得 · 限时拍卖</p>
+            </div>
+            <div class="method-radio w-5 h-5 rounded-full border-2 border-ios-gray3"></div>
+          </div>
+        </div>
+
+        <!-- 可见范围 -->
+        <p class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mt-6 mb-2 px-1">可见范围</p>
+        <div class="bg-ios-card rounded-xl p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <i data-lucide="info" class="w-4 h-4 text-ios-blue"></i>
+            <span class="text-sm font-medium text-ios-label">货盘可见范围</span>
+          </div>
+          <div class="space-y-2.5">
             <div class="flex items-center gap-2">
-              <i data-lucide="copy" class="w-4 h-4 text-on-surface-variant"></i>
-              <span class="text-sm text-on-surface-variant">https://fengliang.cn/s/abc123</span>
+              <i data-lucide="check-circle" class="w-4 h-4 text-ios-green"></i>
+              <span class="text-sm text-ios-label">受邀业务员：查看详情 + 参与报价/挂牌/拍卖</span>
             </div>
-            <button class="text-sm text-secondary font-medium" onclick="alert('分发链接已复制，可发送给目标业务员')">复制链接</button>
-          </div>
-
-          <div class="flex gap-2 overflow-x-auto pb-1 mb-3">
-            <span class="shrink-0 text-sm bg-primary/10 text-primary px-2.5 py-1 rounded-full font-medium">全部(12人)</span>
-            <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-2.5 py-1 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">华东区(5人)</span>
-            <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-2.5 py-1 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">华南区(4人)</span>
-            <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-2.5 py-1 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">华北区(3人)</span>
-          </div>
-          <div class="space-y-2">
-            <div class="sales-person rounded-xl border border-outline-variant/20 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-              <input type="checkbox" class="rounded accent-primary">
-              <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-sm font-medium text-primary">张</div>
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-on-surface">张海生</p>
-                <p class="text-sm text-on-surface-variant">华东区 · 上海 · 已合作</p>
-              </div>
-              <span class="text-sm bg-success/10 text-success px-2 py-0.5 rounded-full">活跃</span>
+            <div class="flex items-center gap-2">
+              <i data-lucide="alert-circle" class="w-4 h-4 text-ios-orange"></i>
+              <span class="text-sm text-ios-label">陌生人：浏览基本信息，无法交易</span>
             </div>
-            <div class="sales-person rounded-xl border border-outline-variant/20 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-              <input type="checkbox" class="rounded accent-primary">
-              <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-sm font-medium text-primary">李</div>
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-on-surface">李明辉</p>
-                <p class="text-sm text-on-surface-variant">华东区 · 宁波 · 已合作</p>
-              </div>
-              <span class="text-sm bg-success/10 text-success px-2 py-0.5 rounded-full">活跃</span>
-            </div>
-            <div class="sales-person rounded-xl border border-outline-variant/20 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-              <input type="checkbox" class="rounded accent-primary">
-              <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-sm font-medium text-primary">陈</div>
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-on-surface">陈涛</p>
-                <p class="text-sm text-on-surface-variant">华南区 · 广州 · 已合作</p>
-              </div>
-              <span class="text-sm bg-warning/10 text-warning px-2 py-0.5 rounded-full">离线</span>
-            </div>
-            <div class="sales-person rounded-xl border border-outline-variant/20 p-3 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-              <input type="checkbox" class="rounded accent-primary">
-              <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-sm font-medium text-primary">王</div>
-              <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-on-surface">王雪梅</p>
-                <p class="text-sm text-on-surface-variant">华北区 · 北京 · 已合作</p>
-              </div>
-              <span class="text-sm bg-success/10 text-success px-2 py-0.5 rounded-full">活跃</span>
+            <div class="flex items-center gap-2">
+              <i data-lucide="bar-chart-2" class="w-4 h-4 text-ios-blue"></i>
+              <span class="text-sm text-ios-label">所有浏览行为被记录</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 可见性和浏览说明 -->
-      <div class="rounded-xl bg-surface shadow-card p-4 mb-4">
-        <div class="flex items-center gap-2 mb-2">
-          <i data-lucide="eye" class="w-4 h-4 text-primary"></i>
-          <h3 class="text-sm font-semibold text-on-surface">货盘可见范围说明</h3>
-        </div>
-        <div class="space-y-2 text-sm text-on-surface-variant">
-          <div class="flex items-start gap-2">
-            <div class="w-1.5 h-1.5 rounded-full bg-success shrink-0 mt-1.5"></div>
-            <span>选择/邀请的业务员：可查看货盘详情、参与报价/挂牌/拍卖</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <div class="w-1.5 h-1.5 rounded-full bg-warning shrink-0 mt-1.5"></div>
-            <span>未被邀请的业务员/陌生人：可浏览货盘基本信息，但无法参与交易操作</span>
-          </div>
-          <div class="flex items-start gap-2">
-            <div class="w-1.5 h-1.5 rounded-full bg-primary/30 shrink-0 mt-1.5"></div>
-            <span>所有浏览行为都会被记录，船东可查看货盘的浏览人数和看货记录</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex gap-3">
-        <button class="flex-1 rounded-xl py-3.5 text-sm font-medium bg-surface-container-high text-on-surface hover:bg-surface-container-higher transition-colors" onclick="$('.step-btn[data-step=1]').click()">上一步</button>
-        <button class="flex-[2] rounded-xl py-3.5 text-sm font-medium bg-secondary text-white hover:bg-[#26a58e] transition-colors" onclick="$('.step-btn[data-step=3]').click()">下一步：选择方式</button>
-      </div>
     </div>
-
-    <!-- Step 3：设置分发方式 & 确认 -->
-    <div class="step-content px-4 hidden" data-step="3">
-      <div class="rounded-xl bg-surface shadow-card p-4 mb-4">
-        <h2 class="text-sm font-semibold text-on-surface mb-3">选择分发方式</h2>
-        <div class="space-y-3">
-          <div class="method-option rounded-xl border border-outline-variant/30 p-4 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="radio" name="method" value="quote" class="accent-secondary" checked>
-            <div class="flex-1">
-              <p class="text-sm font-medium text-on-surface">公开报价</p>
-              <p class="text-sm text-on-surface-variant mt-1">船东设定报价，业务员查看后联系议价</p>
-            </div>
-            <i data-lucide="gavel" class="w-5 h-5 text-secondary"></i>
-          </div>
-          <div class="method-option rounded-xl border border-outline-variant/30 p-4 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="radio" name="method" value="listing" class="accent-secondary">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-on-surface">定价挂牌</p>
-              <p class="text-sm text-on-surface-variant mt-1">固定价格挂牌，业务员可直接下单成交</p>
-            </div>
-            <i data-lucide="tag" class="w-5 h-5 text-secondary"></i>
-          </div>
-          <div class="method-option rounded-xl border border-outline-variant/30 p-4 cursor-pointer transition-colors hover:bg-surface-container/50 flex items-center gap-3">
-            <input type="radio" name="method" value="auction" class="accent-secondary">
-            <div class="flex-1">
-              <p class="text-sm font-medium text-on-surface">工具拍卖</p>
-              <p class="text-sm text-on-surface-variant mt-1">设置起拍价与截止时间，价高者得</p>
-            </div>
-            <i data-lucide="hammer" class="w-5 h-5 text-secondary"></i>
-          </div>
-        </div>
-      </div>
-
-      <!-- 确认信息 -->
-      <div class="rounded-xl bg-surface shadow-card p-4 mb-6">
-        <h2 class="text-sm font-semibold text-on-surface mb-3">确认分发信息</h2>
-        <div class="space-y-2.5">
-          <div class="flex justify-between">
-            <span class="text-sm text-on-surface-variant">选择批次</span>
-            <span class="text-sm font-medium text-on-surface">赤道鱿鱼(2批) + 阿根廷鱿鱼(1批)</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-sm text-on-surface-variant">分发渠道</span>
-            <span class="text-sm font-medium text-on-surface">私域业务员(4人)</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-sm text-on-surface-variant">分发方式</span>
-            <span class="text-sm font-medium text-on-surface">公开报价</span>
-          </div>
-          <div class="flex justify-between pt-2 border-t border-outline-variant/20">
-            <span class="text-sm text-on-surface-variant">总件数</span>
-            <span class="text-sm font-semibold text-on-surface">3,200 件</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-sm text-on-surface-variant">总货值</span>
-            <span class="text-sm font-semibold text-secondary">¥28.4 万</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex gap-3 pb-4">
-        <button class="flex-1 rounded-xl py-3.5 text-sm font-medium bg-surface-container-high text-on-surface hover:bg-surface-container-higher transition-colors" onclick="$('.step-btn[data-step=2]').click()">上一步</button>
-        <button class="flex-[2] rounded-xl py-3.5 text-sm font-medium bg-primary text-white hover:bg-[#142d4a] transition-colors" onclick="alert('分发已提交成功！'); location.href='distribution.html'">
-          <div class="flex items-center justify-center gap-2">
-            <i data-lucide="send" class="w-4 h-4"></i>
-            <span>确认分发</span>
-          </div>
-        </button>
-      </div>
-    </div>
-
-    <!-- @main-content:end -->
   </div>
 
-  <script>
-    function updateSelectedCount() {
-      const checked = $('.batch-option input[type="checkbox"]:checked').length;
-      $('#selectedCount').text(checked);
-    }
-    lucide.createIcons();
-  </script>
-</div>
-</body>
+  <!-- 底部按钮 -->
+  <div class="shrink-0 px-5 py-3 bg-ios-card/90 backdrop-blur-xl border-t border-ios-gray5">
+    <button class="w-full h-11 rounded-xl bg-ios-blue text-white font-semibold text-base active:bg-ios-blue/80" id="nextBtn" onclick="nextStep()">下一步</button>
+  </div>
 
+</div>
+
+<script>
+let currentStep = 1;
+
+function nextStep() {
+  if (currentStep < 3) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    document.getElementById('dot' + currentStep).classList.remove('active');
+    document.getElementById('dot' + currentStep).classList.add('done');
+    currentStep++;
+    document.getElementById('step' + currentStep).classList.add('active');
+    document.getElementById('dot' + currentStep).classList.add('active');
+    if (currentStep === 3) {
+      document.getElementById('nextBtn').textContent = '确认分发';
+      document.getElementById('nextBtn').onclick = function() { alert('分发创建成功！'); };
+    }
+  }
+}
+
+function toggleCheck(el) {
+  const check = el.querySelector('.batch-check');
+  const icon = check.querySelector('i');
+  check.classList.toggle('checked');
+  icon.style.opacity = check.classList.contains('checked') ? '1' : '0';
+}
+
+function selectChannel(el, type) {
+  el.parentElement.querySelectorAll('.rounded-full').forEach(d => {
+    if (d.classList.contains('border-2')) {
+      d.className = 'w-5 h-5 rounded-full border-2 border-ios-gray3';
+      d.innerHTML = '';
+    }
+  });
+  const radio = el.querySelector('.border-2');
+  radio.className = 'w-5 h-5 rounded-full border-2 border-ios-blue bg-ios-blue flex items-center justify-center';
+  radio.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+}
+
+function selectMethod(el, idx) {
+  document.querySelectorAll('.method-radio').forEach((r, i) => {
+    if (i === idx) {
+      r.className = 'method-radio w-5 h-5 rounded-full border-2 border-ios-blue bg-ios-blue flex items-center justify-center';
+      r.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    } else {
+      r.className = 'method-radio w-5 h-5 rounded-full border-2 border-ios-gray3';
+      r.innerHTML = '';
+    }
+  });
+}
+
+lucide.createIcons();
+</script>
+</body>
 </html>
