@@ -180,75 +180,127 @@
           </button>
         </div>
 
-        <!-- ========= 报价市场 ========= -->
+        <!-- ========= 报价市场（暗拍模式） ========= -->
         <div id="panel-quote" class="flex flex-col gap-3">
 
-          <!-- 快速询比价入口 -->
+          <!-- 暗拍说明入口 -->
           <div class="bg-surface-container rounded-xl p-4 shadow-sm border border-outline-variant/30">
             <div class="flex items-center justify-between mb-3">
-              <div><span class="text-sm font-semibold text-on-surface">快速询比价</span><span class="text-xs text-on-surface-variant ml-2">今日询价 16 笔</span></div>
+              <div><span class="text-sm font-semibold text-on-surface">暗拍询报价</span><span class="text-xs text-on-surface-variant ml-2">进行中 12 笔</span></div>
               <button class="px-3 py-1.5 rounded-lg bg-secondary text-white text-xs font-medium flex items-center gap-1 hover:bg-[#26a690] transition-colors">
                 <i data-lucide="plus" class="w-3.5 h-3.5"></i>发布询价
               </button>
             </div>
-            <div class="text-xs text-on-surface-variant leading-relaxed">发布后公开匹配供应商，24小时内获得多家报价，比价后择优成交</div>
+            <div class="text-xs text-on-surface-variant leading-relaxed">船东发布询价 → 各方暗拍报价，互不可见 → 船东审核，合适即成交，不合适可重报</div>
+            <div class="flex items-center gap-2 mt-2">
+              <span class="px-2 py-0.5 rounded text-xs bg-primary-lighter text-primary-light flex items-center gap-1"><i data-lucide="shield" class="w-3 h-3"></i>报价保密</span>
+              <span class="px-2 py-0.5 rounded text-xs bg-secondary/10 text-secondary flex items-center gap-1"><i data-lucide="refresh-cw" class="w-3 h-3"></i>可多次报价</span>
+              <span class="px-2 py-0.5 rounded text-xs bg-amber-50 text-amber-600 flex items-center gap-1"><i data-lucide="search" class="w-3 h-3"></i>船东审核</span>
+            </div>
           </div>
 
-          <!-- 报价列表 -->
+          <!-- 暗拍列表（不显示价位） -->
           <div class="flex flex-col gap-3">
+
+            <!-- 求购暗拍 -->
             <div onclick="showTradingDetail('quote')" class="bg-surface-container rounded-xl p-4 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <div class="px-2 py-0.5 rounded text-xs font-medium bg-secondary/10 text-secondary">求购</div>
+                  <div class="px-2 py-0.5 rounded text-xs font-medium bg-primary-lighter text-primary-light">求购</div>
                   <span class="text-sm font-semibold text-on-surface">赤道鱿鱼 原条 300-500</span>
                 </div>
-                <span class="text-xs text-on-surface-variant">30分钟前</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-amber-50 text-amber-600">报价截止</span>
               </div>
               <div class="flex items-center justify-between mt-2">
                 <div><span class="text-xs text-on-surface-variant">需求量：</span><span class="text-sm font-semibold text-on-surface">50吨</span></div>
-                <div><span class="text-xs text-on-surface-variant">目标价：</span><span class="text-sm font-semibold text-secondary">¥24,000/吨</span></div>
+                <div><span class="text-xs text-on-surface-variant">我的报价：</span><span class="text-sm font-semibold text-on-surface-variant">—</span></div>
               </div>
               <div class="flex items-center gap-2 mt-2">
-                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">已有 3 家报价</span>
-                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">最低 ¥23,500</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> 截止 12/22 18:00</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant flex items-center gap-1"><i data-lucide="users" class="w-3 h-3"></i> 已报 5 家</span>
+              </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/30">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-surface-container-highest"></span>
+                  <span class="text-xs text-on-surface-variant">等待船东审核中</span>
+                  <button class="ml-auto px-3 py-1 rounded-lg bg-secondary text-white text-xs font-medium hover:bg-[#26a690] transition-colors">立即报价</button>
+                </div>
               </div>
             </div>
 
+            <!-- 供应暗拍 — 已报价状态 -->
             <div onclick="showTradingDetail('quote')" class="bg-surface-container rounded-xl p-4 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <div class="px-2 py-0.5 rounded text-xs font-medium bg-primary-lighter text-primary-light">供应</div>
+                  <div class="px-2 py-0.5 rounded text-xs font-medium bg-secondary/10 text-secondary">供应</div>
                   <span class="text-sm font-semibold text-on-surface">阿根廷鱿鱼 原条 400-600</span>
                 </div>
-                <span class="text-xs text-on-surface-variant">1小时前</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">报价中</span>
               </div>
               <div class="flex items-center justify-between mt-2">
                 <div><span class="text-xs text-on-surface-variant">可售：</span><span class="text-sm font-semibold text-on-surface">30吨</span></div>
-                <div><span class="text-xs text-on-surface-variant">报价：</span><span class="text-sm font-semibold text-primary">¥30,500/吨</span></div>
+                <div><span class="text-xs text-on-surface-variant">我的报价：</span><span class="text-sm font-semibold text-on-surface-variant">已提交 1 次</span></div>
               </div>
               <div class="flex items-center gap-2 mt-2">
-                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">存放：舟山港冷链</span>
-                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">品控A级</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> 截止 12/23 14:00</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant flex items-center gap-1"><i data-lucide="users" class="w-3 h-3"></i> 已报 3 家</span>
+              </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/30">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-accent" style="animation: pulse-soft 1.5s infinite;"></span>
+                  <span class="text-xs text-on-surface-variant">船东审核中</span>
+                  <button class="ml-auto px-3 py-1 rounded-lg border border-secondary text-secondary text-xs font-medium bg-transparent hover:bg-secondary/5 transition-colors">修改报价</button>
+                </div>
               </div>
             </div>
 
-            <div onclick="showTradingDetail('quote')" class="bg-surface-container rounded-xl p-4 shadow-sm border border-outline-variant/30 hover:shadow-md transition-shadow cursor-pointer">
+            <!-- 已审核 — 合适 -->
+            <div onclick="showTradingDetail('quote')" class="bg-surface-container rounded-xl p-4 shadow-sm border border-secondary/30 hover:shadow-md transition-shadow cursor-pointer">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
                   <div class="px-2 py-0.5 rounded text-xs font-medium bg-secondary/10 text-secondary">求购</div>
                   <span class="text-sm font-semibold text-on-surface">鲭鱼 冷冻 300-500</span>
                 </div>
-                <span class="text-xs text-on-surface-variant">2小时前</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-secondary/10 text-secondary font-medium">已成交</span>
               </div>
               <div class="flex items-center justify-between mt-2">
                 <div><span class="text-xs text-on-surface-variant">需求量：</span><span class="text-sm font-semibold text-on-surface">100吨</span></div>
-                <div><span class="text-xs text-on-surface-variant">目标价：</span><span class="text-sm font-semibold text-secondary">¥12,500/吨</span></div>
+                <div><span class="text-xs text-on-surface-variant">成交数量：</span><span class="text-sm font-semibold text-secondary">50吨</span></div>
               </div>
               <div class="flex items-center gap-2 mt-2">
-                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">已有 5 家报价</span>
-                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">最低 ¥12,200</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3 text-secondary"></i> 船东已确认</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">12/20 10:30 成交</span>
+              </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/30">
+                <span class="text-xs text-secondary">✓ 您的报价已被船东采纳</span>
               </div>
             </div>
+
+            <!-- 不合适 — 可重新报价 -->
+            <div onclick="showTradingDetail('quote')" class="bg-surface-container rounded-xl p-4 shadow-sm border border-danger/20 hover:shadow-md transition-shadow cursor-pointer">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="px-2 py-0.5 rounded text-xs font-medium bg-secondary/10 text-secondary">供应</div>
+                  <span class="text-sm font-semibold text-on-surface">秋刀鱼 冷冻 200-300</span>
+                </div>
+                <span class="px-2 py-0.5 rounded text-xs bg-danger/10 text-danger font-medium">不合适</span>
+              </div>
+              <div class="flex items-center justify-between mt-2">
+                <div><span class="text-xs text-on-surface-variant">可售：</span><span class="text-sm font-semibold text-on-surface">60吨</span></div>
+                <div><span class="text-xs text-on-surface-variant">我的报价：</span><span class="text-sm font-semibold text-on-surface-variant">已报 2 次</span></div>
+              </div>
+              <div class="flex items-center gap-2 mt-2">
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> 截止 12/25 10:00</span>
+                <span class="px-2 py-0.5 rounded text-xs bg-surface-container-high text-on-surface-variant">还可报价 3 次</span>
+              </div>
+              <div class="mt-3 pt-3 border-t border-outline-variant/30">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-danger flex items-center gap-1"><i data-lucide="x-circle" class="w-3 h-3"></i> 船东认为价格偏高，请重新报价</span>
+                  <button class="shrink-0 px-3 py-1 rounded-lg bg-danger text-white text-xs font-medium hover:bg-[#dc2626] transition-colors">重新报价</button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -504,9 +556,21 @@
       alert('【' + name + '】行情详情\n• 周走势图\n• 月走势图\n• 历史最高/最低价\n• 供需分析');
     }
     function showTradingDetail(type) {
-      const labels = {quote:'报价单详情',listing:'挂牌货盘详情',auction:'拍卖详情'};
+      const labels = {quote:'暗拍报价单',listing:'挂牌货盘详情',auction:'拍卖详情'};
       alert('【' + labels[type] + '】\n' + 
-        (type==='quote' ? '• 报价单完整信息\n• 比价列表\n• 立即报价\n• 联系发布方' : 
+        (type==='quote' ? '🕶️ 暗拍报价（价位保密）\n' +
+          '━━━━━━━━━━━━━━\n' +
+          '• 货盘：赤道鱿鱼 原条 300-500\n' +
+          '• 需求量：50吨\n' +
+          '• 报价截止：12/22 18:00\n' +
+          '• 我的报价：—（未提交）\n' +
+          '━━━━━━━━━━━━━━\n' +
+          '📌 暗拍规则：\n' +
+          '• 各方报价互不可见\n' +
+          '• 船东审核后逐一确认\n' +
+          '• 合适的报价 → 成交\n' +
+          '• 不合适 → 可重新报价\n' +
+          '• 每人最多可报 3 次' : 
          type==='listing' ? '• 货盘完整信息\n• 品控报告\n• 立即报价\n• 联系船东' :
          '• 拍卖品详情\n• 品控报告\n• 出价记录\n• 我要出价\n• 设置代理出价'));
     }
