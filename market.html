@@ -27,8 +27,10 @@
     }
     * { -webkit-tap-highlight-color: transparent; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; padding: 0; }
-    .mobile-frame { width: 393px; min-height: 100dvh; background: var(--color-surface); margin: 0 auto; position: relative; overflow-x: hidden; }
-    @media (max-width: 430px) { body { background: var(--color-surface); } .mobile-frame { width: 100%; } }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .app-scroll::-webkit-scrollbar { display: none; }
+    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     @keyframes pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
@@ -38,24 +40,22 @@
 <div class="mobile-frame">
 
     <!-- ===== HEADER ===== -->
-    <header class="sticky top-0 z-30 bg-surface/95 backdrop-blur-lg border-b border-outline-variant/50">
-      <div class="px-4 pt-3 pb-2">
-        <div class="flex items-center justify-between">
-          <h1 class="text-xl font-bold text-on-surface">交易市场</h1>
-          <button onclick="showFilter()" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-surface-container-higher transition-colors">
-            <i data-lucide="sliders-horizontal" class="w-4.5 h-4.5 text-on-surface-variant"></i>
-          </button>
-        </div>
-
-        <!-- 一级切换：行情 / 交易市场 -->
-        <div class="flex gap-1 mt-3 bg-surface-container-high rounded-lg p-1">
+    <header class="bg-background sticky top-0 z-40">
+      <div class="flex items-center justify-between h-14 px-4 border-b border-outline-variant/30">
+        <h1 class="text-xl font-bold text-on-surface">交易市场</h1>
+        <button onclick="showFilter()" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-surface-container-higher transition-colors">
+          <i data-lucide="sliders-horizontal" class="w-4.5 h-4.5 text-on-surface-variant"></i>
+        </button>
+      </div>
+      <div class="px-4 pb-3">
+        <div class="flex gap-1 bg-surface-container-high rounded-lg p-1">
           <button onclick="switchTab('market')" id="tab-market" class="flex-1 py-2 text-sm font-medium rounded-md transition-all">行情</button>
           <button onclick="switchTab('trade')" id="tab-trade" class="flex-1 py-2 text-sm font-medium rounded-md transition-all bg-primary text-white shadow-sm">交易市场</button>
         </div>
       </div>
     </header>
 
-    <main class="flex-1 px-4 pt-3 pb-28">
+    <div class="app-scroll px-4 pt-3">
 
       <!-- ============================================================ -->
       <!-- PANEL A: 行情信息 -->
@@ -495,26 +495,24 @@
     </div>
 
     <!-- ===== TAB BAR ===== -->
-    <nav class="flex justify-around items-center h-14 shrink-0 bg-surface/95 border-t border-outline-variant/50">
-      <div class="flex items-center justify-around h-14 px-2">
-        <a href="home.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 py-1">
-          <i data-lucide="clipboard-list" class="w-5 h-5 text-on-surface-variant"></i>
-          <span class="text-[10px] text-on-surface-variant">货盘</span>
-        </a>
-        <a href="distribution.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 py-1">
-          <i data-lucide="share-2" class="w-5 h-5 text-on-surface-variant"></i>
-          <span class="text-[10px] text-on-surface-variant">分发</span>
-        </a>
-        <a href="market.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 py-1 relative">
-          <i data-lucide="trending-up" class="w-5 h-5 text-primary"></i>
-          <span class="text-[10px] text-primary font-medium">行情</span>
-          <span class="absolute -top-0.5 right-1/2 translate-x-5 w-1.5 h-1.5 rounded-full bg-danger"></span>
-        </a>
-        <a href="profile.html" class="flex flex-col items-center justify-center gap-0.5 flex-1 py-1">
-          <i data-lucide="user" class="w-5 h-5 text-on-surface-variant"></i>
-          <span class="text-[10px] text-on-surface-variant">我的</span>
-        </a>
-      </div>
+    <nav class="flex justify-around items-center h-14 shrink-0 bg-surface border-t border-outline-variant/20">
+      <a href="home.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+        <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-wide">货盘</span>
+      </a>
+      <a href="distribution.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+        <i data-lucide="share-2" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-wide">分发</span>
+      </a>
+      <a href="market.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-primary relative">
+        <i data-lucide="trending-up" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-wide">行情</span>
+        <span class="absolute -top-0.5 right-1/2 translate-x-5 w-1.5 h-1.5 rounded-full bg-danger"></span>
+      </a>
+      <a href="profile.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+        <i data-lucide="user" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-wide">我的</span>
+      </a>
     </nav>
 
   </div>
@@ -580,6 +578,6 @@
       alert('筛选：\n• 品类\n• 产地\n• 品控等级\n• 价格区间\n• 存放冷库');
     }
   </script>
-</div>
+
 </body>
 </html>

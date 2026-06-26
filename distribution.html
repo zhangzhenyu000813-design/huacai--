@@ -41,8 +41,10 @@
     }
     ::-webkit-scrollbar { display: none; }
     body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
-    .mobile-frame { width: 393px; min-height: 100dvh; background: var(--color-background); margin: 0 auto; position: relative; overflow-x: hidden; }
-    @media (max-width: 430px) { body { background: var(--color-background); } .mobile-frame { width: 100%; } }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .app-scroll::-webkit-scrollbar { display: none; }
+    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
   </style>
 
   <script>
