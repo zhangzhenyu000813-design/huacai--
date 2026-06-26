@@ -1,180 +1,347 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>分发管理 - 丰链货盘</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
+
   <style type="text/tailwindcss">
     @theme {
-      --color-ios-bg: #F2F2F7; --color-ios-card: #FFFFFF;
-      --color-ios-blue: #007AFF; --color-ios-green: #34C759; --color-ios-red: #FF3B30;
-      --color-ios-orange: #FF9500; --color-ios-yellow: #FFCC00;
-      --color-ios-gray: #8E8E93; --color-ios-gray2: #AEAEB2; --color-ios-gray3: #C7C7CC;
-      --color-ios-gray4: #D1D1D6; --color-ios-gray5: #E5E5EA; --color-ios-gray6: #F2F2F7;
-      --color-ios-sep: #C6C6C8; --color-ios-label: #1C1C1E; --color-ios-label2: #3C3C43;
-      --color-ios-secondary: #8E8E93; --color-ios-tertiary: #AEAEB2;
-      --color-ios-sea: #1A3A5C; --color-ios-teal-brand: #2DB8A0;
-      --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --color-primary:              #1a3a5c;
+      --color-primary-container:    #d5e3f0;
+      --color-on-primary:           #ffffff;
+      --color-secondary:            #2db8a0;
+      --color-on-secondary:         #ffffff;
+      --color-background:                 #f5f7fa;
+      --color-surface-container-lowest:   #ffffff;
+      --color-surface:                    #ffffff;
+      --color-surface-container:          #eef0f4;
+      --color-surface-container-high:     #e5e7eb;
+      --color-surface-container-highest:  #d1d5db;
+      --color-on-surface:           #1a202c;
+      --color-on-surface-variant:   #718096;
+      --color-success:  #2db8a0;
+      --color-error:    #ef4444;
+      --color-warning:  #eab308;
+      --color-outline:          #d1d5db;
+      --color-outline-variant:  #e5e7eb;
+      --radius-sm:   0.375rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-2xl:  1.5rem;
+      --radius-full: 9999px;
+      --shadow-card:   0 2px 8px rgba(0,0,0,0.08);
+      --shadow-float:  0 10px 25px rgba(0,0,0,0.12);
+      --shadow-dialog: 0 25px 50px rgba(0,0,0,0.18);
+      --font-sans: system-ui, -apple-system, sans-serif;
     }
-  </style>
-  <style>
-    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: var(--font-sans); }
-    body { background: #E8E8ED; display: flex; justify-content: center; }
-    .mobile-frame { width: 393px; height: 100dvh; background: #F2F2F7; margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    ::-webkit-scrollbar { display: none; }
+    body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
     .app-scroll::-webkit-scrollbar { display: none; }
-    @media (max-width: 430px) { body { background: #F2F2F7; } .mobile-frame { width: 100%; } }
+    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
   </style>
+
+  <script>
+    document.addEventListener('error', function (e) {
+      const img = e.target;
+      if (img.tagName !== 'IMG' || img.dataset.fallback) return;
+      img.dataset.fallback = '1';
+      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const cat = img.getAttribute('data-category') || '其他';
+      const alt = img.getAttribute('alt') || '';
+      const label = esc(alt.length > 8 ? alt.slice(0, 8) + '…' : alt);
+      const icons = { '人物': '👤', '自然风景': '🏞', '动物': '🐾', '建筑城市': '🏙', '运动体育': '⚽', '交通工具': '🚗', '食物': '🍽', '服饰时尚': '👗', '商业科技': '💼', '游戏娱乐': '🎮', '艺术': '🎨', '其他': '🖼' };
+      const icon = icons[cat] || '🖼';
+      const w = img.width || 400, h = img.height || 300;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="45%" text-anchor="middle" font-size="${Math.min(w, h) * 0.18}" dominant-baseline="central">${icon}</text><text x="50%" y="68%" text-anchor="middle" font-size="${Math.min(w, h) * 0.07}" fill="%239ca3af" font-family="system-ui,sans-serif" dominant-baseline="central">${label}</text></svg>`;
+      img.src = 'data:image/svg+xml,' + svg;
+    }, true);
+  </script>
 </head>
-<body>
+
+<body class="bg-background text-on-surface font-sans">
 <div class="mobile-frame">
 
-  <header class="shrink-0 bg-ios-bg px-5 pt-3 pb-1">
-    <h1 class="text-[28px] font-bold text-ios-label tracking-tight">分发</h1>
+  <!-- @nav:start -->
+  <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4 border-b border-outline-variant/5/10">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+        <i data-lucide="share-2" class="w-4 h-4 text-white"></i>
+      </div>
+      <h1 class="text-lg font-bold text-primary">分发管理</h1>
+    </div>
+    <button class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors" onclick="alert('搜索分发记录')">
+      <i data-lucide="search" class="w-5 h-5"></i>
+    </button>
   </header>
 
   <div class="app-scroll">
-    <div class="px-5 pb-28">
+    <!-- @main-content:start -->
 
-      <!-- 状态统计 -->
-      <div class="flex gap-3 mt-4">
-        <div class="flex-1 bg-ios-card rounded-xl p-4 text-center">
-          <p class="text-2xl font-bold text-ios-orange">3</p>
-          <p class="text-sm text-ios-secondary mt-0.5">待分发</p>
+    <!-- 统计卡片 -->
+    <div class="px-5 pt-5 pb-4">
+      <div class="grid grid-cols-3 gap-4">
+        <div class="rounded-2xl bg-surface shadow-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-warning/10 flex items-center justify-center">
+              <i data-lucide="clock" class="w-4 h-4 text-warning"></i>
+            </div>
+            <span class="text-sm text-on-surface-variant">待分发</span>
+          </div>
+          <p class="text-2xl font-bold text-on-surface">6</p>
         </div>
-        <div class="flex-1 bg-ios-card rounded-xl p-4 text-center">
-          <p class="text-2xl font-bold text-ios-blue">5</p>
-          <p class="text-sm text-ios-secondary mt-0.5">分发中</p>
+        <div class="rounded-2xl bg-surface shadow-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <i data-lucide="loader" class="w-4 h-4 text-primary"></i>
+            </div>
+            <span class="text-sm text-on-surface-variant">分发中</span>
+          </div>
+          <p class="text-2xl font-bold text-on-surface">3</p>
         </div>
-        <div class="flex-1 bg-ios-card rounded-xl p-4 text-center">
-          <p class="text-2xl font-bold text-ios-gray">12</p>
-          <p class="text-sm text-ios-secondary mt-0.5">已结束</p>
-        </div>
-      </div>
-
-      <!-- 筛选 -->
-      <div class="flex gap-2 mt-5">
-        <button class="text-sm font-medium bg-ios-blue text-white px-4 py-1.5 rounded-full">全部</button>
-        <button class="text-sm font-medium bg-ios-card text-ios-secondary px-4 py-1.5 rounded-full">待分发</button>
-        <button class="text-sm font-medium bg-ios-card text-ios-secondary px-4 py-1.5 rounded-full">分发中</button>
-        <button class="text-sm font-medium bg-ios-card text-ios-secondary px-4 py-1.5 rounded-full">已结束</button>
-      </div>
-
-      <!-- 分发记录列表 -->
-      <div class="mt-5">
-        <h2 class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mb-3 px-1">分发记录</h2>
-        <div class="bg-ios-card rounded-xl overflow-hidden">
-
-          <!-- 记录1 -->
-          <div class="px-4 py-3.5 border-b border-ios-gray5/60 active:bg-ios-gray6">
-            <div class="flex items-center justify-between">
-              <p class="text-base font-semibold text-ios-label">赤道鱿鱼 300-500</p>
-              <span class="text-xs font-medium text-ios-blue bg-ios-blue/10 px-2 py-0.5 rounded-full">分发中</span>
+        <div class="rounded-2xl bg-surface shadow-card p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
+              <i data-lucide="check-circle" class="w-4 h-4 text-success"></i>
             </div>
-            <p class="text-sm text-ios-secondary mt-1">私域业务员 · 暗拍报价</p>
-            <div class="flex items-center gap-4 mt-2 text-sm text-ios-tertiary">
-              <span>128次浏览</span>
-              <span>5人看货</span>
-              <span>2人新增合作</span>
-            </div>
-            <p class="text-xs text-ios-tertiary mt-1.5">2025-01-15 10:30</p>
+            <span class="text-sm text-on-surface-variant">已结束</span>
           </div>
-
-          <!-- 记录2 -->
-          <div class="px-4 py-3.5 border-b border-ios-gray5/60 active:bg-ios-gray6">
-            <div class="flex items-center justify-between">
-              <p class="text-base font-semibold text-ios-label">阿根廷鱿鱼 200-300</p>
-              <span class="text-xs font-medium text-ios-orange bg-ios-orange/10 px-2 py-0.5 rounded-full">待分发</span>
-            </div>
-            <p class="text-sm text-ios-secondary mt-1">公域+私域 · 公开挂牌</p>
-            <div class="flex items-center gap-4 mt-2 text-sm text-ios-tertiary">
-              <span>—</span><span>—</span><span>—</span>
-            </div>
-            <p class="text-xs text-ios-tertiary mt-1.5">2025-01-16 09:00</p>
-          </div>
-
-          <!-- 记录3 -->
-          <div class="px-4 py-3.5 border-b border-ios-gray5/60 active:bg-ios-gray6">
-            <div class="flex items-center justify-between">
-              <p class="text-base font-semibold text-ios-label">太平洋鲭鱼 片冻</p>
-              <span class="text-xs font-medium text-ios-blue bg-ios-blue/10 px-2 py-0.5 rounded-full">分发中</span>
-            </div>
-            <p class="text-sm text-ios-secondary mt-1">公域业务员 · 竞价拍卖</p>
-            <div class="flex items-center gap-4 mt-2 text-sm text-ios-tertiary">
-              <span>203次浏览</span>
-              <span>8人看货</span>
-              <span>4人新增合作</span>
-            </div>
-            <p class="text-xs text-ios-tertiary mt-1.5">2025-01-14 14:20</p>
-          </div>
-
-          <!-- 记录4 -->
-          <div class="px-4 py-3.5 border-b border-ios-gray5/60 active:bg-ios-gray6">
-            <div class="flex items-center justify-between">
-              <p class="text-base font-semibold text-ios-label">南美白虾 盐冻</p>
-              <span class="text-xs font-medium text-ios-gray bg-ios-gray6 px-2 py-0.5 rounded-full">已结束</span>
-            </div>
-            <p class="text-sm text-ios-secondary mt-1">私域业务员 · 暗拍报价</p>
-            <div class="flex items-center gap-4 mt-2 text-sm text-ios-tertiary">
-              <span>67次浏览</span>
-              <span>3人看货</span>
-              <span>1人新增合作</span>
-            </div>
-            <p class="text-xs text-ios-tertiary mt-1.5">2025-01-12 16:00</p>
-          </div>
-
-          <!-- 记录5 -->
-          <div class="px-4 py-3.5 active:bg-ios-gray6">
-            <div class="flex items-center justify-between">
-              <p class="text-base font-semibold text-ios-label">赤道鱿鱼 500-800</p>
-              <span class="text-xs font-medium text-ios-blue bg-ios-blue/10 px-2 py-0.5 rounded-full">分发中</span>
-            </div>
-            <p class="text-sm text-ios-secondary mt-1">公域+私域 · 暗拍报价</p>
-            <div class="flex items-center gap-4 mt-2 text-sm text-ios-tertiary">
-              <span>89次浏览</span>
-              <span>4人看货</span>
-              <span>2人新增合作</span>
-            </div>
-            <p class="text-xs text-ios-tertiary mt-1.5">2025-01-13 11:15</p>
-          </div>
-
+          <p class="text-2xl font-bold text-on-surface">12</p>
         </div>
       </div>
-
     </div>
+
+    <!-- 筛选标签 -->
+    <div class="px-5 pb-4">
+      <div class="flex gap-2 overflow-x-auto pb-1">
+        <span class="shrink-0 text-sm bg-primary text-white px-3 py-1.5 rounded-full font-medium">全部</span>
+        <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">待分发</span>
+        <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">分发中</span>
+        <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">已结束</span>
+        <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">私域</span>
+        <span class="shrink-0 text-sm bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">公域</span>
+      </div>
+    </div>
+
+    <!-- 分发记录列表 -->
+    <div class="px-5 pb-4">
+      <h2 class="text-base font-semibold text-on-surface mb-3">分发记录</h2>
+      <div class="space-y-4">
+        <div class="rounded-2xl bg-surface shadow-card p-4" onclick="alert('查看分发详情')">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <p class="text-sm font-semibold text-on-surface">赤道鱿鱼/原条/300-500</p>
+              <p class="text-sm text-on-surface-variant mt-0.5">批次：BATCH-2024-001, BATCH-2024-002</p>
+            </div>
+            <span class="shrink-0 text-sm bg-success/10 text-success px-2.5 py-1 rounded-full font-medium">已结束</span>
+          </div>
+          <div class="flex items-center gap-3 mt-2 mb-3">
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              <span>浏览 <strong class="text-on-surface">128</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
+              <span>看货 <strong class="text-on-surface">5</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+              <span>新增合作 <strong class="text-on-surface">2</strong></span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-outline-variant/8">
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i>
+              <span>私域业务员(8人)</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="gavel" class="w-3.5 h-3.5"></i>
+              <span>公开报价</span>
+            </div>
+            <span class="text-sm text-on-surface-variant">09-20 14:30</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-surface shadow-card p-4" onclick="alert('查看分发详情')">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <p class="text-sm font-semibold text-on-surface">阿根廷鱿鱼/原条/200-300</p>
+              <p class="text-sm text-on-surface-variant mt-0.5">批次：BATCH-2024-003</p>
+            </div>
+            <span class="shrink-0 text-sm bg-primary/10 text-primary px-2.5 py-1 rounded-full font-medium">分发中</span>
+          </div>
+          <div class="flex items-center gap-3 mt-2 mb-3">
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              <span>浏览 <strong class="text-on-surface">67</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
+              <span>看货 <strong class="text-on-surface">3</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+              <span>新增合作 <strong class="text-on-surface">1</strong></span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-outline-variant/8">
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+              <span>公域业务员(全部)</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+              <span>定价挂牌</span>
+            </div>
+            <span class="text-sm text-on-surface-variant">09-22 09:15</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-surface shadow-card p-4" onclick="alert('查看分发详情')">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <p class="text-sm font-semibold text-on-surface">南美白虾/盐冻</p>
+              <p class="text-sm text-on-surface-variant mt-0.5">批次：BATCH-2024-006, BATCH-2024-007</p>
+            </div>
+            <span class="shrink-0 text-sm bg-warning/10 text-warning px-2.5 py-1 rounded-full font-medium">待分发</span>
+          </div>
+          <div class="flex items-center gap-3 mt-2 mb-3">
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              <span>浏览 <strong class="text-on-surface">—</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
+              <span>看货 <strong class="text-on-surface">—</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+              <span>新增合作 <strong class="text-on-surface">—</strong></span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-outline-variant/8">
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i>
+              <span>私域业务员(5人)</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="hammer" class="w-3.5 h-3.5"></i>
+              <span>工具拍卖</span>
+            </div>
+            <span class="text-sm text-on-surface-variant">09-23 16:00</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-surface shadow-card p-4" onclick="alert('查看分发详情')">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <p class="text-sm font-semibold text-on-surface">太平洋鲭鱼/片冻</p>
+              <p class="text-sm text-on-surface-variant mt-0.5">批次：BATCH-2024-009, BATCH-2024-010</p>
+            </div>
+            <span class="shrink-0 text-sm bg-success/10 text-success px-2.5 py-1 rounded-full font-medium">已结束</span>
+          </div>
+          <div class="flex items-center gap-3 mt-2 mb-3">
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              <span>浏览 <strong class="text-on-surface">203</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
+              <span>看货 <strong class="text-on-surface">8</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+              <span>新增合作 <strong class="text-on-surface">4</strong></span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-outline-variant/8">
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+              <span>公域业务员(全部)</span>
+            </div>
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="gavel" class="w-3.5 h-3.5"></i>
+              <span>公开报价</span>
+            </div>
+            <span class="text-sm text-on-surface-variant">09-18 11:20</span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-surface shadow-card p-4" onclick="alert('查看分发详情')">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <p class="text-sm font-semibold text-on-surface">北极甜虾/熟冻</p>
+              <p class="text-sm text-on-surface-variant mt-0.5">批次：BATCH-2024-011</p>
+            </div>
+            <span class="shrink-0 text-sm bg-warning/10 text-warning px-2.5 py-1 rounded-full font-medium">待分发</span>
+          </div>
+          <div class="flex items-center gap-3 mt-2 mb-3">
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              <span>浏览 <strong class="text-on-surface">—</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="clipboard-list" class="w-3.5 h-3.5"></i>
+              <span>看货 <strong class="text-on-surface">—</strong></span>
+            </div>
+            <div class="flex items-center gap-1 text-sm text-on-surface-variant">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+              <span>新增合作 <strong class="text-on-surface">—</strong></span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-outline-variant/8">
+            <div class="flex items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="users" class="w-3.5 h-3.5"></i>
+              <span>私域业务员(12人)</span>
+            </div>
+            <div class="flex Items-center gap-2 text-sm text-on-surface-variant">
+              <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+              <span>定价挂牌</span>
+            </div>
+            <span class="text-sm text-on-surface-variant">09-24 08:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- @main-content:end -->
   </div>
 
-  <!-- 浮动新增按钮 -->
-  <div class="absolute right-5 bottom-20 z-50">
-    <a href="new-distribution.html" class="flex items-center justify-center w-14 h-14 rounded-full bg-ios-blue text-white shadow-lg active:scale-95 transition-transform">
-      <i data-lucide="plus" class="w-6 h-6"></i>
-    </a>
+  <!-- 右下角新建分发按钮 -->
+  <div class="absolute right-5 bottom-20 z-50"><button onclick="location.href='new-distribution.html'" class="w-16 h-16 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-[#26a58e] active:scale-95 transition-all">
+    <i data-lucide="plus" class="w-7 h-7"></i>
+  </button>
   </div>
 
-  <nav class="shrink-0 flex justify-around items-center h-13 bg-ios-card/80 backdrop-blur-xl border-t border-ios-gray5">
-    <a href="home.html" class="flex flex-col items-center gap-0.5 px-3 py-1">
-      <i data-lucide="package" class="w-5 h-5 text-ios-gray"></i>
-      <span class="text-[10px] font-medium text-ios-gray">货盘</span>
+  <!-- TabBar -->
+  <nav class="flex justify-around items-center h-14 shrink-0 bg-surface border-t border-outline-variant/8">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="archive" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">货盘</span>
     </a>
-    <a href="distribution.html" class="flex flex-col items-center gap-0.5 px-3 py-1">
-      <i data-lucide="send" class="w-5 h-5 text-ios-blue"></i>
-      <span class="text-[10px] font-medium text-ios-blue">分发</span>
+    <a href="distribution.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-primary" aria-current="page">
+      <i data-lucide="share-2" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">分发</span>
     </a>
-    <a href="market.html" class="flex flex-col items-center gap-0.5 px-3 py-1">
-      <i data-lucide="trending-up" class="w-5 h-5 text-ios-gray"></i>
-      <span class="text-[10px] font-medium text-ios-gray">行情</span>
+    <a href="market.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="trending-up" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">行情</span>
     </a>
-    <a href="profile.html" class="flex flex-col items-center gap-0.5 px-3 py-1">
-      <i data-lucide="user" class="w-5 h-5 text-ios-gray"></i>
-      <span class="text-[10px] font-medium text-ios-gray">我的</span>
+    <a href="profile.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="user" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">我的</span>
     </a>
+  </div>
   </nav>
 
+  <script>lucide.createIcons();</script>
 </div>
-<script>lucide.createIcons();</script>
 </body>
+
 </html>

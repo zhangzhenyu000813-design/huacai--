@@ -1,173 +1,255 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>单品详情 - 丰链货盘</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
+
   <style type="text/tailwindcss">
     @theme {
-      --color-ios-bg: #F2F2F7; --color-ios-card: #FFFFFF;
-      --color-ios-blue: #007AFF; --color-ios-green: #34C759; --color-ios-red: #FF3B30;
-      --color-ios-orange: #FF9500; --color-ios-yellow: #FFCC00;
-      --color-ios-gray: #8E8E93; --color-ios-gray2: #AEAEB2; --color-ios-gray3: #C7C7CC;
-      --color-ios-gray4: #D1D1D6; --color-ios-gray5: #E5E5EA; --color-ios-gray6: #F2F2F7;
-      --color-ios-sep: #C6C6C8; --color-ios-label: #1C1C1E; --color-ios-label2: #3C3C43;
-      --color-ios-secondary: #8E8E93; --color-ios-tertiary: #AEAEB2;
-      --color-ios-sea: #1A3A5C; --color-ios-teal-brand: #2DB8A0;
-      --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --color-primary:              #1a3a5c;
+      --color-primary-container:    #d5e3f0;
+      --color-on-primary:           #ffffff;
+      --color-secondary:            #2db8a0;
+      --color-on-secondary:         #ffffff;
+      --color-background:                 #f5f7fa;
+      --color-surface-container-lowest:   #ffffff;
+      --color-surface:                    #ffffff;
+      --color-surface-container:          #eef0f4;
+      --color-surface-container-high:     #e5e7eb;
+      --color-surface-container-highest:  #d1d5db;
+      --color-on-surface:           #1a202c;
+      --color-on-surface-variant:   #718096;
+      --color-success:  #2db8a0;
+      --color-error:    #ef4444;
+      --color-warning:  #eab308;
+      --color-outline:          #d1d5db;
+      --color-outline-variant:  #e5e7eb;
+      --radius-sm:   0.375rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-2xl:  1.5rem;
+      --radius-full: 9999px;
+      --shadow-card:   0 2px 8px rgba(0,0,0,0.08);
+      --shadow-float:  0 10px 25px rgba(0,0,0,0.12);
+      --shadow-dialog: 0 25px 50px rgba(0,0,0,0.18);
+      --font-sans: system-ui, -apple-system, sans-serif;
     }
-  </style>
-  <style>
-    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: var(--font-sans); }
-    body { background: #E8E8ED; display: flex; justify-content: center; }
-    .mobile-frame { width: 393px; height: 100dvh; background: #F2F2F7; margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
-    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    ::-webkit-scrollbar { display: none; }
+    body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
     .app-scroll::-webkit-scrollbar { display: none; }
-    @media (max-width: 430px) { body { background: #F2F2F7; } .mobile-frame { width: 100%; } }
+    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
   </style>
+
+  <script>
+    document.addEventListener('error', function (e) {
+      const img = e.target;
+      if (img.tagName !== 'IMG' || img.dataset.fallback) return;
+      img.dataset.fallback = '1';
+      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const cat = img.getAttribute('data-category') || '其他';
+      const alt = img.getAttribute('alt') || '';
+      const label = esc(alt.length > 8 ? alt.slice(0, 8) + '…' : alt);
+      const icons = { '人物': '👤', '自然风景': '🏞', '动物': '🐾', '建筑城市': '🏙', '运动体育': '⚽', '交通工具': '🚗', '食物': '🍽', '服饰时尚': '👗', '商业科技': '💼', '游戏娱乐': '🎮', '艺术': '🎨', '其他': '🖼' };
+      const icon = icons[cat] || '🖼';
+      const w = img.width || 400, h = img.height || 300;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="45%" text-anchor="middle" font-size="${Math.min(w, h) * 0.18}" dominant-baseline="central">${icon}</text><text x="50%" y="68%" text-anchor="middle" font-size="${Math.min(w, h) * 0.07}" fill="%239ca3af" font-family="system-ui,sans-serif" dominant-baseline="central">${label}</text></svg>`;
+      img.src = 'data:image/svg+xml,' + svg;
+    }, true);
+  </script>
 </head>
-<body>
+
+<body class="bg-background text-on-surface font-sans">
 <div class="mobile-frame">
 
-  <header class="shrink-0 bg-ios-bg/90 backdrop-blur-xl">
-    <div class="flex items-center px-2 h-11">
-      <a href="batch-detail.html" class="flex items-center gap-0.5 text-ios-blue active:opacity-60 px-2 py-1">
-        <i data-lucide="chevron-left" class="w-5 h-5"></i>
-        <span class="text-base">返回</span>
-      </a>
-      <div class="flex-1"></div>
+  <!-- @nav:start - 二级页：有返回按钮，无TabBar -->
+  <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4 border-b border-outline-variant/10">
+    <div class="flex items-center gap-3">
+      <button onclick="history.back()" class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
+        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+      </button>
+      <h1 class="text-base font-semibold text-on-surface">批次单品详情</h1>
     </div>
-    <h1 class="text-[28px] font-bold text-ios-label tracking-tight px-5 pb-2">批次详情</h1>
+    <div class="flex items-center gap-1">
+      <button class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
+        <i data-lucide="share-2" class="w-5 h-5"></i>
+      </button>
+    </div>
   </header>
 
   <div class="app-scroll">
-    <div class="px-5 pb-28">
+    <!-- @main-content:start -->
 
-      <!-- 批次信息 -->
-      <div class="bg-ios-card rounded-xl p-4 mt-3">
+    <!-- 浏览统计条 -->
+    <div class="px-4 pt-3">
+      <div class="rounded-2xl bg-surface shadow-card p-3">
         <div class="flex items-center justify-between">
-          <p class="text-base font-semibold text-ios-label">批次 #EQ20250101</p>
-          <span class="text-sm font-medium text-ios-teal-brand bg-ios-teal-brand/10 px-2.5 py-0.5 rounded-full">品控 A</span>
-        </div>
-        <div class="flex gap-6 mt-3">
-          <div>
-            <p class="text-2xl font-bold text-ios-sea">1,200</p>
-            <p class="text-sm text-ios-tertiary mt-0.5">件数</p>
-          </div>
-          <div>
-            <p class="text-2xl font-bold text-ios-sea">10<span class="text-sm font-normal">kg</span></p>
-            <p class="text-sm text-ios-tertiary mt-0.5">件重</p>
-          </div>
-          <div>
-            <p class="text-2xl font-bold text-ios-sea">12.0<span class="text-sm font-normal">吨</span></p>
-            <p class="text-sm text-ios-tertiary mt-0.5">总吨数</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 属性列表 -->
-      <p class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mt-6 mb-2 px-1">货品信息</p>
-      <div class="bg-ios-card rounded-xl overflow-hidden">
-        <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
-          <span class="text-sm text-ios-secondary">产地</span>
-          <span class="text-sm text-ios-label">秘鲁海域</span>
-        </div>
-        <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
-          <span class="text-sm text-ios-secondary">冻型</span>
-          <span class="text-sm text-ios-label">船冻</span>
-        </div>
-        <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
-          <span class="text-sm text-ios-secondary">捕捞时间</span>
-          <span class="text-sm text-ios-label">2025-01-01</span>
-        </div>
-        <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
-          <span class="text-sm text-ios-secondary">存放冷库</span>
-          <span class="text-sm text-ios-label">舟山鑫茂冷库</span>
-        </div>
-        <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
-          <span class="text-sm text-ios-secondary">品控评级</span>
-          <span class="text-sm font-medium text-ios-teal-brand">A 级</span>
-        </div>
-        <div class="flex items-center justify-between px-4 py-3 border-b border-ios-gray5/60">
-          <span class="text-sm text-ios-secondary">包装方式</span>
-          <span class="text-sm text-ios-label">纸箱 10kg/箱</span>
-        </div>
-        <div class="flex items-center justify-between px-4 py-3">
-          <span class="text-sm text-ios-secondary">货值预估</span>
-          <span class="text-sm font-semibold text-ios-sea">¥14.4万</span>
-        </div>
-      </div>
-
-      <!-- 品控档案 -->
-      <p class="text-sm font-semibold text-ios-secondary uppercase tracking-wider mt-6 mb-2 px-1">品控档案</p>
-      <div class="bg-ios-card rounded-xl p-4">
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-8 h-8 rounded-full bg-ios-teal-brand/10 flex items-center justify-center">
-            <i data-lucide="shield-check" class="w-4 h-4 text-ios-teal-brand"></i>
-          </div>
-          <div>
-            <p class="text-sm font-medium text-ios-label">李工 · 品控部</p>
-            <p class="text-sm text-ios-tertiary">2025-01-03 质检</p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <div class="flex-1 bg-ios-gray6 rounded-lg p-3 text-center">
-            <p class="text-lg font-bold text-ios-sea">9.2</p>
-            <p class="text-sm text-ios-tertiary">外观</p>
-          </div>
-          <div class="flex-1 bg-ios-gray6 rounded-lg p-3 text-center">
-            <p class="text-lg font-bold text-ios-sea">9.5</p>
-            <p class="text-sm text-ios-tertiary">温度</p>
-          </div>
-          <div class="flex-1 bg-ios-gray6 rounded-lg p-3 text-center">
-            <p class="text-lg font-bold text-ios-sea">9.0</p>
-            <p class="text-sm text-ios-tertiary">包装</p>
-          </div>
-        </div>
-        <p class="text-sm text-ios-secondary mt-3 leading-relaxed">品质优良，冻品温度合规，包装完整无破损。建议优先分发。</p>
-        <!-- 品控照片 -->
-        <div class="flex gap-2 mt-3">
-          <div class="w-20 h-20 rounded-lg bg-ios-gray6 flex items-center justify-center text-ios-tertiary text-sm">品控 1</div>
-          <div class="w-20 h-20 rounded-lg bg-ios-gray6 flex items-center justify-center text-ios-tertiary text-sm">品控 2</div>
-          <div class="w-20 h-20 rounded-lg bg-ios-gray6 flex items-center justify-center text-ios-tertiary text-sm">品控 3</div>
-        </div>
-      </div>
-
-      <!-- 浏览统计 -->
-      <div class="bg-ios-card rounded-xl p-4 mt-4">
-        <div class="flex items-center justify-between">
-          <div class="flex gap-4">
-            <div class="text-center">
-              <p class="text-lg font-bold text-ios-sea">128</p>
-              <p class="text-sm text-ios-tertiary">浏览</p>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+              <span>浏览量 <strong class="text-on-surface text-sm">128</strong></span>
             </div>
-            <div class="text-center">
-              <p class="text-lg font-bold text-ios-sea">5</p>
-              <p class="text-sm text-ios-tertiary">看货</p>
+            <div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+              <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+              <span>看货 <strong class="text-on-surface text-sm">5</strong></span>
             </div>
-            <div class="text-center">
-              <p class="text-lg font-bold text-ios-sea">2</p>
-              <p class="text-sm text-ios-tertiary">合作</p>
+            <div class="flex items-center gap-1.5 text-sm text-on-surface-variant">
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              <span>合作 <strong class="text-on-surface text-sm">2</strong></span>
             </div>
           </div>
-          <a class="text-sm text-ios-blue">浏览记录 →</a>
+          <button class="text-sm text-primary font-medium" onclick="alert('查看完整浏览/看货记录')">浏览记录 →</button>
         </div>
       </div>
-
     </div>
+
+    <!-- 批次信息卡片 -->
+    <div class="px-5 pt-5 pb-3">
+      <div class="rounded-2xl bg-surface shadow-card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <p class="text-sm font-semibold text-on-surface">批次号：<span class="text-primary">BATCH-2024-001</span></p>
+            <p class="text-sm text-on-surface-variant mt-1">所属品类：赤道鱿鱼/原条/300-500</p>
+          </div>
+          <span class="text-sm bg-secondary/10 text-secondary px-2.5 py-1 rounded-full font-medium">品控A级</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 详细属性键值对 -->
+    <div class="px-5 pb-4">
+      <h2 class="text-base font-semibold text-on-surface mb-3">产品详情</h2>
+      <div class="rounded-2xl bg-surface shadow-card divide-y divide-outline-variant/20">
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">件重</span>
+          <span class="text-sm font-medium text-on-surface">10kg/件</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">件数</span>
+          <span class="text-sm font-medium text-on-surface">1,200 件</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">产地</span>
+          <span class="text-sm font-medium text-on-surface">秘鲁外海</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">冻型</span>
+          <span class="text-sm font-medium text-on-surface">船冻</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">捕捞时间</span>
+          <span class="text-sm font-medium text-on-surface">2024年8月</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">存放冷库</span>
+          <span class="text-sm font-medium text-on-surface">舟山港冷链A区</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">品控评级</span>
+          <span class="flex items-center gap-1">
+            <span class="text-sm font-medium text-on-surface">A级（优）</span>
+            <span class="w-2 h-2 rounded-full bg-success inline-block"></span>
+          </span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">包装方式</span>
+          <span class="text-sm font-medium text-on-surface">真空袋装/纸箱</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">货值预估</span>
+          <span class="text-sm font-semibold text-secondary">¥84,000</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3.5">
+          <span class="text-sm text-on-surface-variant">入库时间</span>
+          <span class="text-sm font-medium text-on-surface">2024-09-15</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 品控报告（由品控团队出具） -->
+    <div class="px-5 pb-4">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-base font-semibold text-on-surface">品控档案</h2>
+        <span class="text-sm bg-primary-container text-primary px-2.5 py-1 rounded-full font-medium">品控团队已质检</span>
+      </div>
+      <div class="rounded-2xl bg-surface shadow-card p-4 mb-3">
+        <div class="flex items-center gap-3 mb-3 pb-3 border-b border-outline-variant/8">
+          <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+            <i data-lucide="user-check" class="w-5 h-5 text-primary"></i>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-medium text-on-surface">质检员：李工（品控部）</p>
+            <p class="text-sm text-on-surface-variant">质检时间：2024-09-16 14:30</p>
+          </div>
+          <span class="text-sm bg-success/10 text-success px-2.5 py-1 rounded-full font-medium flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+            A级
+          </span>
+        </div>
+        <div class="grid grid-cols-3 gap-4 text-center mb-3">
+          <div class="rounded-lg bg-surface-container px-3 py-2">
+            <p class="text-lg font-bold text-on-surface">9.2</p>
+            <p class="text-[10px] text-on-surface-variant mt-0.5">外观评分</p>
+          </div>
+          <div class="rounded-lg bg-surface-container px-3 py-2">
+            <p class="text-lg font-bold text-on-surface">9.5</p>
+            <p class="text-[10px] text-on-surface-variant mt-0.5">温度合规</p>
+          </div>
+          <div class="rounded-lg bg-surface-container px-3 py-2">
+            <p class="text-lg font-bold text-on-surface">9.0</p>
+            <p class="text-[10px] text-on-surface-variant mt-0.5">包装完好</p>
+          </div>
+        </div>
+        <p class="text-sm text-on-surface-variant leading-relaxed">
+          品控意见：冻品外观完整，无冰霜过多覆盖现象；中心温度 -18℃ 合规；
+          真空包装密封良好，无破损漏气。综合评定为A级，建议优先出库。
+        </p>
+      </div>
+      <div class="flex gap-3 overflow-x-auto pb-1">
+        <div class="shrink-0 w-28 h-28 rounded-2xl bg-surface-container flex items-center justify-center overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=400&h=400&fit=crop" alt="品控实拍-整体" data-category="食物" class="w-full h-full object-cover rounded-xl" loading="lazy">
+          <span class="absolute bottom-1 left-1 text-[10px] bg-black/50 text-white px-2 py-0.5 rounded-full">品控实拍</span>
+        </div>
+        <div class="shrink-0 w-28 h-28 rounded-2xl bg-surface-container flex items-center justify-center overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&h=400&fit=crop" alt="品控实拍-细节" data-category="食物" class="w-full h-full object-cover rounded-xl" loading="lazy">
+          <span class="absolute bottom-1 left-1 text-[10px] bg-black/50 text-white px-2 py-0.5 rounded-full">品控实拍</span>
+        </div>
+        <div class="shrink-0 w-28 h-28 rounded-2xl bg-surface-container flex items-center justify-center cursor-pointer hover:bg-surface-container-high transition-colors">
+          <div class="flex flex-col items-center gap-1 text-on-surface-variant">
+            <i data-lucide="file-text" class="w-6 h-6"></i>
+            <span class="text-sm">查看报告</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- @main-content:end -->
   </div>
 
   <!-- 底部操作栏 -->
-  <div class="shrink-0 flex gap-3 px-5 py-3 bg-ios-card/90 backdrop-blur-xl border-t border-ios-gray5">
-    <a href="cargo-edit.html" class="flex-1 h-11 rounded-xl border border-ios-blue text-ios-blue font-semibold text-base flex items-center justify-center active:bg-ios-blue/10">编辑</a>
-    <a href="new-distribution.html" class="flex-1 h-11 rounded-xl bg-ios-blue text-white font-semibold text-base flex items-center justify-center active:bg-ios-blue/80">分发</a>
+  <div class="shrink-0 bg-surface border-t border-outline-variant/8 px-4 py-3 flex gap-3">
+    <button onclick="location.href='cargo-edit.html?id=BATCH-2024-001'" class="flex-1 rounded-xl py-3 text-sm font-medium bg-surface-container-high text-on-surface hover:bg-surface-container-higher transition-colors">
+      <div class="flex items-center justify-center gap-2">
+        <i data-lucide="pencil" class="w-4 h-4"></i>
+        <span>编辑</span>
+      </div>
+    </button>
+    <button onclick="location.href='new-distribution.html?batch=BATCH-2024-001'" class="flex-1 rounded-xl py-3 text-sm font-medium bg-secondary text-white hover:bg-[#26a58e] transition-colors">
+      <div class="flex items-center justify-center gap-2">
+        <i data-lucide="send" class="w-4 h-4"></i>
+        <span>分发</span>
+      </div>
+    </button>
   </div>
 
+  <script>lucide.createIcons();</script>
 </div>
-<script>lucide.createIcons();</script>
 </body>
+
 </html>
