@@ -40,7 +40,9 @@
       --font-sans: system-ui, -apple-system, sans-serif;
     }
     ::-webkit-scrollbar { display: none; }
-    body { min-height: 100dvh; font-family: system-ui, sans-serif; }
+    body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
+    .mobile-frame { width: 375px; min-height: 100dvh; background: var(--color-background); margin: 0 auto; position: relative; overflow-x: hidden; }
+    @media (max-width: 420px) { body { background: var(--color-background); } .mobile-frame { width: 100%; } }
   </style>
 
   <style>
@@ -67,6 +69,7 @@
 </head>
 
 <body class="bg-background text-on-surface font-sans">
+<div class="mobile-frame">
 
   <!-- @nav:start -->
   <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4 border-b border-outline-variant/30">

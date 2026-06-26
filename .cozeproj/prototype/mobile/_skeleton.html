@@ -56,8 +56,29 @@
 
   <style>
     body {
-      min-height: max(812px, 100dvh);
+      min-height: 100dvh;
       font-family: system-ui, sans-serif;
+      background: #e8eaed;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0;
+      margin: 0;
+    }
+    .mobile-frame {
+      width: 375px;
+      min-height: 100dvh;
+      background: var(--color-background);
+      position: relative;
+      overflow-x: hidden;
+    }
+    @media (max-width: 420px) {
+      body {
+        background: var(--color-background);
+      }
+      .mobile-frame {
+        width: 100%;
+      }
     }
   </style>
 
