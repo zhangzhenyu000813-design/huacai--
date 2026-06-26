@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary:              #1a3a5c;
+      --color-primary-container:    #d5e3f0;
+      --color-on-primary:           #ffffff;
+      --color-secondary:            #2db8a0;
+      --color-on-secondary:         #ffffff;
+      --color-background:                 #f5f7fa;
+      --color-surface-container-lowest:   #ffffff;
+      --color-surface:                    #ffffff;
+      --color-surface-container:          #eef0f4;
+      --color-surface-container-high:     #e5e7eb;
+      --color-surface-container-highest:  #d1d5db;
+      --color-on-surface:           #1a202c;
+      --color-on-surface-variant:   #718096;
+      --color-success:  #2db8a0;
+      --color-error:    #ef4444;
+      --color-warning:  #eab308;
+      --color-outline:          #d1d5db;
+      --color-outline-variant:  #e5e7eb;
+      --radius-sm:   0.375rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-2xl:  1.5rem;
+      --radius-full: 9999px;
+      --shadow-card:   0 2px 8px rgba(0,0,0,0.08);
+      --shadow-float:  0 10px 25px rgba(0,0,0,0.12);
+      --shadow-dialog: 0 25px 50px rgba(0,0,0,0.18);
+      --font-sans: system-ui, -apple-system, sans-serif;
+    }
+    ::-webkit-scrollbar { display: none; }
+    body { min-height: 100dvh; font-family: system-ui, sans-serif; }
+  </style>
+
+  <script>
+    document.addEventListener('error', function (e) {
+      const img = e.target;
+      if (img.tagName !== 'IMG' || img.dataset.fallback) return;
+      img.dataset.fallback = '1';
+      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const cat = img.getAttribute('data-category') || '其他';
+      const alt = img.getAttribute('alt') || '';
+      const label = esc(alt.length > 8 ? alt.slice(0, 8) + '…' : alt);
+      const icons = { '人物': '👤', '自然风景': '🏞', '动物': '🐾', '建筑城市': '🏙', '运动体育': '⚽', '交通工具': '🚗', '食物': '🍽', '服饰时尚': '👗', '商业科技': '💼', '游戏娱乐': '🎮', '艺术': '🎨', '其他': '🖼' };
+      const icon = icons[cat] || '🖼';
+      const w = img.width || 400, h = img.height || 300;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="45%" text-anchor="middle" font-size="${Math.min(w, h) * 0.18}" dominant-baseline="central">${icon}</text><text x="50%" y="68%" text-anchor="middle" font-size="${Math.min(w, h) * 0.07}" fill="%239ca3af" font-family="system-ui,sans-serif" dominant-baseline="central">${label}</text></svg>`;
+      img.src = 'data:image/svg+xml,' + svg;
+    }, true);
+  </script>
+</head>
+
+<body class="bg-background text-on-surface font-sans">
+
+  <!-- @nav:start -->
+  <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4 border-b border-outline-variant/30">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+        <i data-lucide="trending-up" class="w-4 h-4 text-white"></i>
+      </div>
+      <h1 class="text-lg font-bold text-primary">行情信息</h1>
+    </div>
+    <button class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
+      <i data-lucide="search" class="w-5 h-5"></i>
+    </button>
+  </header>
+
+  <main class="overflow-y-auto pb-[calc(5rem+env(safe-area-inset-bottom))]">
+    <!-- @main-content:start -->
+
+    <!-- 市场概况 -->
+    <div class="px-4 pt-4 pb-3">
+      <div class="rounded-xl bg-primary p-4">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-sm text-white/70">冷冻水产综合指数</p>
+          <span class="text-xs bg-white/15 text-white px-2.5 py-1 rounded-full">更新于今日 09:00</span>
+        </div>
+        <div class="flex items-end gap-2">
+          <p class="text-3xl font-bold text-white">1,286.4</p>
+          <span class="text-sm text-success mb-1 flex items-center gap-0.5">
+            <i data-lucide="trending-up" class="w-3 h-3"></i>
+            +2.3%
+          </span>
+        </div>
+        <div class="flex items-center gap-4 mt-3 pt-3 border-t border-white/15">
+          <span class="text-xs text-white/60">周同比 +1.8%</span>
+          <span class="text-xs text-white/60">月同比 +3.2%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 搜索筛选 -->
+    <div class="px-4 pb-3">
+      <div class="flex gap-2 overflow-x-auto pb-1">
+        <span class="shrink-0 text-xs bg-primary text-white px-3 py-1.5 rounded-full font-medium">全部品类</span>
+        <span class="shrink-0 text-xs bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">鱿鱼类</span>
+        <span class="shrink-0 text-xs bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">虾类</span>
+        <span class="shrink-0 text-xs bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">鱼类</span>
+        <span class="shrink-0 text-xs bg-surface-container text-on-surface-variant px-3 py-1.5 rounded-full font-medium hover:bg-surface-container-high transition-colors cursor-pointer">蟹贝类</span>
+      </div>
+    </div>
+
+    <!-- 品类行情卡片列表 -->
+    <div class="px-4 pb-3 space-y-3">
+      <!-- 赤道鱿鱼 -->
+      <div class="rounded-xl bg-surface shadow-card p-4 cursor-pointer hover:shadow-md transition-shadow" onclick="alert('查看赤道鱿鱼行情详情（含历史价格走势图）')">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center">
+              <span class="text-sm font-bold text-primary">鱿</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-on-surface">赤道鱿鱼/原条/300-500</p>
+              <p class="text-xs text-on-surface-variant mt-0.5">产地：秘鲁外海</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-bold text-secondary">¥24.50</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">元/kg</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/20">
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>昨收</span>
+            <span class="text-on-surface font-medium">¥24.00</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-success">
+            <i data-lucide="trending-up" class="w-3 h-3"></i>
+            <span>+2.08%</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>周涨跌</span>
+            <span class="text-success font-medium">+3.5%</span>
+          </div>
+        </div>
+        <div class="mt-2 flex gap-1">
+          <span class="text-[10px] bg-warning/10 text-warning px-2 py-0.5 rounded-full">供应偏紧</span>
+          <span class="text-[10px] bg-success/10 text-success px-2 py-0.5 rounded-full">需求旺盛</span>
+        </div>
+      </div>
+
+      <!-- 阿根廷鱿鱼 -->
+      <div class="rounded-xl bg-surface shadow-card p-4 cursor-pointer hover:shadow-md transition-shadow" onclick="alert('查看阿根廷鱿鱼行情详情（含历史价格走势图）')">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center">
+              <span class="text-sm font-bold text-primary">鱿</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-on-surface">阿根廷鱿鱼/原条/200-300</p>
+              <p class="text-xs text-on-surface-variant mt-0.5">产地：阿根廷</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-bold text-secondary">¥28.80</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">元/kg</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/20">
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>昨收</span>
+            <span class="text-on-surface font-medium">¥29.00</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-error">
+            <i data-lucide="trending-down" class="w-3 h-3"></i>
+            <span>-0.69%</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>周涨跌</span>
+            <span class="text-error font-medium">-1.2%</span>
+          </div>
+        </div>
+        <div class="mt-2 flex gap-1">
+          <span class="text-[10px] bg-success/10 text-success px-2 py-0.5 rounded-full">供应充足</span>
+          <span class="text-[10px] bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full">需求平稳</span>
+        </div>
+      </div>
+
+      <!-- 太平洋鲭鱼 -->
+      <div class="rounded-xl bg-surface shadow-card p-4 cursor-pointer hover:shadow-md transition-shadow" onclick="alert('查看太平洋鲭鱼行情详情（含历史价格走势图）')">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center">
+              <span class="text-sm font-bold text-primary">鲭</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-on-surface">太平洋鲭鱼/片冻</p>
+              <p class="text-xs text-on-surface-variant mt-0.5">产地：西北太平洋</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-bold text-secondary">¥18.20</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">元/kg</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/20">
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>昨收</span>
+            <span class="text-on-surface font-medium">¥17.80</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-success">
+            <i data-lucide="trending-up" class="w-3 h-3"></i>
+            <span>+2.25%</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>周涨跌</span>
+            <span class="text-success font-medium">+4.0%</span>
+          </div>
+        </div>
+        <div class="mt-2 flex gap-1">
+          <span class="text-[10px] bg-success/10 text-success px-2 py-0.5 rounded-full">供应充足</span>
+          <span class="text-[10px] bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full">需求平稳</span>
+        </div>
+      </div>
+
+      <!-- 南美白虾 -->
+      <div class="rounded-xl bg-surface shadow-card p-4 cursor-pointer hover:shadow-md transition-shadow" onclick="alert('查看南美白虾行情详情（含历史价格走势图）')">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center">
+              <span class="text-sm font-bold text-primary">虾</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-on-surface">南美白虾/盐冻</p>
+              <p class="text-xs text-on-surface-variant mt-0.5">产地：厄瓜多尔</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-bold text-secondary">¥42.00</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">元/kg</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/20">
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>昨收</span>
+            <span class="text-on-surface font-medium">¥41.50</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-success">
+            <i data-lucide="trending-up" class="w-3 h-3"></i>
+            <span>+1.20%</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>周涨跌</span>
+            <span class="text-success font-medium">+2.8%</span>
+          </div>
+        </div>
+        <div class="mt-2 flex gap-1">
+          <span class="text-[10px] bg-warning/10 text-warning px-2 py-0.5 rounded-full">季节波动</span>
+          <span class="text-[10px] bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full">需求平稳</span>
+        </div>
+      </div>
+
+      <!-- 北极甜虾 -->
+      <div class="rounded-xl bg-surface shadow-card p-4 cursor-pointer hover:shadow-md transition-shadow" onclick="alert('查看北极甜虾行情详情（含历史价格走势图）')">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center">
+              <span class="text-sm font-bold text-primary">虾</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-on-surface">北极甜虾/熟冻</p>
+              <p class="text-xs text-on-surface-variant mt-0.5">产地：格陵兰</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-bold text-secondary">¥56.00</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">元/kg</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/20">
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>昨收</span>
+            <span class="text-on-surface font-medium">¥56.50</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-error">
+            <i data-lucide="trending-down" class="w-3 h-3"></i>
+            <span>-0.88%</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>周涨跌</span>
+            <span class="text-error font-medium">-1.5%</span>
+          </div>
+        </div>
+        <div class="mt-2 flex gap-1">
+          <span class="text-[10px] bg-error/10 text-error px-2 py-0.5 rounded-full">供应偏紧</span>
+          <span class="text-[10px] bg-success/10 text-success px-2 py-0.5 rounded-full">需求旺盛</span>
+        </div>
+      </div>
+
+      <!-- 梭子蟹 -->
+      <div class="rounded-xl bg-surface shadow-card p-4 cursor-pointer hover:shadow-md transition-shadow" onclick="alert('查看梭子蟹行情详情（含历史价格走势图）')">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center">
+              <span class="text-sm font-bold text-primary">蟹</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-on-surface">梭子蟹/整只</p>
+              <p class="text-xs text-on-surface-variant mt-0.5">产地：东海</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-base font-bold text-secondary">¥68.00</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">元/kg</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 pt-2 border-t border-outline-variant/20">
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>昨收</span>
+            <span class="text-on-surface font-medium">¥66.00</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-success">
+            <i data-lucide="trending-up" class="w-3 h-3"></i>
+            <span>+3.03%</span>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-on-surface-variant">
+            <span>周涨跌</span>
+            <span class="text-success font-medium">+5.2%</span>
+          </div>
+        </div>
+        <div class="mt-2 flex gap-1">
+          <span class="text-[10px] bg-warning/10 text-warning px-2 py-0.5 rounded-full">开海初期</span>
+          <span class="text-[10px] bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full">需求平稳</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- @main-content:end -->
+  </main>
+
+  <!-- TabBar -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-surface flex justify-around items-center h-14 pb-[env(safe-area-inset-bottom)] border-t border-outline-variant/20">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="archive" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">货盘</span>
+    </a>
+    <a href="distribution.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="share-2" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">分发</span>
+    </a>
+    <a href="market.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-primary" aria-current="page">
+      <i data-lucide="trending-up" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">行情</span>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="user" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">我的</span>
+    </a>
+  </nav>
+
+  <script>lucide.createIcons();</script>
+</body>
+
+</html>
