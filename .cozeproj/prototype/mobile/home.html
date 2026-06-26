@@ -40,7 +40,11 @@
       --font-sans: system-ui, -apple-system, sans-serif;
     }
     ::-webkit-scrollbar { display: none; }
-    body { min-height: 100dvh; font-family: system-ui, sans-serif; }
+    body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .app-scroll::-webkit-scrollbar { display: none; }
+    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
   </style>
 
   <style>
@@ -67,6 +71,7 @@
 </head>
 
 <body class="bg-background text-on-surface font-sans">
+<div class="mobile-frame">
 
   <!-- @nav:start -->
   <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4 border-b border-outline-variant/30">
@@ -81,26 +86,26 @@
     </button>
   </header>
 
-  <main class="overflow-y-auto pb-[calc(5rem+env(safe-area-inset-bottom))]">
+  <div class="app-scroll">
     <!-- @main-content:start -->
 
     <!-- 统计卡片 -->
     <div class="px-4 pt-4 pb-4">
       <div class="grid grid-cols-3 gap-3">
         <div class="rounded-xl bg-primary p-4">
-          <p class="text-xs text-white/70 mb-1">总品类数</p>
+          <p class="text-sm text-white/70 mb-1">总品类数</p>
           <p class="text-2xl font-bold text-white">12</p>
-          <p class="text-xs text-white/50 mt-1">个品类</p>
+          <p class="text-sm text-white/50 mt-1">个品类</p>
         </div>
         <div class="rounded-xl bg-primary p-4">
-          <p class="text-xs text-white/70 mb-1">总库存件数</p>
+          <p class="text-sm text-white/70 mb-1">总库存件数</p>
           <p class="text-2xl font-bold text-white">8,560</p>
-          <p class="text-xs text-white/50 mt-1">件</p>
+          <p class="text-sm text-white/50 mt-1">件</p>
         </div>
         <div class="rounded-xl bg-primary p-4">
-          <p class="text-xs text-white/70 mb-1">总货值预估</p>
+          <p class="text-sm text-white/70 mb-1">总货值预估</p>
           <p class="text-2xl font-bold text-white">¥128.6</p>
-          <p class="text-xs text-white/50 mt-1">万元</p>
+          <p class="text-sm text-white/50 mt-1">万元</p>
         </div>
       </div>
     </div>
@@ -109,7 +114,7 @@
     <div class="px-4 pb-3">
       <div class="flex items-center justify-between">
         <h2 class="text-base font-semibold text-on-surface">品类库存汇总</h2>
-        <button class="text-xs text-secondary font-medium">查看全部 →</button>
+        <button class="text-sm text-secondary font-medium">查看全部 →</button>
       </div>
     </div>
 
@@ -117,7 +122,7 @@
     <div class="px-4 pb-20">
       <div class="rounded-xl bg-surface shadow-card overflow-hidden">
         <div class="table-scroll overflow-x-auto">
-          <table class="w-full text-xs">
+          <table class="w-full text-sm">
             <thead>
               <tr class="bg-surface-container-high/50">
                 <th class="text-left px-4 py-3 font-medium text-on-surface-variant whitespace-nowrap">品名</th>
@@ -200,15 +205,17 @@
     </div>
 
     <!-- @main-content:end -->
-  </main>
+  </div>
 
   <!-- 右下角浮动新增按钮 -->
-  <button onclick="location.href='cargo-edit.html'" class="fixed right-5 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-50 w-14 h-14 rounded-full bg-secondary text-white shadow-float flex items-center justify-center hover:bg-[#26a58e] active:scale-95 transition-all">
-    <i data-lucide="plus" class="w-7 h-7"></i>
-  </button>
+  <div class="absolute right-5 bottom-20 z-50">
+    <button onclick="location.href='cargo-edit.html'" class="w-14 h-14 rounded-full bg-secondary text-white shadow-float flex items-center justify-center hover:bg-[#26a58e] active:scale-95 transition-all">
+      <i data-lucide="plus" class="w-7 h-7"></i>
+    </button>
+  </div>
 
   <!-- TabBar -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-surface flex justify-around items-center h-14 pb-[env(safe-area-inset-bottom)] border-t border-outline-variant/20">
+  <nav class="flex justify-around items-center h-14 shrink-0 bg-surface border-t border-outline-variant/20">
     <a href="home.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-primary" aria-current="page">
       <i data-lucide="archive" class="w-5 h-5"></i>
       <span class="text-[10px] font-bold tracking-wide">货盘</span>
@@ -228,6 +235,7 @@
   </nav>
 
   <script>lucide.createIcons();</script>
+</div>
 </body>
 
 </html>

@@ -40,7 +40,11 @@
       --font-sans: system-ui, -apple-system, sans-serif;
     }
     ::-webkit-scrollbar { display: none; }
-    body { min-height: 100dvh; font-family: system-ui, sans-serif; }
+    body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .app-scroll::-webkit-scrollbar { display: none; }
+    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
   </style>
 
   <style>
@@ -67,6 +71,7 @@
 </head>
 
 <body class="bg-background text-on-surface font-sans">
+<div class="mobile-frame">
 
   <!-- @nav:start - 二级页：有返回按钮，无TabBar -->
   <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4 border-b border-outline-variant/30">
@@ -81,7 +86,7 @@
     </button>
   </header>
 
-  <main class="overflow-y-auto pb-6">
+  <div class="app-scroll">
     <!-- @main-content:start -->
 
     <!-- 品类信息标头 -->
@@ -94,23 +99,23 @@
             </div>
             <div>
               <p class="text-sm font-semibold text-on-surface" id="productName">赤道鱿鱼/原条/300-500</p>
-              <p class="text-xs text-on-surface-variant mt-0.5">品类编号：CATE-2024-001</p>
+              <p class="text-sm text-on-surface-variant mt-1">品类编号：CATE-2024-001</p>
             </div>
           </div>
-          <span class="text-xs bg-secondary/10 text-secondary px-2.5 py-1 rounded-full font-medium">在库</span>
+          <span class="text-sm bg-secondary/10 text-secondary px-2.5 py-1 rounded-full font-medium">在库</span>
         </div>
         <div class="grid grid-cols-3 gap-3 pt-3 border-t border-outline-variant/20">
           <div class="text-center">
             <p class="text-lg font-bold text-primary">4,200</p>
-            <p class="text-xs text-on-surface-variant mt-0.5">总件数</p>
+            <p class="text-sm text-on-surface-variant mt-1">总件数</p>
           </div>
           <div class="text-center">
             <p class="text-lg font-bold text-primary">42,000</p>
-            <p class="text-xs text-on-surface-variant mt-0.5">总重量(kg)</p>
+            <p class="text-sm text-on-surface-variant mt-1">总重量(kg)</p>
           </div>
           <div class="text-center">
             <p class="text-lg font-bold text-secondary">¥28.8</p>
-            <p class="text-xs text-on-surface-variant mt-0.5">货值(万元)</p>
+            <p class="text-sm text-on-surface-variant mt-1">货值(万元)</p>
           </div>
         </div>
       </div>
@@ -121,7 +126,7 @@
       <h2 class="text-base font-semibold text-on-surface mb-3">批次库存明细</h2>
       <div class="rounded-xl bg-surface shadow-card overflow-hidden">
         <div class="table-scroll overflow-x-auto">
-          <table class="w-full text-xs">
+          <table class="w-full text-sm">
             <thead>
               <tr class="bg-surface-container-high/50">
                 <th class="text-left px-4 py-3 font-medium text-on-surface-variant whitespace-nowrap">批次号</th>
@@ -184,7 +189,7 @@
     </div>
 
     <!-- @main-content:end -->
-  </main>
+  </div>
 
   <script>
     // 从URL参数获取品类名称
@@ -197,6 +202,7 @@
   </script>
 
   <script>lucide.createIcons();</script>
+</div>
 </body>
 
 </html>
