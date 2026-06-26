@@ -84,7 +84,7 @@
     </button>
   </header>
 
-  <main class="overflow-y-auto pb-[calc(5rem+env(safe-area-inset-bottom))]">
+  <div class="app-scroll">
     <!-- @main-content:start -->
 
     <!-- 统计卡片 -->
@@ -203,15 +203,17 @@
     </div>
 
     <!-- @main-content:end -->
-  </main>
+  </div>
 
   <!-- 右下角浮动新增按钮 -->
-  <button onclick="location.href='cargo-edit.html'" class="fixed right-5 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-50 w-14 h-14 rounded-full bg-secondary text-white shadow-float flex items-center justify-center hover:bg-[#26a58e] active:scale-95 transition-all">
-    <i data-lucide="plus" class="w-7 h-7"></i>
-  </button>
+  <div class="absolute right-5 bottom-20 z-50">
+    <button onclick="location.href='cargo-edit.html'" class="w-14 h-14 rounded-full bg-secondary text-white shadow-float flex items-center justify-center hover:bg-[#26a58e] active:scale-95 transition-all">
+      <i data-lucide="plus" class="w-7 h-7"></i>
+    </button>
+  </div>
 
   <!-- TabBar -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-surface flex justify-around items-center h-14 pb-[env(safe-area-inset-bottom)] border-t border-outline-variant/20">
+  <nav class="flex justify-around items-center h-14 shrink-0 bg-surface border-t border-outline-variant/20">
     <a href="home.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-primary" aria-current="page">
       <i data-lucide="archive" class="w-5 h-5"></i>
       <span class="text-[10px] font-bold tracking-wide">货盘</span>

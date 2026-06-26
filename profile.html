@@ -79,7 +79,7 @@
     </button>
   </header>
 
-  <main class="overflow-y-auto pb-[calc(5rem+env(safe-area-inset-bottom))]">
+  <div class="app-scroll">
     <!-- @main-content:start -->
 
     <!-- 个人信息卡片 -->
@@ -197,10 +197,10 @@
     </div>
 
     <!-- @main-content:end -->
-  </main>
+  </div>
 
   <!-- TabBar -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-surface flex justify-around items-center h-14 pb-[env(safe-area-inset-bottom)] border-t border-outline-variant/20">
+  <nav class="flex justify-around items-center h-14 shrink-0 bg-surface border-t border-outline-variant/20">
     <a href="home.html" class="flex flex-col items-center gap-0.5 px-5 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
       <i data-lucide="archive" class="w-5 h-5"></i>
       <span class="text-[10px] font-bold tracking-wide">货盘</span>
