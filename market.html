@@ -32,16 +32,34 @@
     }
   </script>
   <style>
-    .mobile-frame { width: 393px; height: 100dvh; background: var(--tw-colors-background, #f5f7fa); margin: 0 auto; display: flex; flex-direction: column; overflow-x: hidden; }
+    /* Desktop: phone mockup */
+    body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #1a1a2e; }
+    .phone-bezel { display: flex; flex-direction: column; width: 421px; height: min(90vh, 860px); border-radius: 40px; background: #000; padding: 14px; box-shadow: 0 25px 80px rgba(0,0,0,0.5), inset 0 0 0 2px #333; position: relative; }
+    .phone-notch { width: 120px; height: 28px; background: #000; border-radius: 0 0 16px 16px; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 50; }
+    .mobile-frame { width: 100%; height: 100%; background: var(--tw-colors-background, #f5f7fa); display: flex; flex-direction: column; overflow-x: hidden; border-radius: 26px; position: relative; overflow: hidden; }
+    /* Inside phone mockup, fixed-position modals become absolute to stay within frame */
+    .mobile-frame > #modal-quote,
+    .mobile-frame > #modal-listing,
+    .mobile-frame > #modal-auction,
+    .mobile-frame > #modal-detail,
+    .mobile-frame > #toast { position: absolute !important; }
     .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
     .app-scroll::-webkit-scrollbar { display: none; }
     h1, h2, h3 { margin: 0; }
-    @media (max-width: 430px) { .mobile-frame { width: 100%; } }
     [onclick]:active { opacity: 0.85; transition: opacity 0.1s; }
+    /* Mobile: full screen, no bezel */
+    @media (max-width: 430px) {
+      body { background: var(--tw-colors-background, #f5f7fa); }
+      .phone-bezel { width: 100%; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; }
+      .phone-notch { display: none; }
+      .mobile-frame { border-radius: 0; }
+    }
   </style>
 </head>
-<body class="bg-background text-on-surface font-sans">
-<div class="mobile-frame">
+<body class="text-on-surface font-sans">
+<div class="phone-bezel">
+  <div class="phone-notch"></div>
+  <div class="mobile-frame">
 
   <!-- Header -->
   <header class="bg-surface sticky top-0 z-40 flex items-center justify-between px-4 py-2.5 border-b border-outline-variant/5/10">
@@ -624,8 +642,6 @@
     </a>
   </nav>
 
-</div>
-
 <!-- ===== 暗拍报价弹窗 ===== -->
 <div id="modal-quote" class="fixed inset-0 z-50 hidden">
   <div class="absolute inset-0 bg-black/40" onclick="closeModal('modal-quote')"></div>
@@ -827,6 +843,9 @@
 
 <!-- ===== Toast ===== -->
 <div id="toast" class="fixed top-16 left-1/2 -translate-x-1/2 z-[60] px-5 py-2.5 rounded-xl bg-on-surface text-white text-sm font-medium opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+
+</div><!-- /mobile-frame -->
+</div><!-- /phone-bezel -->
 
 <script>
   lucide.createIcons();
