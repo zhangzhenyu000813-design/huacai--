@@ -40,15 +40,18 @@
       --font-sans: system-ui, -apple-system, sans-serif;
     }
     ::-webkit-scrollbar { display: none; }
+    h1, h2, h3 { margin: 0; }
     body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
-    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--color-background); margin: 0 auto; display: flex; flex-direction: column; overflow-x: hidden; }
     .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
     .app-scroll::-webkit-scrollbar { display: none; }
+    h1, h2, h3 { margin: 0; }
     @media (max-width: 430px) { .mobile-frame { width: 100%; } }
   </style>
 
   <style>
     .table-scroll::-webkit-scrollbar { display: none; }
+    h1, h2, h3 { margin: 0; }
     .table-scroll { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 
@@ -79,7 +82,7 @@
       <button onclick="history.back()" class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
         <i data-lucide="arrow-left" class="w-5 h-5"></i>
       </button>
-      <h1 class="text-base font-semibold text-on-surface" id="pageTitle">赤道鱿鱼/原条/300-500</h1>
+      <h1 class="text-base font-semibold text-on-surface m-0 leading-7" id="pageTitle">赤道鱿鱼/原条/300-500</h1>
     </div>
     <button class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
       <i data-lucide="ellipsis-vertical" class="w-5 h-5"></i>

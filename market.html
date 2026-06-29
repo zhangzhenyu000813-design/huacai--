@@ -32,9 +32,10 @@
     }
   </script>
   <style>
-    .mobile-frame { width: 393px; height: 100dvh; background: var(--tw-colors-background, #f5f7fa); margin: 0 auto; display: flex; flex-direction: column; overflow: hidden; }
+    .mobile-frame { width: 393px; height: 100dvh; background: var(--tw-colors-background, #f5f7fa); margin: 0 auto; display: flex; flex-direction: column; overflow-x: hidden; }
     .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
     .app-scroll::-webkit-scrollbar { display: none; }
+    h1, h2, h3 { margin: 0; }
     @media (max-width: 430px) { .mobile-frame { width: 100%; } }
     [onclick]:active { opacity: 0.85; transition: opacity 0.1s; }
   </style>
@@ -46,7 +47,7 @@
   <header class="bg-surface sticky top-0 z-40 flex items-center justify-between px-4 py-2.5 border-b border-outline-variant/5/10">
     <div class="flex items-center gap-2">
       <img src="assets/logo-96.png" class="w-8 h-8 rounded-lg" alt="丰链">
-      <h1 class="text-lg font-bold text-primary whitespace-nowrap">行情</h1>
+      <h1 class="text-lg font-bold text-primary m-0 leading-8 whitespace-nowrap">行情</h1>
     </div>
     <button onclick="showFilter()" class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
       <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
