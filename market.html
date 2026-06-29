@@ -69,32 +69,31 @@
     <div id="panel-market">
 
       <!-- 品类综合指数 -->
-      <div class="px-5 pb-4 flex flex-col gap-3">
+      <div class="px-5 pt-4 pb-3 flex flex-col gap-3">
 
         <!-- 赤道原条综合指数 -->
-        <div class="rounded-2xl bg-primary p-5">
-          <div class="flex items-center justify-between mb-2">
+        <div class="rounded-2xl bg-primary p-4">
+          <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm text-white/80 font-medium">赤道原条综合指数</span>
-            <span class="text-sm text-white/50">今日 15:30</span>
+            <span class="text-sm text-white/50">截至 12:00</span>
           </div>
-          <div class="flex items-end gap-3 mb-3">
+          <div class="flex items-end gap-3 mb-2">
             <span class="text-2xl font-bold text-white">1,842</span>
             <span class="text-sm font-semibold text-emerald-300">+2.3%</span>
           </div>
           <div class="flex gap-2 flex-wrap">
             <span class="px-2.5 py-1 rounded-full text-sm font-medium bg-emerald-400/20 text-emerald-300">需求上升</span>
-            <span class="px-2.5 py-1 rounded-full text-sm font-medium bg-emerald-400/20 text-emerald-300">持续增长</span>
             <span class="px-2.5 py-1 rounded-full text-sm font-medium bg-amber-400/20 text-amber-300">供应偏紧</span>
           </div>
         </div>
 
         <!-- 阿根廷原条综合指数 -->
-        <div class="rounded-2xl bg-surface shadow-card p-5">
-          <div class="flex items-center justify-between mb-2">
+        <div class="rounded-2xl bg-surface shadow-card p-4">
+          <div class="flex items-center justify-between mb-1.5">
             <span class="text-sm text-on-surface-variant font-medium">阿根廷原条综合指数</span>
-            <span class="text-sm text-on-surface-variant/50">今日 15:30</span>
+            <span class="text-sm text-on-surface-variant/50">截至 12:00</span>
           </div>
-          <div class="flex items-end gap-3 mb-3">
+          <div class="flex items-end gap-3 mb-2">
             <span class="text-2xl font-bold text-on-surface">1,536</span>
             <span class="text-sm font-semibold text-red-500">-1.5%</span>
           </div>
@@ -107,7 +106,7 @@
       </div>
 
       <!-- 品类筛选 -->
-      <div class="px-5 pb-4">
+      <div class="px-5 pb-3">
         <div class="flex gap-2 overflow-x-auto" style="scrollbar-width:none">
           <button class="shrink-0 px-3 py-1.5 rounded-full text-sm font-medium bg-primary text-white">全部</button>
           <button class="shrink-0 px-3 py-1.5 rounded-full text-sm bg-surface-container text-on-surface-variant">鱿鱼</button>
@@ -117,16 +116,19 @@
         </div>
       </div>
 
-      <!-- 分规格价格参考 -->
+      <!-- 规格成交价 -->
       <div class="px-5 pb-4">
-        <h3 class="text-sm font-semibold text-on-surface mb-3">规格价格参考</h3>
-        <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-semibold text-on-surface">规格成交价</h3>
+          <span class="text-sm text-on-surface-variant/60">截止 2024.12.20</span>
+        </div>
+        <div class="flex flex-col gap-3">
 
           <!-- 赤道原条 -->
           <div class="rounded-2xl bg-surface shadow-card p-4">
             <div class="flex items-center justify-between mb-3">
               <h4 class="text-sm font-semibold text-primary">赤道原条</h4>
-              <span class="text-sm font-medium text-emerald-600">+3.2%</span>
+              <span class="px-2.5 py-1 rounded-full text-sm font-medium bg-emerald-50 text-emerald-700">适合采购</span>
             </div>
             <div class="space-y-0">
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
@@ -164,7 +166,7 @@
           <div class="rounded-2xl bg-surface shadow-card p-4">
             <div class="flex items-center justify-between mb-3">
               <h4 class="text-sm font-semibold text-primary">阿根廷原条</h4>
-              <span class="text-sm font-medium text-red-500">-1.5%</span>
+              <span class="px-2.5 py-1 rounded-full text-sm font-medium bg-amber-50 text-amber-700">建议观望</span>
             </div>
             <div class="space-y-0">
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
@@ -202,7 +204,7 @@
           <div class="rounded-2xl bg-surface shadow-card p-4">
             <div class="flex items-center justify-between mb-3">
               <h4 class="text-sm font-semibold text-primary">南美白虾 带头</h4>
-              <span class="text-sm font-medium text-emerald-600">+1.8%</span>
+              <span class="px-2.5 py-1 rounded-full text-sm font-medium bg-red-50 text-red-700">价格偏高</span>
             </div>
             <div class="space-y-0">
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
@@ -226,6 +228,124 @@
                   <span class="text-sm text-amber-600">持平</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 成本因素 -->
+      <div class="px-5 pb-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-semibold text-on-surface">成本因素</h3>
+          <span class="text-sm text-on-surface-variant/60">截至 12:00</span>
+        </div>
+        <div class="rounded-2xl bg-surface shadow-card p-4">
+          <div class="grid grid-cols-3 gap-3">
+            <!-- 海运指数 -->
+            <div class="text-center">
+              <div class="flex items-center justify-center gap-1 mb-1">
+                <i data-lucide="ship" class="w-3.5 h-3.5 text-on-surface-variant"></i>
+                <span class="text-sm text-on-surface-variant">海运指数</span>
+              </div>
+              <p class="text-base font-bold text-on-surface">1,287</p>
+              <span class="text-sm text-emerald-600">↑ 3.2%</span>
+            </div>
+            <!-- 汇率 -->
+            <div class="text-center border-x border-outline-variant/10">
+              <div class="flex items-center justify-center gap-1 mb-1">
+                <i data-lucide="circle-dollar-sign" class="w-3.5 h-3.5 text-on-surface-variant"></i>
+                <span class="text-sm text-on-surface-variant">汇率</span>
+              </div>
+              <p class="text-base font-bold text-on-surface">7.24</p>
+              <span class="text-sm text-red-500">↓ 0.3%</span>
+            </div>
+            <!-- 关税政策 -->
+            <div class="text-center">
+              <div class="flex items-center justify-center gap-1 mb-1">
+                <i data-lucide="landmark" class="w-3.5 h-3.5 text-on-surface-variant"></i>
+                <span class="text-sm text-on-surface-variant">关税政策</span>
+              </div>
+              <p class="text-base font-bold text-on-surface">稳定</p>
+              <span class="text-sm text-on-surface-variant/60">无变动</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 交易决策 -->
+      <div class="px-5 pb-4">
+        <h3 class="text-sm font-semibold text-on-surface mb-3">交易决策</h3>
+        <div class="flex flex-col gap-2.5">
+
+          <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-3 flex items-start gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="trending-up" class="w-4 h-4 text-white"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between mb-0.5">
+                <span class="text-sm font-semibold text-emerald-800">赤道原条 — 适合采购</span>
+              </div>
+              <p class="text-sm text-emerald-700">需求持续上升、供应偏紧，价格短期仍有支撑，建议趁窗口期补货</p>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-amber-50 border border-amber-100 p-3 flex items-start gap-3">
+            <div class="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="pause" class="w-4 h-4 text-white"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between mb-0.5">
+                <span class="text-sm font-semibold text-amber-800">阿根廷原条 — 建议观望</span>
+              </div>
+              <p class="text-sm text-amber-700">需求回落、库存充裕，价格仍有下行空间，可等待低点再入场</p>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-red-50 border border-red-100 p-3 flex items-start gap-3">
+            <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-white"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between mb-0.5">
+                <span class="text-sm font-semibold text-red-800">南美白虾 — 价格偏高</span>
+              </div>
+              <p class="text-sm text-red-700">涨幅较大且海运成本上升，当前价格风险偏高，谨慎追涨</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 行业资讯 -->
+      <div class="px-5 pb-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-semibold text-on-surface">行业资讯</h3>
+          <button class="text-sm text-primary font-medium">更多</button>
+        </div>
+        <div class="flex flex-col gap-2.5">
+
+          <div class="rounded-xl bg-surface shadow-card p-3 flex items-start gap-3" onclick="showToast('资讯详情开发中')">
+            <div class="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-on-surface line-clamp-2">秘鲁新季鱿鱼开捕在即，预计供应量同比增长15%</p>
+              <span class="text-sm text-on-surface-variant/60 mt-0.5 block">2小时前</span>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-surface shadow-card p-3 flex items-start gap-3" onclick="showToast('资讯详情开发中')">
+            <div class="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-on-surface line-clamp-2">阿根廷出口关税调整方案将于下月审议</p>
+              <span class="text-sm text-on-surface-variant/60 mt-0.5 block">5小时前</span>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-surface shadow-card p-3 flex items-start gap-3" onclick="showToast('资讯详情开发中')">
+            <div class="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0"></div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-on-surface line-clamp-2">BDI指数连涨三日，干散货运费承压上行</p>
+              <span class="text-sm text-on-surface-variant/60 mt-0.5 block">今天 08:30</span>
             </div>
           </div>
 
