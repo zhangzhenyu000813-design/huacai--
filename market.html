@@ -422,29 +422,29 @@
       <div id="list-quote" class="px-4 flex flex-col gap-3 pb-20">
 
         <!-- 未报价 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-secondary" onclick="openDetail('赤道鱿鱼 原条 300-500g','秘鲁产地','船冻','300-500g','200件','舟山港冷库','A','9.2','9.5','9.0')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-secondary" onclick="openDetail('赤道鱿鱼 原条 300-500g','秘鲁产地','船冻','300-500g','2.0吨','200件','舟山港冷库','A','9.2','9.5','9.0')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">赤道鱿鱼 原条 300-500g</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-surface-container text-on-surface-variant">未报价</span>
           </div>
           <div class="grid grid-cols-2 gap-3 mb-3">
-            <div><p class="text-sm text-on-surface-variant">需求量</p><p class="text-sm font-medium">200件</p></div>
+            <div><p class="text-sm text-on-surface-variant">需求量</p><p class="text-sm font-medium">2.0吨 <span class="text-xs text-on-surface-variant">(200件)</span></p></div>
             <div><p class="text-sm text-on-surface-variant">存放冷库</p><p class="text-sm font-medium">舟山港冷库</p></div>
           </div>
           <div class="flex items-center justify-between" onclick="event.stopPropagation()">
             <span class="text-sm text-on-surface-variant">已报 <b class="text-primary">5</b> 家 · 截止 6月28日 18:00</span>
-            <button onclick="openQuoteModal('赤道鱿鱼 原条 300-500g','200件','舟山港冷库')" class="px-4 py-1.5 rounded-lg bg-secondary text-white text-sm font-medium active:scale-95 transition-transform">立即报价</button>
+            <button onclick="openQuoteModal('赤道鱿鱼 原条 300-500g','2.0吨','舟山港冷库')" class="px-4 py-1.5 rounded-lg bg-secondary text-white text-sm font-medium active:scale-95 transition-transform">立即报价</button>
           </div>
         </div>
 
         <!-- 审核中 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-amber-400" onclick="openDetail('阿根廷鱿鱼 原条 200-300g','阿根廷产地','岸冻','200-300g','150件','青岛鑫海冷库','B+','8.8','9.0','8.5')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-amber-400" onclick="openDetail('阿根廷鱿鱼 原条 200-300g','阿根廷产地','岸冻','200-300g','1.5吨','150件','青岛鑫海冷库','B+','8.8','9.0','8.5')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">阿根廷鱿鱼 原条 200-300g</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-amber-50 text-amber-600">审核中</span>
           </div>
           <div class="grid grid-cols-2 gap-3 mb-3">
-            <div><p class="text-sm text-on-surface-variant">需求量</p><p class="text-sm font-medium">150件</p></div>
+            <div><p class="text-sm text-on-surface-variant">需求量</p><p class="text-sm font-medium">1.5吨 <span class="text-xs text-on-surface-variant">(150件)</span></p></div>
             <div><p class="text-sm text-on-surface-variant">存放冷库</p><p class="text-sm font-medium">青岛鑫海冷库</p></div>
           </div>
           <div class="flex items-center justify-between" onclick="event.stopPropagation()">
@@ -454,7 +454,7 @@
         </div>
 
         <!-- 不合适 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-red-400" onclick="openDetail('南美白虾 带头 31-40支','厄瓜多尔产地','岸冻','31-40支','100件','大连港冷库','B','8.5','8.8','8.0')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-red-400" onclick="openDetail('南美白虾 带头 31-40支','厄瓜多尔产地','岸冻','31-40支','0.6吨','100件','大连港冷库','B','8.5','8.8','8.0')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">南美白虾 带头 31-40支</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-red-50 text-red-600">不合适</span>
@@ -463,19 +463,19 @@
             <p class="text-sm text-red-600">船东反馈：价格偏低，请重新报价</p>
           </div>
           <div class="flex items-center justify-between" onclick="event.stopPropagation()">
-            <span class="text-sm text-on-surface-variant">剩余 <b class="text-primary">2</b> 次报价机会</span>
-            <button onclick="openQuoteModal('南美白虾 带头 31-40支','100件','大连港冷库')" class="px-4 py-1.5 rounded-lg bg-red-500 text-white text-sm font-medium active:scale-95 transition-transform">重新报价</button>
+            <span class="text-sm text-on-surface-variant">需求量 <b class="text-on-surface">0.6吨</b> <span class="text-xs text-on-surface-variant">(100件)</span> · 剩余 <b class="text-primary">2</b> 次报价机会</span>
+            <button onclick="openQuoteModal('南美白虾 带头 31-40支','0.6吨','大连港冷库')" class="px-4 py-1.5 rounded-lg bg-red-500 text-white text-sm font-medium active:scale-95 transition-transform">重新报价</button>
           </div>
         </div>
 
         <!-- 已成交 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-emerald-400" onclick="openDetail('太平洋鲭鱼 整条 300-500g','中国产地','船冻','300-500g','80件','舟山港冷库','A-','8.6','9.2','8.8')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-emerald-400" onclick="openDetail('太平洋鲭鱼 整条 300-500g','中国产地','船冻','300-500g','0.8吨','80件','舟山港冷库','A-','8.6','9.2','8.8')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">太平洋鲭鱼 整条 300-500g</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-emerald-50 text-emerald-600">已成交</span>
           </div>
           <div class="grid grid-cols-2 gap-3 mb-3">
-            <div><p class="text-sm text-on-surface-variant">成交数量</p><p class="text-sm font-medium text-emerald-600">80件</p></div>
+            <div><p class="text-sm text-on-surface-variant">成交数量</p><p class="text-sm font-medium text-emerald-600">0.8吨 <span class="text-xs text-on-surface-variant">(80件)</span></p></div>
             <div><p class="text-sm text-on-surface-variant">成交时间</p><p class="text-sm font-medium">6月24日 14:30</p></div>
           </div>
           <div class="text-sm text-on-surface-variant">报价被采纳，已确认成交</div>
@@ -562,7 +562,7 @@
       <div id="list-auction" class="px-4 flex flex-col gap-3 pb-20 hidden">
 
         <!-- 竞拍中 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-red-400" onclick="openDetail('赤道鱿鱼 原条 500-800g','秘鲁产地','船冻','500-800g','120件','舟山港冷库','A','9.5','9.2','9.0')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-red-400" onclick="openDetail('赤道鱿鱼 原条 500-800g','秘鲁产地','船冻','500-800g','1.8吨','120件','舟山港冷库','A','9.5','9.2','9.0')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">赤道鱿鱼 原条 500-800g</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-red-50 text-red-600 animate-pulse">竞拍中</span>
@@ -579,7 +579,7 @@
         </div>
 
         <!-- 竞拍中2 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-red-400" onclick="openDetail('阿根廷鱿鱼 原条 200-300g','阿根廷产地','岸冻','200-300g','80件','青岛鑫海冷库','B+','8.8','9.0','8.5')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-red-400" onclick="openDetail('阿根廷鱿鱼 原条 200-300g','阿根廷产地','岸冻','200-300g','0.64吨','80件','青岛鑫海冷库','B+','8.8','9.0','8.5')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">阿根廷鱿鱼 原条 200-300g</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-red-50 text-red-600 animate-pulse">竞拍中</span>
@@ -596,7 +596,7 @@
         </div>
 
         <!-- 即将开始 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-blue-400" onclick="openDetail('太平洋鲭鱼 整条 300-500g','中国产地','船冻','300-500g','200件','舟山港冷库','A-','8.6','9.2','8.8')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-blue-400" onclick="openDetail('太平洋鲭鱼 整条 300-500g','中国产地','船冻','300-500g','1.2吨','200件','舟山港冷库','A-','8.6','9.2','8.8')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">太平洋鲭鱼 整条 300-500g</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-blue-50 text-blue-600">即将开始</span>
@@ -609,7 +609,7 @@
         </div>
 
         <!-- 已结束 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 opacity-60" onclick="openDetail('南美白虾 带头 21-30支','厄瓜多尔产地','岸冻','21-30支','50件','大连港冷库','B','8.5','8.8','8.0')">
+        <div class="rounded-2xl bg-surface shadow-card p-4 opacity-60" onclick="openDetail('南美白虾 带头 21-30支','厄瓜多尔产地','岸冻','21-30支','0.6吨','50件','大连港冷库','B','8.5','8.8','8.0')">
           <div class="flex items-center justify-between mb-2">
             <h3 class="text-sm font-semibold text-on-surface">南美白虾 带头 21-30支</h3>
             <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-500">已结束</span>
@@ -653,7 +653,7 @@
     <div class="rounded-2xl bg-surface-container p-3 mb-4">
       <h4 id="q-name" class="text-sm font-semibold text-on-surface mb-2">赤道鱿鱼 原条 300-500g</h4>
       <div class="grid grid-cols-2 gap-2">
-        <div><span class="text-sm text-on-surface-variant">需求量</span><p id="q-qty" class="text-sm font-medium">200件</p></div>
+        <div><span class="text-sm text-on-surface-variant">需求量</span><p id="q-qty" class="text-sm font-medium">2.0吨</p></div>
         <div><span class="text-sm text-on-surface-variant">存放冷库</span><p id="q-wh" class="text-sm font-medium">舟山港冷库</p></div>
       </div>
     </div>
@@ -663,7 +663,7 @@
         <div class="rounded-lg bg-surface-container px-3 py-2.5"><input id="q-price" type="number" placeholder="请输入报价" class="w-full bg-transparent text-sm outline-none"></div>
       </div>
       <div>
-        <label class="text-sm font-medium text-on-surface mb-1 block">意向数量（件）</label>
+        <label class="text-sm font-medium text-on-surface mb-1 block">意向数量（吨）</label>
         <div class="rounded-lg bg-surface-container px-3 py-2.5"><input id="q-amount" type="number" placeholder="请输入数量" class="w-full bg-transparent text-sm outline-none"></div>
       </div>
       <div>
@@ -771,7 +771,7 @@
       </div>
       <div class="flex justify-between py-2.5 border-b border-outline-variant/10">
         <span class="text-sm text-on-surface-variant">数量</span>
-        <span id="d-qty" class="text-sm font-medium text-on-surface">200件</span>
+        <span class="text-sm font-medium text-on-surface"><b id="d-qty">2.0吨</b> <span class="text-xs text-on-surface-variant" id="d-pieces">(200件)</span></span>
       </div>
       <div class="flex justify-between py-2.5 border-b border-outline-variant/10">
         <span class="text-sm text-on-surface-variant">存放冷库</span>
@@ -933,12 +933,13 @@
     setTimeout(() => { t.style.opacity = '0'; }, 2000);
   }
 
-  function openDetail(name, origin, frozen, spec, qty, wh, grade, s1, s2, s3) {
+  function openDetail(name, origin, frozen, spec, tonQty, pieceQty, wh, grade, s1, s2, s3) {
     document.getElementById('d-name').textContent = name;
     document.getElementById('d-origin').textContent = origin;
     document.getElementById('d-frozen').textContent = frozen;
     document.getElementById('d-spec').textContent = spec;
-    document.getElementById('d-qty').textContent = qty;
+    document.getElementById('d-qty').textContent = tonQty;
+    document.getElementById('d-pieces').textContent = pieceQty;
     document.getElementById('d-wh').textContent = wh;
     document.getElementById('d-grade').textContent = grade;
     document.getElementById('d-score1').textContent = s1;
