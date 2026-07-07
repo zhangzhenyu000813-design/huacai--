@@ -4,253 +4,295 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>上架管理 - 船东丰链</title>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
   <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
   <style type="text/tailwindcss">
     @theme {
-      --color-primary: #1a3a5c;
-      --color-primary-light: #2a5a8c;
-      --color-primary-dark: #0f2440;
-      --color-accent: #f4bb44;
-      --color-success: #22c55e;
-      --color-danger: #ef4444;
-      --color-warning: #f59e0b;
+      --color-primary:              #1a3a5c;
+      --color-primary-container:    #d5e3f0;
+      --color-on-primary:           #ffffff;
+      --color-secondary:            #2db8a0;
+      --color-on-secondary:         #ffffff;
+      --color-background:                 #f5f7fa;
+      --color-surface-container-lowest:   #ffffff;
+      --color-surface:                    #ffffff;
+      --color-surface-container:          #eef0f4;
+      --color-surface-container-high:     #e5e7eb;
+      --color-surface-container-highest:  #d1d5db;
+      --color-on-surface:           #1a202c;
+      --color-on-surface-variant:   #718096;
+      --color-success:  #2db8a0;
+      --color-error:    #ef4444;
+      --color-warning:  #eab308;
+      --color-outline:          #d1d5db;
+      --color-outline-variant:  #e5e7eb;
+      --radius-sm:   0.375rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-2xl:  1.5rem;
+      --radius-full: 9999px;
+      --shadow-card:   0 1px 3px rgba(0,0,0,0.04);
+      --shadow-float:  0 4px 12px rgba(0,0,0,0.08);
+      --shadow-dialog: 0 12px 32px rgba(0,0,0,0.12);
+      --font-sans: system-ui, -apple-system, sans-serif;
     }
-  </style>
-  <style>
+    ::-webkit-scrollbar { display: none; }
+    h1, h2, h3 { margin: 0; }
+    body { min-height: 100dvh; font-family: system-ui, sans-serif; background: #e8eaed; display: flex; justify-content: center; margin: 0; }
     /* Desktop: phone mockup */
-    body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #1a1a2e; margin:0; }
+    body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #1a1a2e; }
     .phone-bezel { display: flex; flex-direction: column; width: 421px; height: min(90vh, 860px); border-radius: 40px; background: #000; padding: 14px; box-shadow: 0 25px 80px rgba(0,0,0,0.5), inset 0 0 0 2px #333; position: relative; }
     .phone-notch { width: 120px; height: 28px; background: #000; border-radius: 0 0 16px 16px; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); z-index: 50; }
-    .mobile-frame { width: 100%; height: 100%; background: #f5f7fa; display: flex; flex-direction: column; overflow-x: hidden; border-radius: 26px; }
-    /* Mobile: full screen */
+    .mobile-frame { width: 100%; height: 100%; background: var(--color-background); display: flex; flex-direction: column; overflow-x: hidden; border-radius: 26px; }
+    .app-scroll { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .app-scroll::-webkit-scrollbar { display: none; }
+    h1, h2, h3 { margin: 0; }
+    /* Mobile: full screen, no bezel */
     @media (max-width: 430px) {
-      body { background: #f5f7fa; }
+      body { background: var(--color-background); }
       .phone-bezel { width: 100%; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; }
       .phone-notch { display: none; }
       .mobile-frame { border-radius: 0; }
     }
   </style>
+  <style>
+    .table-scroll::-webkit-scrollbar { display: none; }
+    h1, h2, h3 { margin: 0; }
+    .table-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </head>
-<body class="text-gray-800 font-sans">
+<body class="text-on-surface font-sans">
 <div class="phone-bezel">
   <div class="phone-notch"></div>
   <div class="mobile-frame">
 
-    <!-- Header -->
-    <header class="bg-primary text-white px-4 pt-10 pb-3 flex items-center gap-3">
-      <img src="assets/logo-96.png" alt="Logo" class="w-8 h-8 rounded">
-      <h1 class="text-lg font-bold">上架管理</h1>
-    </header>
+  <!-- Header — 与 home.html 完全一致 -->
+  <header class="bg-background sticky top-0 z-40 flex items-center justify-between px-4 py-2.5">
+    <div class="flex items-center gap-2">
+      <img src="assets/logo-96.png" class="w-8 h-8 rounded-lg" alt="丰链">
+      <h1 class="text-lg font-bold text-primary m-0 leading-8 whitespace-nowrap">上架管理</h1>
+    </div>
+    <button class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
+      <i data-lucide="search" class="w-5 h-5"></i>
+    </button>
+  </header>
 
-    <!-- Tab Switcher -->
-    <div class="flex bg-white border-b border-gray-200">
-      <button class="flex-1 py-2.5 text-sm font-semibold text-primary border-b-2 border-primary" data-tab="all" onclick="switchTab('all', this)">全部</button>
-      <button class="flex-1 py-2.5 text-sm text-gray-500 border-b-2 border-transparent" data-tab="listing" onclick="switchTab('listing', this)">挂牌</button>
-      <button class="flex-1 py-2.5 text-sm text-gray-500 border-b-2 border-transparent" data-tab="auction" onclick="switchTab('auction', this)">拍卖</button>
+  <!-- 状态数量分布 -->
+  <div class="flex items-center gap-3 px-4 py-2 bg-surface">
+    <span class="bg-success/10 text-success text-xs px-2.5 py-1 rounded-full font-semibold">上架中 3</span>
+    <span class="bg-primary/10 text-primary text-xs px-2.5 py-1 rounded-full font-semibold">已成交 2</span>
+    <span class="bg-on-surface-variant/10 text-on-surface-variant text-xs px-2.5 py-1 rounded-full font-semibold">已下架 1</span>
+  </div>
+
+  <!-- Tab Switcher -->
+  <div class="flex bg-surface border-b border-outline-variant/8">
+    <button class="flex-1 py-2.5 text-sm font-semibold text-primary border-b-2 border-primary" data-tab="all" onclick="switchTab('all', this)">全部</button>
+    <button class="flex-1 py-2.5 text-sm text-on-surface-variant border-b-2 border-transparent" data-tab="listing" onclick="switchTab('listing', this)">挂牌</button>
+    <button class="flex-1 py-2.5 text-sm text-on-surface-variant border-b-2 border-transparent" data-tab="auction" onclick="switchTab('auction', this)">拍卖</button>
+  </div>
+
+  <!-- Content -->
+  <div class="app-scroll px-4 py-3 space-y-3 pb-20">
+
+    <!-- Card 1: 挂牌 - 上架中 -->
+    <div class="listing-card bg-surface rounded-xl p-3 shadow-card border border-outline-variant/50" data-type="listing" data-status="active">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
+            <span class="bg-success/10 text-success text-xs px-2 py-0.5 rounded">上架中</span>
+          </div>
+          <div class="font-semibold text-sm text-on-surface">赤道鱿鱼 原条 300-500g</div>
+        </div>
+        <div class="text-right">
+          <div class="text-sm font-bold text-primary">¥24,800/吨</div>
+          <div class="text-xs text-on-surface-variant">1.8吨 (180件)</div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs text-on-surface-variant mt-2 pt-2 border-t border-outline-variant/30">
+        <div class="flex items-center gap-3">
+          <span>浏览 <b class="text-on-surface">128</b></span>
+          <span>询价 <b class="text-on-surface">12</b></span>
+          <span>报价 <b class="text-on-surface">5</b></span>
+        </div>
+        <span>12月20日上架</span>
+      </div>
     </div>
 
-    <!-- Content -->
-    <div class="flex-1 overflow-y-auto px-4 py-3 space-y-3 pb-20">
-
-      <!-- Card 1: 挂牌 - 上架中 -->
-      <div class="listing-card bg-white rounded-xl p-3 shadow-sm border border-gray-100" data-type="listing" data-status="active">
-        <div class="flex items-start justify-between mb-2">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
-              <span class="bg-green-50 text-green-600 text-xs px-2 py-0.5 rounded">上架中</span>
-            </div>
-            <div class="font-semibold text-sm">赤道鱿鱼 原条 300-500g</div>
+    <!-- Card 2: 挂牌 - 上架中 -->
+    <div class="listing-card bg-surface rounded-xl p-3 shadow-card border border-outline-variant/50" data-type="listing" data-status="active">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
+            <span class="bg-success/10 text-success text-xs px-2 py-0.5 rounded">上架中</span>
           </div>
-          <div class="text-right">
-            <div class="text-sm font-bold text-primary">¥24,800/吨</div>
-            <div class="text-xs text-gray-400">1.8吨 (180件)</div>
-          </div>
+          <div class="font-semibold text-sm text-on-surface">阿根廷鱿鱼 原条 200-300g</div>
         </div>
-        <div class="flex items-center justify-between text-xs text-gray-500 mt-2 pt-2 border-t border-gray-100">
-          <div class="flex items-center gap-3">
-            <span>浏览 <b class="text-gray-700">128</b></span>
-            <span>询价 <b class="text-gray-700">12</b></span>
-            <span>报价 <b class="text-gray-700">5</b></span>
-          </div>
-          <span>12月20日上架</span>
+        <div class="text-right">
+          <div class="text-sm font-bold text-primary">¥21,500/吨</div>
+          <div class="text-xs text-on-surface-variant">2.4吨 (320件)</div>
         </div>
       </div>
-
-      <!-- Card 2: 挂牌 - 上架中 -->
-      <div class="listing-card bg-white rounded-xl p-3 shadow-sm border border-gray-100" data-type="listing" data-status="active">
-        <div class="flex items-start justify-between mb-2">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
-              <span class="bg-green-50 text-green-600 text-xs px-2 py-0.5 rounded">上架中</span>
-            </div>
-            <div class="font-semibold text-sm">阿根廷鱿鱼 原条 200-300g</div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm font-bold text-primary">¥21,500/吨</div>
-            <div class="text-xs text-gray-400">2.4吨 (320件)</div>
-          </div>
+      <div class="flex items-center justify-between text-xs text-on-surface-variant mt-2 pt-2 border-t border-outline-variant/30">
+        <div class="flex items-center gap-3">
+          <span>浏览 <b class="text-on-surface">86</b></span>
+          <span>询价 <b class="text-on-surface">8</b></span>
+          <span>报价 <b class="text-on-surface">3</b></span>
         </div>
-        <div class="flex items-center justify-between text-xs text-gray-500 mt-2 pt-2 border-t border-gray-100">
-          <div class="flex items-center gap-3">
-            <span>浏览 <b class="text-gray-700">86</b></span>
-            <span>询价 <b class="text-gray-700">8</b></span>
-            <span>报价 <b class="text-gray-700">3</b></span>
-          </div>
-          <span>12月18日上架</span>
-        </div>
+        <span>12月18日上架</span>
       </div>
-
-      <!-- Card 3: 拍卖 - 进行中 -->
-      <div class="listing-card bg-white rounded-xl p-3 shadow-sm border border-gray-100" data-type="auction" data-status="active">
-        <div class="flex items-start justify-between mb-2">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-amber-50 text-amber-600 text-xs px-2 py-0.5 rounded font-medium">拍卖</span>
-              <span class="bg-green-50 text-green-600 text-xs px-2 py-0.5 rounded">竞价中</span>
-            </div>
-            <div class="font-semibold text-sm">南美白虾 带壳 41-50</div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm font-bold text-amber-600">¥28,000/吨</div>
-            <div class="text-xs text-gray-400">0.6吨 (100件)</div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between text-xs text-gray-500 mt-2 pt-2 border-t border-gray-100">
-          <div class="flex items-center gap-3">
-            <span>浏览 <b class="text-gray-700">256</b></span>
-            <span>出价 <b class="text-gray-700">18</b></span>
-          </div>
-          <span>还剩 2天12时</span>
-        </div>
-      </div>
-
-      <!-- Card 4: 挂牌 - 已成交 -->
-      <div class="listing-card bg-white rounded-xl p-3 shadow-sm border border-gray-100 opacity-60" data-type="listing" data-status="ended">
-        <div class="flex items-start justify-between mb-2">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
-              <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded">已下架</span>
-            </div>
-            <div class="font-semibold text-sm">阿根廷鱿鱼 原条 300-500g</div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm font-bold text-gray-400">¥22,000/吨</div>
-            <div class="text-xs text-gray-400">3.2吨 (400件)</div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between text-xs text-gray-500 mt-2 pt-2 border-t border-gray-100">
-          <div class="flex items-center gap-3">
-            <span>浏览 <b class="text-gray-700">210</b></span>
-            <span>询价 <b class="text-gray-700">15</b></span>
-            <span class="text-green-600 font-medium">已成交</span>
-          </div>
-          <span>12月15日结束</span>
-        </div>
-      </div>
-
-      <!-- Card 5: 拍卖 - 已成交 -->
-      <div class="listing-card bg-white rounded-xl p-3 shadow-sm border border-gray-100 opacity-60" data-type="auction" data-status="ended">
-        <div class="flex items-start justify-between mb-2">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-amber-50 text-amber-600 text-xs px-2 py-0.5 rounded font-medium">拍卖</span>
-              <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded">已落槌</span>
-            </div>
-            <div class="font-semibold text-sm">南美白虾 带壳 41-50</div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm font-bold text-gray-400">¥32,000/吨</div>
-            <div class="text-xs text-gray-400">0.5吨 (50件)</div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between text-xs text-gray-500 mt-2 pt-2 border-t border-gray-100">
-          <div class="flex items-center gap-3">
-            <span>浏览 <b class="text-gray-700">156</b></span>
-            <span>出价 <b class="text-gray-700">8</b></span>
-            <span class="text-green-600 font-medium">落槌成交</span>
-          </div>
-          <span>12月10日结束</span>
-        </div>
-      </div>
-
-      <!-- Card 6: 挂牌 - 上架中 -->
-      <div class="listing-card bg-white rounded-xl p-3 shadow-sm border border-gray-100" data-type="listing" data-status="active">
-        <div class="flex items-start justify-between mb-2">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
-              <span class="bg-green-50 text-green-600 text-xs px-2 py-0.5 rounded">上架中</span>
-            </div>
-            <div class="font-semibold text-sm">南美白虾 带壳 51-60</div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm font-bold text-primary">¥26,500/吨</div>
-            <div class="text-xs text-gray-400">0.8吨 (80件)</div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between text-xs text-gray-500 mt-2 pt-2 border-t border-gray-100">
-          <div class="flex items-center gap-3">
-            <span>浏览 <b class="text-gray-700">45</b></span>
-            <span>询价 <b class="text-gray-700">3</b></span>
-            <span>报价 <b class="text-gray-700">1</b></span>
-          </div>
-          <span>12月22日上架</span>
-        </div>
-      </div>
-
     </div>
 
-    <!-- FAB 浮动新增按钮 -->
-    <div style="position:fixed;right:24px;bottom:80px;z-index:50">
-      <a href="new-listing.html" class="flex items-center justify-center w-14 h-14 rounded-full bg-accent text-white shadow-lg" style="text-decoration:none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </a>
+    <!-- Card 3: 拍卖 - 进行中 -->
+    <div class="listing-card bg-surface rounded-xl p-3 shadow-card border border-outline-variant/50" data-type="auction" data-status="active">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-warning/10 text-warning text-xs px-2 py-0.5 rounded font-medium">拍卖</span>
+            <span class="bg-success/10 text-success text-xs px-2 py-0.5 rounded">竞价中</span>
+          </div>
+          <div class="font-semibold text-sm text-on-surface">南美白虾 带壳 41-50</div>
+        </div>
+        <div class="text-right">
+          <div class="text-sm font-bold text-warning">¥28,000/吨</div>
+          <div class="text-xs text-on-surface-variant">0.6吨 (100件)</div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs text-on-surface-variant mt-2 pt-2 border-t border-outline-variant/30">
+        <div class="flex items-center gap-3">
+          <span>浏览 <b class="text-on-surface">256</b></span>
+          <span>出价 <b class="text-on-surface">18</b></span>
+        </div>
+        <span class="text-warning font-medium">还剩 2天12时</span>
+      </div>
     </div>
 
-    <!-- Bottom TabBar -->
-    <nav class="flex justify-around items-center h-14 shrink-0 bg-white border-t border-gray-200">
-      <a href="home.html" class="flex flex-col items-center gap-0.5 px-4 py-1 text-gray-400" style="text-decoration:none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span class="text-xs">货盘</span>
-      </a>
-      <a href="distribution.html" class="flex flex-col items-center gap-0.5 px-4 py-1 text-primary" style="text-decoration:none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <span class="text-xs font-semibold">上架</span>
-      </a>
-      <a href="market.html" class="flex flex-col items-center gap-0.5 px-4 py-1 text-gray-400" style="text-decoration:none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-        <span class="text-xs">行情</span>
-      </a>
-      <a href="profile.html" class="flex flex-col items-center gap-0.5 px-4 py-1 text-gray-400" style="text-decoration:none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span class="text-xs">我的</span>
-      </a>
-    </nav>
+    <!-- Card 4: 挂牌 - 已下架(已成交) -->
+    <div class="listing-card bg-surface rounded-xl p-3 shadow-card border border-outline-variant/50 opacity-60" data-type="listing" data-status="ended">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
+            <span class="bg-on-surface-variant/10 text-on-surface-variant text-xs px-2 py-0.5 rounded">已下架</span>
+          </div>
+          <div class="font-semibold text-sm text-on-surface">阿根廷鱿鱼 原条 300-500g</div>
+        </div>
+        <div class="text-right">
+          <div class="text-sm font-bold text-on-surface-variant">¥22,000/吨</div>
+          <div class="text-xs text-on-surface-variant">3.2吨 (400件)</div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs text-on-surface-variant mt-2 pt-2 border-t border-outline-variant/30">
+        <div class="flex items-center gap-3">
+          <span>浏览 <b class="text-on-surface">210</b></span>
+          <span>询价 <b class="text-on-surface">15</b></span>
+          <span class="text-success font-medium">已成交</span>
+        </div>
+        <span>12月15日结束</span>
+      </div>
+    </div>
+
+    <!-- Card 5: 拍卖 - 已成交 -->
+    <div class="listing-card bg-surface rounded-xl p-3 shadow-card border border-outline-variant/50 opacity-60" data-type="auction" data-status="ended">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-warning/10 text-warning text-xs px-2 py-0.5 rounded font-medium">拍卖</span>
+            <span class="bg-on-surface-variant/10 text-on-surface-variant text-xs px-2 py-0.5 rounded">已落槌</span>
+          </div>
+          <div class="font-semibold text-sm text-on-surface">南美白虾 带壳 41-50</div>
+        </div>
+        <div class="text-right">
+          <div class="text-sm font-bold text-on-surface-variant">¥32,000/吨</div>
+          <div class="text-xs text-on-surface-variant">0.5吨 (50件)</div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs text-on-surface-variant mt-2 pt-2 border-t border-outline-variant/30">
+        <div class="flex items-center gap-3">
+          <span>浏览 <b class="text-on-surface">156</b></span>
+          <span>出价 <b class="text-on-surface">8</b></span>
+          <span class="text-success font-medium">落槌成交</span>
+        </div>
+        <span>12月10日结束</span>
+      </div>
+    </div>
+
+    <!-- Card 6: 挂牌 - 上架中 -->
+    <div class="listing-card bg-surface rounded-xl p-3 shadow-card border border-outline-variant/50" data-type="listing" data-status="active">
+      <div class="flex items-start justify-between mb-2">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
+            <span class="bg-success/10 text-success text-xs px-2 py-0.5 rounded">上架中</span>
+          </div>
+          <div class="font-semibold text-sm text-on-surface">南美白虾 带壳 51-60</div>
+        </div>
+        <div class="text-right">
+          <div class="text-sm font-bold text-primary">¥26,500/吨</div>
+          <div class="text-xs text-on-surface-variant">0.8吨 (80件)</div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between text-xs text-on-surface-variant mt-2 pt-2 border-t border-outline-variant/30">
+        <div class="flex items-center gap-3">
+          <span>浏览 <b class="text-on-surface">45</b></span>
+          <span>询价 <b class="text-on-surface">3</b></span>
+          <span>报价 <b class="text-on-surface">1</b></span>
+        </div>
+        <span>12月22日上架</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 右下角浮动新增按钮 — 与 home.html 完全一致 -->
+  <div class="absolute right-5 bottom-20 z-50">
+    <button onclick="location.href='new-listing.html'" class="w-16 h-16 rounded-full bg-secondary text-white flex items-center justify-center hover:bg-[#26a58e] active:scale-95 transition-all">
+      <i data-lucide="plus" class="w-7 h-7"></i>
+    </button>
+  </div>
+
+  <!-- TabBar — 与 home.html 完全一致 -->
+  <nav class="flex justify-around items-center h-14 shrink-0 bg-surface border-t border-outline-variant/8">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="archive" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">货盘</span>
+    </a>
+    <a href="distribution.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-primary" aria-current="page">
+      <i data-lucide="share-2" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">上架</span>
+    </a>
+    <a href="market.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="trending-up" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">行情</span>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="user" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">我的</span>
+    </a>
+  </nav>
 
   </div>
 </div>
 
 <script>
+lucide.createIcons();
+
 function switchTab(tab, el) {
-  // Update tab buttons
   document.querySelectorAll('[data-tab]').forEach(btn => {
     btn.classList.remove('text-primary', 'font-semibold', 'border-primary');
-    btn.classList.add('text-gray-500', 'border-transparent');
+    btn.classList.add('text-on-surface-variant', 'border-transparent');
   });
-  el.classList.remove('text-gray-500', 'border-transparent');
+  el.classList.remove('text-on-surface-variant', 'border-transparent');
   el.classList.add('text-primary', 'font-semibold', 'border-primary');
 
-  // Filter cards
   document.querySelectorAll('.listing-card').forEach(card => {
     const type = card.dataset.type;
-    const status = card.dataset.status;
     let show = true;
     if (tab === 'listing') show = type === 'listing';
     else if (tab === 'auction') show = type === 'auction';
-    // 'all' shows everything
     card.style.display = show ? '' : 'none';
   });
 }
