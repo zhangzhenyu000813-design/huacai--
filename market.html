@@ -376,15 +376,11 @@
     <!-- ===== 交易市场面板 ===== -->
     <div id="panel-trade" class="hidden">
 
-      <!-- 三种交易路径入口 -->
+      <!-- 交易路径入口 -->
       <div class="px-5 pb-4">
-        <div class="grid grid-cols-3 gap-2">
-          <button id="path-quote" onclick="switchPath('quote')" class="rounded-xl p-3 bg-primary text-white text-center transition-all">
-            <i data-lucide="eye-off" class="w-5 h-5 mx-auto mb-1"></i>
-            <p class="text-sm font-semibold">暗拍报价</p>
-          </button>
-          <button id="path-list" onclick="switchPath('list')" class="rounded-xl p-3 bg-surface shadow-card text-on-surface text-center transition-all">
-            <i data-lucide="tag" class="w-5 h-5 mx-auto mb-1 text-on-surface-variant"></i>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="path-list" onclick="switchPath('list')" class="rounded-xl p-3 bg-primary text-white text-center transition-all">
+            <i data-lucide="tag" class="w-5 h-5 mx-auto mb-1"></i>
             <p class="text-sm font-semibold">公开挂牌</p>
           </button>
           <button id="path-auction" onclick="switchPath('auction')" class="rounded-xl p-3 bg-surface shadow-card text-on-surface text-center transition-all">
@@ -394,93 +390,19 @@
         </div>
       </div>
 
-      <!-- 暗拍规则 -->
-      <div id="quote-rules" class="px-5 pb-4">
-        <div class="rounded-xl bg-amber-50 border border-amber-200 p-3">
-          <div class="flex gap-3">
-            <div class="text-center"><i data-lucide="shield-check" class="w-4 h-4 text-amber-600 mx-auto mb-0.5"></i><p class="text-sm text-amber-700 font-medium">报价保密</p></div>
-            <div class="text-center"><i data-lucide="refresh-cw" class="w-4 h-4 text-amber-600 mx-auto mb-0.5"></i><p class="text-sm text-amber-700 font-medium">可多次报价</p></div>
-            <div class="text-center"><i data-lucide="check-circle" class="w-4 h-4 text-amber-600 mx-auto mb-0.5"></i><p class="text-sm text-amber-700 font-medium">船东审核</p></div>
-          </div>
-          <p class="text-sm text-amber-600 mt-2">点击货源卡片查看货品详情</p>
-        </div>
-      </div>
-      <div id="list-rules" class="px-5 pb-4 hidden">
+      <!-- 挂牌规则 -->
+      <div id="list-rules" class="px-5 pb-4">
         <div class="rounded-xl bg-blue-50 border border-blue-200 p-3">
           <p class="text-sm text-blue-700">公开挂牌 · 明码标价 · 先到先得 · 支持议价</p>
           <p class="text-sm text-blue-600 mt-1">点击货源卡片查看货品详情</p>
         </div>
       </div>
+      <!-- 拍卖规则 -->
       <div id="auction-rules" class="px-5 pb-4 hidden">
         <div class="rounded-xl bg-red-50 border border-red-200 p-3">
           <p class="text-sm text-red-700">公开竞价 · 价高者得 · 限时拍卖 · 出价不可撤回</p>
           <p class="text-sm text-red-600 mt-1">点击货源卡片查看货品详情</p>
         </div>
-      </div>
-
-      <!-- === 暗拍列表 === -->
-      <div id="list-quote" class="px-4 flex flex-col gap-3 pb-20">
-
-        <!-- 未报价 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-secondary" onclick="openDetail('赤道鱿鱼 原条 300-500g','秘鲁产地','船冻','300-500g','2.0吨','200件','舟山港冷库','A','9.2','9.5','9.0')">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-sm font-semibold text-on-surface">赤道鱿鱼 原条 300-500g</h3>
-            <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-surface-container text-on-surface-variant">未报价</span>
-          </div>
-          <div class="grid grid-cols-2 gap-3 mb-3">
-            <div><p class="text-sm text-on-surface-variant">需求量</p><p class="text-sm font-medium">2.0吨 <span class="text-xs text-on-surface-variant">(200件)</span></p></div>
-            <div><p class="text-sm text-on-surface-variant">存放冷库</p><p class="text-sm font-medium">舟山港冷库</p></div>
-          </div>
-          <div class="flex items-center justify-between" onclick="event.stopPropagation()">
-            <span class="text-sm text-on-surface-variant">已报 <b class="text-primary">5</b> 家 · 截止 6月28日 18:00</span>
-            <button onclick="openQuoteModal('赤道鱿鱼 原条 300-500g','2.0吨','舟山港冷库')" class="px-4 py-1.5 rounded-lg bg-secondary text-white text-sm font-medium active:scale-95 transition-transform">立即报价</button>
-          </div>
-        </div>
-
-        <!-- 审核中 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-amber-400" onclick="openDetail('阿根廷鱿鱼 原条 200-300g','阿根廷产地','岸冻','200-300g','1.5吨','150件','青岛鑫海冷库','B+','8.8','9.0','8.5')">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-sm font-semibold text-on-surface">阿根廷鱿鱼 原条 200-300g</h3>
-            <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-amber-50 text-amber-600">审核中</span>
-          </div>
-          <div class="grid grid-cols-2 gap-3 mb-3">
-            <div><p class="text-sm text-on-surface-variant">需求量</p><p class="text-sm font-medium">1.5吨 <span class="text-xs text-on-surface-variant">(150件)</span></p></div>
-            <div><p class="text-sm text-on-surface-variant">存放冷库</p><p class="text-sm font-medium">青岛鑫海冷库</p></div>
-          </div>
-          <div class="flex items-center justify-between" onclick="event.stopPropagation()">
-            <span class="text-sm text-amber-600">船东审核中…</span>
-            <button class="px-4 py-1.5 rounded-lg bg-surface-container text-on-surface-variant text-sm font-medium">修改报价</button>
-          </div>
-        </div>
-
-        <!-- 不合适 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-red-400" onclick="openDetail('南美白虾 带头 31-40支','厄瓜多尔产地','岸冻','31-40支','0.6吨','100件','大连港冷库','B','8.5','8.8','8.0')">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-sm font-semibold text-on-surface">南美白虾 带头 31-40支</h3>
-            <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-red-50 text-red-600">不合适</span>
-          </div>
-          <div class="rounded-lg bg-red-50 p-2 mb-3">
-            <p class="text-sm text-red-600">船东反馈：价格偏低，请重新报价</p>
-          </div>
-          <div class="flex items-center justify-between" onclick="event.stopPropagation()">
-            <span class="text-sm text-on-surface-variant">需求量 <b class="text-on-surface">0.6吨</b> <span class="text-xs text-on-surface-variant">(100件)</span> · 剩余 <b class="text-primary">2</b> 次报价机会</span>
-            <button onclick="openQuoteModal('南美白虾 带头 31-40支','0.6吨','大连港冷库')" class="px-4 py-1.5 rounded-lg bg-red-500 text-white text-sm font-medium active:scale-95 transition-transform">重新报价</button>
-          </div>
-        </div>
-
-        <!-- 已成交 -->
-        <div class="rounded-2xl bg-surface shadow-card p-4 border-l-4 border-emerald-400" onclick="openDetail('太平洋鲭鱼 整条 300-500g','中国产地','船冻','300-500g','0.8吨','80件','舟山港冷库','A-','8.6','9.2','8.8')">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="text-sm font-semibold text-on-surface">太平洋鲭鱼 整条 300-500g</h3>
-            <span class="px-2 py-0.5 rounded-full text-sm font-medium bg-emerald-50 text-emerald-600">已成交</span>
-          </div>
-          <div class="grid grid-cols-2 gap-3 mb-3">
-            <div><p class="text-sm text-on-surface-variant">成交数量</p><p class="text-sm font-medium text-emerald-600">0.8吨 <span class="text-xs text-on-surface-variant">(80件)</span></p></div>
-            <div><p class="text-sm text-on-surface-variant">成交时间</p><p class="text-sm font-medium">6月24日 14:30</p></div>
-          </div>
-          <div class="text-sm text-on-surface-variant">报价被采纳，已确认成交</div>
-        </div>
-
       </div>
 
       <!-- === 挂牌列表 === -->
@@ -641,42 +563,6 @@
       <i data-lucide="user" class="w-5 h-5"></i><span class="text-sm">我的</span>
     </a>
   </nav>
-
-<!-- ===== 暗拍报价弹窗 ===== -->
-<div id="modal-quote" class="fixed inset-0 z-50 hidden">
-  <div class="absolute inset-0 bg-black/40" onclick="closeModal('modal-quote')"></div>
-  <div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-2xl p-5 max-h-[80vh] overflow-y-auto">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-base font-bold text-on-surface">暗拍报价</h3>
-      <button onclick="closeModal('modal-quote')" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container"><i data-lucide="x" class="w-4 h-4"></i></button>
-    </div>
-    <div class="rounded-2xl bg-surface-container p-3 mb-4">
-      <h4 id="q-name" class="text-sm font-semibold text-on-surface mb-2">赤道鱿鱼 原条 300-500g</h4>
-      <div class="grid grid-cols-2 gap-2">
-        <div><span class="text-sm text-on-surface-variant">需求量</span><p id="q-qty" class="text-sm font-medium">2.0吨</p></div>
-        <div><span class="text-sm text-on-surface-variant">存放冷库</span><p id="q-wh" class="text-sm font-medium">舟山港冷库</p></div>
-      </div>
-    </div>
-    <div class="space-y-4 mb-4">
-      <div>
-        <label class="text-sm font-medium text-on-surface mb-1 block">报价金额（元/吨）</label>
-        <div class="rounded-lg bg-surface-container px-3 py-2.5"><input id="q-price" type="number" placeholder="请输入报价" class="w-full bg-transparent text-sm outline-none"></div>
-      </div>
-      <div>
-        <label class="text-sm font-medium text-on-surface mb-1 block">意向数量（吨）</label>
-        <div class="rounded-lg bg-surface-container px-3 py-2.5"><input id="q-amount" type="number" placeholder="请输入数量" class="w-full bg-transparent text-sm outline-none"></div>
-      </div>
-      <div>
-        <label class="text-sm font-medium text-on-surface mb-1 block">备注（选填）</label>
-        <div class="rounded-lg bg-surface-container px-3 py-2.5"><textarea placeholder="补充说明…" class="w-full bg-transparent text-sm outline-none resize-none" rows="2"></textarea></div>
-      </div>
-    </div>
-    <div class="flex items-center justify-between mb-4">
-      <span class="text-sm text-on-surface-variant">本次为第 <b class="text-primary">1</b>/3 次报价</span>
-    </div>
-    <button onclick="submitQuote()" class="w-full py-3 rounded-xl bg-secondary text-white text-sm font-bold active:scale-[0.98] transition-transform">提交报价</button>
-  </div>
-</div>
 
 <!-- ===== 挂牌详情弹窗 ===== -->
 <div id="modal-listing" class="fixed inset-0 z-50 hidden">
@@ -864,12 +750,12 @@
       mBtn.className = 'flex-1 py-2 rounded-lg text-sm font-medium text-on-surface-variant transition-all';
     }
     // Reset to first path when switching to trade
-    if (tab === 'trade') switchPath('quote');
+    if (tab === 'trade') switchPath('list');
   }
 
   // Trade path switching
   function switchPath(path) {
-    ['quote','list','auction'].forEach(p => {
+    ['list','auction'].forEach(p => {
       const btn = document.getElementById('path-' + p);
       const list = document.getElementById('list-' + (p === 'list' ? 'listing' : p));
       const rules = document.getElementById(p + '-rules');
@@ -886,15 +772,7 @@
     lucide.createIcons();
   }
 
-  // Modals
-  function openQuoteModal(name, qty, wh) {
-    document.getElementById('q-name').textContent = name;
-    document.getElementById('q-qty').textContent = qty;
-    document.getElementById('q-wh').textContent = wh;
-    document.getElementById('modal-quote').classList.remove('hidden');
-  }
-
-  function openListingModal(name, price, qty, origin, frozen, wh) {
+  // Modals  function openListingModal(name, price, qty, origin, frozen, wh) {
     document.getElementById('l-name').textContent = name;
     document.getElementById('l-price').textContent = price;
     document.getElementById('l-qty').textContent = qty;
@@ -914,11 +792,6 @@
 
   function closeModal(id) {
     document.getElementById(id).classList.add('hidden');
-  }
-
-  function submitQuote() {
-    closeModal('modal-quote');
-    showToast('报价已提交，等待船东审核');
   }
 
   function submitAuction() {
