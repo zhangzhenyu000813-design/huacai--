@@ -57,7 +57,7 @@
       <img src="assets/logo-96.png" class="w-8 h-8 mr-2 rounded" alt="logo">
       <h1 class="text-lg font-semibold whitespace-nowrap" style="margin:0">上架管理</h1>
       <div class="ml-auto">
-        <a href="new-listing.html" class="text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition">+ 新建上架</a>
+
       </div>
     </header>
 
@@ -290,26 +290,35 @@
 
     </div>
 
-    <!-- Bottom TabBar -->
-    <div class="bg-white border-t border-gray-200 flex justify-around py-2 pb-4">
-      <a href="home.html" class="flex flex-col items-center text-xs text-gray-400">
-        <span class="text-lg">📦</span><span>货盘</span>
-      </a>
-      <a href="distribution.html" class="flex flex-col items-center text-xs text-[var(--color-primary)]">
-        <span class="text-lg">📤</span><span class="font-semibold">上架</span>
-      </a>
-      <a href="market.html" class="flex flex-col items-center text-xs text-gray-400">
-        <span class="text-lg">📊</span><span>行情</span>
-      </a>
-      <a href="profile.html" class="flex flex-col items-center text-xs text-gray-400">
-        <span class="text-lg">👤</span><span>我的</span>
-      </a>
+    <!-- 右下角浮动新增按钮 -->
+    <div style="position:fixed;right:20px;bottom:80px;z-index:50">
+      <button onclick="location.href='new-listing.html'" class="w-14 h-14 rounded-full bg-secondary text-white flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+        <i data-lucide="plus" class="w-6 h-6"></i>
+      </button>
     </div>
+
+    <!-- Bottom TabBar -->
+    <nav class="flex justify-around items-center h-14 shrink-0 bg-surface border-t border-outline-variant/8">
+      <a href="home.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant">
+        <i data-lucide="package" class="w-5 h-5"></i><span class="text-xs">货盘</span>
+      </a>
+      <a href="distribution.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-primary" aria-current="page">
+        <i data-lucide="upload" class="w-5 h-5"></i><span class="text-xs font-semibold">上架</span>
+      </a>
+      <a href="market.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant">
+        <i data-lucide="trending-up" class="w-5 h-5"></i><span class="text-xs">行情</span>
+      </a>
+      <a href="profile.html" class="flex flex-col items-center gap-0.5 px-6 py-2 text-on-surface-variant">
+        <i data-lucide="user" class="w-5 h-5"></i><span class="text-xs">我的</span>
+      </a>
+    </nav>
 
   </div>
 </div>
 
+<script src="https://unpkg.com/lucide@latest"></script>
 <script>
+lucide.createIcons();
 function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
