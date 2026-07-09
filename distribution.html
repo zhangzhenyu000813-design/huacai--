@@ -117,7 +117,10 @@
           <span>询价 <b class="text-on-surface">12</b></span>
           <span>报价 <b class="text-on-surface">5</b></span>
         </div>
-        <span>12月20日上架</span>
+        <button onclick="openShareDrawer('赤道鱿鱼 原条 300-500g')" class="flex items-center gap-1 text-secondary font-medium px-2 py-0.5 rounded-full bg-secondary/8 hover:bg-secondary/15 active:scale-95 transition-all">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          分享私域
+        </button>
       </div>
     </div>
 
@@ -142,7 +145,10 @@
           <span>询价 <b class="text-on-surface">8</b></span>
           <span>报价 <b class="text-on-surface">3</b></span>
         </div>
-        <span>12月18日上架</span>
+        <button onclick="openShareDrawer('阿根廷鱿鱼 原条 200-300g')" class="flex items-center gap-1 text-secondary font-medium px-2 py-0.5 rounded-full bg-secondary/8 hover:bg-secondary/15 active:scale-95 transition-all">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          分享私域
+        </button>
       </div>
     </div>
 
@@ -153,6 +159,7 @@
           <div class="flex items-center gap-2 mb-1">
             <span class="bg-warning/10 text-warning text-xs px-2 py-0.5 rounded font-medium">拍卖</span>
             <span class="bg-success/10 text-success text-xs px-2 py-0.5 rounded">竞价中</span>
+            <span class="bg-secondary/10 text-secondary text-xs px-2 py-0.5 rounded">已分享 5人</span>
           </div>
           <div class="font-semibold text-sm text-on-surface">南美白虾 带壳 41-50</div>
         </div>
@@ -165,8 +172,12 @@
         <div class="flex items-center gap-3">
           <span>浏览 <b class="text-on-surface">256</b></span>
           <span>出价 <b class="text-on-surface">18</b></span>
+          <span>私域 <b class="text-secondary">32</b></span>
         </div>
-        <span class="text-warning font-medium">还剩 2天12时</span>
+        <button onclick="openShareDrawer('南美白虾 带壳 41-50')" class="flex items-center gap-1 text-secondary font-medium px-2 py-0.5 rounded-full bg-secondary/8 hover:bg-secondary/15 active:scale-95 transition-all">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          分享私域
+        </button>
       </div>
     </div>
 
@@ -227,6 +238,7 @@
           <div class="flex items-center gap-2 mb-1">
             <span class="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded font-medium">挂牌</span>
             <span class="bg-success/10 text-success text-xs px-2 py-0.5 rounded">上架中</span>
+            <span class="bg-secondary/10 text-secondary text-xs px-2 py-0.5 rounded">已分享 3人</span>
           </div>
           <div class="font-semibold text-sm text-on-surface">南美白虾 带壳 51-60</div>
         </div>
@@ -239,12 +251,111 @@
         <div class="flex items-center gap-3">
           <span>浏览 <b class="text-on-surface">45</b></span>
           <span>询价 <b class="text-on-surface">3</b></span>
-          <span>报价 <b class="text-on-surface">1</b></span>
+          <span>私域 <b class="text-secondary">18</b></span>
         </div>
-        <span>12月22日上架</span>
+        <button onclick="openShareDrawer('南美白虾 带壳 51-60')" class="flex items-center gap-1 text-secondary font-medium px-2 py-0.5 rounded-full bg-secondary/8 hover:bg-secondary/15 active:scale-95 transition-all">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          分享私域
+        </button>
       </div>
     </div>
 
+  </div>
+
+  <!-- 分享私域抽屉 -->
+  <div id="shareDrawer" class="absolute inset-0 z-[60] hidden" onclick="closeShareDrawer(event)">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-2xl shadow-dialog transition-transform" onclick="event.stopPropagation()">
+      <!-- 抽屉头部 -->
+      <div class="flex items-center justify-between px-5 pt-5 pb-3">
+        <h3 class="text-base font-bold text-on-surface">分享到私域</h3>
+        <button onclick="closeShareDrawer()" class="w-8 h-8 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <!-- 货源名称 -->
+      <div class="px-5 pb-3">
+        <div id="shareProductName" class="text-sm text-on-surface bg-surface-container rounded-lg px-3 py-2"></div>
+      </div>
+      <!-- 分享方式 -->
+      <div class="px-5 pb-4">
+        <div class="text-xs text-on-surface-variant mb-2 font-medium">选择分享方式</div>
+        <div class="grid grid-cols-4 gap-4">
+          <button class="flex flex-col items-center gap-1.5" onclick="showShareToast('微信好友')">
+            <div class="w-12 h-12 rounded-xl bg-[#07c160]/10 flex items-center justify-center">
+              <i data-lucide="message-circle" class="w-6 h-6 text-[#07c160]"></i>
+            </div>
+            <span class="text-xs text-on-surface">微信好友</span>
+          </button>
+          <button class="flex flex-col items-center gap-1.5" onclick="showShareToast('朋友圈')">
+            <div class="w-12 h-12 rounded-xl bg-[#07c160]/10 flex items-center justify-center">
+              <i data-lucide="share" class="w-6 h-6 text-[#07c160]"></i>
+            </div>
+            <span class="text-xs text-on-surface">朋友圈</span>
+          </button>
+          <button class="flex flex-col items-center gap-1.5" onclick="showShareToast('复制链接')">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+              <i data-lucide="link" class="w-6 h-6 text-primary"></i>
+            </div>
+            <span class="text-xs text-on-surface">复制链接</span>
+          </button>
+          <button class="flex flex-col items-center gap-1.5" onclick="showShareToast('生成海报')">
+            <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center">
+              <i data-lucide="image" class="w-6 h-6 text-secondary"></i>
+            </div>
+            <span class="text-xs text-on-surface">生成海报</span>
+          </button>
+        </div>
+      </div>
+      <!-- 分享记录 -->
+      <div class="px-5 pb-5">
+        <div class="text-xs text-on-surface-variant mb-2 font-medium">私域浏览记录</div>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between py-2 px-3 bg-surface-container rounded-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">张</div>
+              <div>
+                <div class="text-sm text-on-surface">张经理</div>
+                <div class="text-xs text-on-surface-variant">12月22日 14:30 查看</div>
+              </div>
+            </div>
+            <span class="text-xs text-secondary font-medium">已询价</span>
+          </div>
+          <div class="flex items-center justify-between py-2 px-3 bg-surface-container rounded-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-warning/10 flex items-center justify-center text-xs font-bold text-warning">李</div>
+              <div>
+                <div class="text-sm text-on-surface">李总</div>
+                <div class="text-xs text-on-surface-variant">12月22日 11:15 查看</div>
+              </div>
+            </div>
+            <span class="text-xs text-on-surface-variant">仅浏览</span>
+          </div>
+          <div class="flex items-center justify-between py-2 px-3 bg-surface-container rounded-lg">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center text-xs font-bold text-success">王</div>
+              <div>
+                <div class="text-sm text-on-surface">王采购</div>
+                <div class="text-xs text-on-surface-variant">12月21日 16:40 查看</div>
+              </div>
+            </div>
+            <span class="text-xs text-secondary font-medium">已报价</span>
+          </div>
+        </div>
+      </div>
+      <!-- 安全提示 -->
+      <div class="px-5 pb-6">
+        <div class="flex items-start gap-2 text-xs text-on-surface-variant bg-surface-container rounded-lg px-3 py-2">
+          <i data-lucide="shield-check" class="w-4 h-4 shrink-0 mt-0.5 text-success"></i>
+          <span>私域分享仅限指定好友查看，货源信息不会出现在公域搜索中</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 提示 -->
+  <div id="shareToast" class="absolute top-1/3 left-1/2 -translate-x-1/2 z-[70] bg-on-surface text-white text-sm px-5 py-2.5 rounded-xl shadow-dialog transition-opacity opacity-0 pointer-events-none">
+    <span id="shareToastText"></span>
   </div>
 
   <!-- 右下角浮动新增按钮 — 与 home.html 完全一致 -->
@@ -295,6 +406,29 @@ function switchTab(tab, el) {
     else if (tab === 'auction') show = type === 'auction';
     card.style.display = show ? '' : 'none';
   });
+}
+
+function openShareDrawer(name) {
+  document.getElementById('shareProductName').textContent = name;
+  document.getElementById('shareDrawer').classList.remove('hidden');
+  lucide.createIcons();
+}
+
+function closeShareDrawer(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('shareDrawer').classList.add('hidden');
+}
+
+function showShareToast(method) {
+  var toast = document.getElementById('shareToast');
+  var text = document.getElementById('shareToastText');
+  text.textContent = '已' + (method === '复制链接' ? '复制链接到剪贴板' : '打开' + method + '分享');
+  toast.style.opacity = '1';
+  toast.style.pointerEvents = 'auto';
+  setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.pointerEvents = 'none';
+  }, 2000);
 }
 </script>
 </body>
