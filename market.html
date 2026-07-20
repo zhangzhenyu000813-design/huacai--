@@ -1140,7 +1140,7 @@
     const now = new Date();
     const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
     const specBtn = document.querySelector('.spec-btn.bg-secondary\\/10');
-    const specName = specBtn ? specBtn.textContent.trim() : (selectedCategory || '未选择');
+    const specName = specBtn ? specBtn.textContent.trim() : (quoteCategory || '未选择');
     quoteHistory.unshift({ spec: specName, price: price, source: selectedSource, time: timeStr, cred: cred });
 
     const deviationPct = ((price-quoteRefPrice)/quoteRefPrice*100).toFixed(1);
