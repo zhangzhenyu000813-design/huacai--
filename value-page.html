@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>丰链货盘 — 价值一页纸</title>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary: #1a3a5c;
+      --color-primary-light: #2a5580;
+      --color-secondary: #2db8a0;
+      --color-secondary-light: #3dd4ba;
+      --color-accent: #f0a030;
+      --color-bg: #f8f9fb;
+      --color-card: #ffffff;
+      --color-text: #1a202c;
+      --color-text-secondary: #4a5568;
+      --color-border: #e2e8f0;
+    }
+  </style>
+  <style>
+    @page { size: A4; margin: 0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "PingFang SC", "Noto Sans SC", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    .page { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 14mm 16mm; background: #fff; }
+    @media print { body { background: #fff; } .page { margin: 0; padding: 12mm 14mm; } }
+    @media (max-width: 800px) { .page { width: 100%; min-height: auto; padding: 24px 20px; } }
+    .value-num { font-variant-numeric: tabular-nums; }
+    .flow-arrow { width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 12px solid var(--color-secondary); }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+<div class="page flex flex-col">
+
+  <!-- 头部 -->
+  <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+        <span class="text-white text-xl font-bold">丰</span>
+      </div>
+      <div>
+        <div class="text-2xl font-bold text-primary leading-tight">丰链货盘</div>
+        <div class="text-xs text-text-secondary tracking-wider">SHIP OWNER CARGO PLATFORM</div>
+      </div>
+    </div>
+    <div class="text-right">
+      <div class="text-xs text-text-secondary">船东专属 · 品控赋能</div>
+      <div class="text-xs text-text-secondary">小程序一站式服务</div>
+    </div>
+  </div>
+
+  <!-- 一句话定位 -->
+  <div class="bg-primary rounded-xl px-6 py-4 mb-6">
+    <div class="text-white text-lg font-bold leading-relaxed text-center">
+      品控出报告，货盘一目了然，一键上架公开交易市场
+    </div>
+    <div class="text-white/70 text-sm text-center mt-1">
+      从品控到交易，船东只需要一个小程序
+    </div>
+  </div>
+
+  <!-- 三大核心价值 -->
+  <div class="text-sm font-bold text-primary mb-3 tracking-wide">三大核心价值</div>
+  <div class="grid grid-cols-3 gap-4 mb-6">
+
+    <!-- 价值1: 品控服务 -->
+    <div class="bg-card rounded-xl border border-border p-4 flex flex-col">
+      <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center mb-3">
+        <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div class="text-base font-bold text-primary mb-1">品控服务</div>
+      <div class="text-xs text-text-secondary leading-relaxed flex-1">
+        专业品控团队上门验货，出具权威品质报告。船东无需自建品控，降本增效，货有保障才敢卖。
+      </div>
+      <div class="mt-3 pt-2 border-t border-border">
+        <div class="text-xs text-secondary font-semibold">✦ 船东省掉自建品控成本</div>
+        <div class="text-xs text-secondary font-semibold">✦ 品质报告提升买家信任</div>
+      </div>
+    </div>
+
+    <!-- 价值2: 货盘管理 -->
+    <div class="bg-card rounded-xl border border-border p-4 flex flex-col">
+      <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m0 10l8 4m0-10v10"/></svg>
+      </div>
+      <div class="text-base font-bold text-primary mb-1">货盘管理</div>
+      <div class="text-xs text-text-secondary leading-relaxed flex-1">
+        品控后货品实时同步，规格批次库存一目了然。船号、吨数、入库时间全掌握，手机就是移动仓库。
+      </div>
+      <div class="mt-3 pt-2 border-t border-border">
+        <div class="text-xs text-primary font-semibold">✦ 告别Excel和微信群管货</div>
+        <div class="text-xs text-primary font-semibold">✦ 随时随地查看库存动态</div>
+      </div>
+    </div>
+
+    <!-- 价值3: 公开交易市场 -->
+    <div class="bg-card rounded-xl border border-border p-4 flex flex-col">
+      <div class="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3">
+        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+      </div>
+      <div class="text-base font-bold text-primary mb-1">公开交易市场</div>
+      <div class="text-xs text-text-secondary leading-relaxed flex-1">
+        一键上架公开市场，挂牌或拍卖，面向全网买家。行情实时掌握，私域也能同步分享。
+      </div>
+      <div class="mt-3 pt-2 border-t border-border">
+        <div class="text-xs text-accent font-semibold">✦ 品控背书+公开市场=好价</div>
+        <div class="text-xs text-accent font-semibold">✦ 公域私域双通道出货</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 业务流程 -->
+  <div class="text-sm font-bold text-primary mb-3 tracking-wide">业务流程</div>
+  <div class="bg-bg rounded-xl px-5 py-4 mb-6">
+    <div class="flex items-center justify-between">
+      <!-- Step 1 -->
+      <div class="flex flex-col items-center text-center" style="flex:1">
+        <div class="w-11 h-11 rounded-full bg-secondary text-white flex items-center justify-center text-sm font-bold mb-2 value-num">1</div>
+        <div class="text-sm font-bold text-primary">品控验货</div>
+        <div class="text-xs text-text-secondary mt-0.5">团队上门出报告</div>
+      </div>
+      <div class="flow-arrow mx-1"></div>
+      <!-- Step 2 -->
+      <div class="flex flex-col items-center text-center" style="flex:1">
+        <div class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold mb-2 value-num">2</div>
+        <div class="text-sm font-bold text-primary">货盘入库</div>
+        <div class="text-xs text-text-secondary mt-0.5">自动同步小程序</div>
+      </div>
+      <div class="flow-arrow mx-1"></div>
+      <!-- Step 3 -->
+      <div class="flex flex-col items-center text-center" style="flex:1">
+        <div class="w-11 h-11 rounded-full bg-primary-light text-white flex items-center justify-center text-sm font-bold mb-2 value-num">3</div>
+        <div class="text-sm font-bold text-primary">船东确认</div>
+        <div class="text-xs text-text-secondary mt-0.5">查看品控结果</div>
+      </div>
+      <div class="flow-arrow mx-1"></div>
+      <!-- Step 4 -->
+      <div class="flex flex-col items-center text-center" style="flex:1">
+        <div class="w-11 h-11 rounded-full bg-accent text-white flex items-center justify-center text-sm font-bold mb-2 value-num">4</div>
+        <div class="text-sm font-bold text-primary">上架交易</div>
+        <div class="text-xs text-text-secondary mt-0.5">挂牌/拍卖/私域</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 船东痛点对比 -->
+  <div class="text-sm font-bold text-primary mb-3 tracking-wide">船东痛点 → 丰链方案</div>
+  <div class="grid grid-cols-2 gap-3 mb-6">
+    <div class="bg-red-50/60 rounded-lg px-4 py-2.5 border border-red-100">
+      <div class="text-xs font-bold text-red-400 mb-1">❌ 没有品控</div>
+      <div class="text-xs text-text-secondary">买家不信任，压价严重，成交难</div>
+    </div>
+    <div class="bg-secondary/5 rounded-lg px-4 py-2.5 border border-secondary/20">
+      <div class="text-xs font-bold text-secondary mb-1">✦ 品控背书</div>
+      <div class="text-xs text-text-secondary">权威报告加持，买家放心出价</div>
+    </div>
+    <div class="bg-red-50/60 rounded-lg px-4 py-2.5 border border-red-100">
+      <div class="text-xs font-bold text-red-400 mb-1">❌ 靠微信群管货</div>
+      <div class="text-xs text-text-secondary">规格批次混乱，库存对不上</div>
+    </div>
+    <div class="bg-primary/5 rounded-lg px-4 py-2.5 border border-primary/15">
+      <div class="text-xs font-bold text-primary mb-1">✦ 数字货盘</div>
+      <div class="text-xs text-text-secondary">品控自动同步，库存实时可视</div>
+    </div>
+    <div class="bg-red-50/60 rounded-lg px-4 py-2.5 border border-red-100">
+      <div class="text-xs font-bold text-red-400 mb-1">❌ 只靠人脉卖货</div>
+      <div class="text-xs text-text-secondary">渠道单一，好货卖不上好价</div>
+    </div>
+    <div class="bg-accent/5 rounded-lg px-4 py-2.5 border border-accent/20">
+      <div class="text-xs font-bold text-accent mb-1">✦ 公开市场</div>
+      <div class="text-xs text-text-secondary">全网买家竞价，公域私域双通道</div>
+    </div>
+  </div>
+
+  <!-- 底部 CTA -->
+  <div class="mt-auto pt-4 border-t border-border">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm font-bold text-primary">扫码体验丰链货盘小程序</div>
+        <div class="text-xs text-text-secondary mt-0.5">品控团队入驻 · 船东免费使用</div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="w-20 h-20 bg-bg rounded-lg border-2 border-dashed border-border flex items-center justify-center">
+          <span class="text-xs text-text-secondary">小程序码</span>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-text-secondary">联系我们</div>
+          <div class="text-sm font-bold text-primary">丰链科技</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
