@@ -138,7 +138,7 @@
       <!-- 价格采集入口 -->
       <div class="px-5 pb-4">
         <div class="rounded-2xl bg-gradient-to-br from-secondary/10 to-primary/5 border border-secondary/20 p-4">
-          <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-2">
               <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
                 <i data-lucide="pen-line" class="w-4 h-4 text-white"></i>
@@ -150,8 +150,28 @@
                 <p id="collect-subtitle-locked" class="text-xs text-on-surface-variant">提报您的报价，解锁行情详情</p>
               </div>
             </div>
-            <button onclick="openQuoteModal()" class="px-3 py-1.5 rounded-lg bg-secondary text-white text-sm font-medium active:scale-95 transition-transform">我要报价</button>
+            <div class="flex items-center gap-2">
+              <button onclick="openHistoryModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface shadow-card" title="报价记录">
+                <i data-lucide="clock" class="w-4 h-4 text-on-surface-variant"></i>
+              </button>
+              <button onclick="openQuoteModal()" class="px-3 py-1.5 rounded-lg bg-secondary text-white text-sm font-medium active:scale-95 transition-transform">我要报价</button>
+            </div>
           </div>
+
+          <!-- 今日报价进度条 -->
+          <div id="quote-progress" class="hidden mb-2">
+            <div class="flex items-center justify-between mb-1">
+              <div class="flex items-center gap-1.5">
+                <span id="quote-badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700">行情新手</span>
+                <span class="text-xs text-on-surface-variant">今日 <b id="today-count" class="text-secondary">0</b>/5 次</span>
+              </div>
+              <span id="next-reward" class="text-[10px] text-secondary font-medium">再报3次 → 行情达人</span>
+            </div>
+            <div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+              <div id="progress-bar" class="h-full rounded-full bg-secondary transition-all duration-500" style="width:0%"></div>
+            </div>
+          </div>
+
           <div class="flex items-center gap-4 text-xs text-on-surface-variant">
             <!-- 未提报时隐藏人数 -->
             <span id="collect-count" class="items-center gap-1 hidden"><i data-lucide="users" class="w-3.5 h-3.5"></i> 今日 <b class="text-secondary">47</b> 人参与</span>
@@ -640,8 +660,9 @@
         <div class="flex gap-1.5 flex-wrap">
           <button onclick="selectSource(this,'实际成交')" class="source-btn px-2.5 py-1.5 rounded-lg text-xs font-medium bg-surface-container text-on-surface-variant">实际成交</button>
           <button onclick="selectSource(this,'市场询价')" class="source-btn px-2.5 py-1.5 rounded-lg text-xs font-medium bg-surface-container text-on-surface-variant">市场询价</button>
-          <button onclick="selectSource(this,'供应商报价')" class="source-btn px-2.5 py-1.5 rounded-lg text-xs font-medium bg-surface-container text-on-surface-variant">供应商报价</button>
-          <button onclick="selectSource(this,'行业资讯')" class="source-btn px-2.5 py-1.5 rounded-lg text-xs font-medium bg-surface-container text-on-surface-variant">行业资讯</button>
+          <button onclick="selectSource(this,'买方报价')" class="source-btn px-2.5 py-1.5 rounded-lg text-xs font-medium bg-surface-container text-on-surface-variant">买方报价</button>
+          <button onclick="selectSource(this,'卖方报价')" class="source-btn px-2.5 py-1.5 rounded-lg text-xs font-medium bg-surface-container text-on-surface-variant">卖方报价</button>
+          <button onclick="selectSource(this,'行业判断')" class="source-btn px-2.5 py-1.5 rounded-lg text-xs font-medium bg-surface-container text-on-surface-variant">行业判断</button>
         </div>
       </div>
 
@@ -687,7 +708,91 @@
         <div class="flex items-center gap-1.5"><i data-lucide="trending-up" class="w-3.5 h-3.5 text-secondary"></i><span id="c-range" class="text-sm font-medium text-on-surface">¥23K-26K</span><span class="text-xs text-on-surface-variant">区间</span></div>
       </div>
 
-      <button onclick="closeModal('modal-credibility')" class="w-full py-2.5 rounded-xl bg-primary text-white text-sm font-bold active:scale-[0.98] transition-transform">知道了</button>
+      <div class="flex gap-2">
+        <button onclick="closeModal('modal-credibility');openQuoteModal()" class="flex-1 py-2.5 rounded-xl bg-secondary/10 text-secondary text-sm font-bold active:scale-[0.98] transition-transform">继续报价</button>
+        <button onclick="closeModal('modal-credibility')" class="flex-1 py-2.5 rounded-xl bg-primary text-white text-sm font-bold active:scale-[0.98] transition-transform">知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 报价记录弹窗 ===== -->
+  <div id="modal-history" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/40" onclick="closeModal('modal-history')"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-2xl p-4 max-h-[75vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-bold text-on-surface">报价记录</h3>
+        <button onclick="closeModal('modal-history')" class="w-7 h-7 flex items-center justify-center rounded-full bg-surface-container"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+      </div>
+
+      <!-- 等级徽章 -->
+      <div class="flex items-center gap-3 mb-3 p-3 rounded-xl bg-surface-container">
+        <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+          <i data-lucide="award" class="w-5 h-5 text-amber-600"></i>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <span id="h-badge" class="text-sm font-bold text-amber-700">行情新手</span>
+            <span id="h-streak" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700 hidden">连续3天</span>
+          </div>
+          <p id="h-desc" class="text-xs text-on-surface-variant">今日已报 0 次，再报 3 次升级「行情达人」</p>
+        </div>
+      </div>
+
+      <!-- 等级规则 -->
+      <div class="rounded-lg bg-surface-container/50 p-2.5 mb-3">
+        <p class="text-xs font-medium text-on-surface mb-1.5">等级规则</p>
+        <div class="flex flex-col gap-1 text-xs text-on-surface-variant">
+          <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gray-300"></span>行情新手 · 每日报价 0-2 次</div>
+          <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400"></span>行情达人 · 每日报价 3-5 次 · 可信度+3</div>
+          <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400"></span>行情专家 · 每日报价 5+ 次 · 可信度+5 · 解锁历史走势</div>
+          <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary"></span>连续报价奖励 · 连续3天+2可信 · 连续7天+5可信</div>
+        </div>
+      </div>
+
+      <!-- 今日记录 -->
+      <p class="text-xs font-medium text-on-surface-variant mb-2">今日报价</p>
+      <div id="history-today" class="flex flex-col gap-1.5 mb-4">
+        <div class="rounded-lg bg-surface-container/50 p-2.5 text-center">
+          <p class="text-xs text-on-surface-variant">暂无报价，点击「我要报价」开始</p>
+        </div>
+      </div>
+
+      <!-- 历史记录 -->
+      <p class="text-xs font-medium text-on-surface-variant mb-2">昨日报价</p>
+      <div class="flex flex-col gap-1.5">
+        <div class="rounded-lg bg-surface-container/50 p-2.5 flex items-center justify-between">
+          <div>
+            <p class="text-xs font-medium text-on-surface">赤道原条 300-500g</p>
+            <p class="text-[10px] text-on-surface-variant">市场询价 · 14:32</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs font-bold text-on-surface">¥24,200</p>
+            <p class="text-[10px] text-emerald-600">可信度 94%</p>
+          </div>
+        </div>
+        <div class="rounded-lg bg-surface-container/50 p-2.5 flex items-center justify-between">
+          <div>
+            <p class="text-xs font-medium text-on-surface">南美白虾 31-40支</p>
+            <p class="text-[10px] text-on-surface-variant">实际成交 · 10:15</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs font-bold text-on-surface">¥36,800</p>
+            <p class="text-[10px] text-emerald-600">可信度 91%</p>
+          </div>
+        </div>
+        <div class="rounded-lg bg-surface-container/50 p-2.5 flex items-center justify-between">
+          <div>
+            <p class="text-xs font-medium text-on-surface">阿根廷原条 200-300g</p>
+            <p class="text-[10px] text-on-surface-variant">买方报价 · 09:40</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs font-bold text-on-surface">¥29,500</p>
+            <p class="text-[10px] text-amber-600">可信度 82%</p>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="closeModal('modal-history');openQuoteModal()" class="w-full mt-4 py-2.5 rounded-xl bg-secondary text-white text-sm font-bold active:scale-[0.98] transition-transform">继续报价</button>
     </div>
   </div>
 
@@ -886,6 +991,63 @@
     if (!price || !quoteRefPrice) return;
   }
 
+  let todayQuotes = 0;
+  let quoteHistory = [];
+
+  function updateProgress() {
+    const progress = document.getElementById('quote-progress');
+    const bar = document.getElementById('progress-bar');
+    const count = document.getElementById('today-count');
+    const badge = document.getElementById('quote-badge');
+    const nextReward = document.getElementById('next-reward');
+
+    if (todayQuotes > 0) {
+      progress.classList.remove('hidden');
+      progress.classList.add('block');
+    }
+
+    count.textContent = todayQuotes;
+    bar.style.width = Math.min(todayQuotes / 5 * 100, 100) + '%';
+
+    if (todayQuotes >= 5) {
+      badge.className = 'px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700';
+      badge.textContent = '行情专家';
+      nextReward.textContent = '连续3天额外+2可信度';
+    } else if (todayQuotes >= 3) {
+      badge.className = 'px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700';
+      badge.textContent = '行情达人';
+      nextReward.textContent = '再报' + (5 - todayQuotes) + '次 → 行情专家';
+    } else {
+      badge.className = 'px-1.5 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-600';
+      badge.textContent = '行情新手';
+      nextReward.textContent = '再报' + (3 - todayQuotes) + '次 → 行情达人';
+    }
+
+    // 更新历史弹窗
+    const hBadge = document.getElementById('h-badge');
+    const hDesc = document.getElementById('h-desc');
+    if (hBadge) {
+      hBadge.textContent = badge.textContent;
+      hBadge.className = 'text-sm font-bold ' + (todayQuotes >= 5 ? 'text-emerald-700' : todayQuotes >= 3 ? 'text-amber-700' : 'text-gray-600');
+    }
+    if (hDesc) {
+      if (todayQuotes >= 5) hDesc.textContent = '今日已报 ' + todayQuotes + ' 次，已达成行情专家！';
+      else if (todayQuotes >= 3) hDesc.textContent = '今日已报 ' + todayQuotes + ' 次，再报 ' + (5 - todayQuotes) + ' 次升级「行情专家」';
+      else hDesc.textContent = '今日已报 ' + todayQuotes + ' 次，再报 ' + (3 - todayQuotes) + ' 次升级「行情达人」';
+    }
+
+    // 更新今日记录
+    const container = document.getElementById('history-today');
+    if (container && quoteHistory.length > 0) {
+      container.innerHTML = quoteHistory.map(q => '<div class="rounded-lg bg-surface-container/50 p-2.5 flex items-center justify-between"><div><p class="text-xs font-medium text-on-surface">'+q.spec+'</p><p class="text-[10px] text-on-surface-variant">'+q.source+' · '+q.time+'</p></div><div class="text-right"><p class="text-xs font-bold text-on-surface">¥'+q.price.toLocaleString()+'</p><p class="text-[10px] text-emerald-600">可信度 '+q.cred+'%</p></div></div>').join('');
+    }
+  }
+
+  function openHistoryModal() {
+    document.getElementById('modal-history').classList.remove('hidden');
+    lucide.createIcons();
+  }
+
   function submitQuote() {
     const price = parseInt(document.getElementById('q-price').value);
     if (!price) { showToast('请输入报价'); return; }
@@ -899,6 +1061,14 @@
     else if (deviation <= 0.08) { cred = Math.round(70 + (1-(deviation-0.03)/0.05)*20); level='中等可信'; desc='报价与均价有一定偏差'; }
     else { cred = Math.round(Math.max(30, 70-(deviation-0.08)*200)); level='低可信'; desc='报价与均价偏差较大'; }
     if (selectedSource === '实际成交') cred = Math.min(99, cred+5);
+
+    // 记录报价
+    todayQuotes++;
+    const now = new Date();
+    const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+    const specBtn = document.querySelector('.spec-btn.bg-secondary\\/10');
+    const specName = specBtn ? specBtn.textContent.trim() : (selectedCategory || '未选择');
+    quoteHistory.unshift({ spec: specName, price: price, source: selectedSource, time: timeStr, cred: cred });
 
     const deviationPct = ((price-quoteRefPrice)/quoteRefPrice*100).toFixed(1);
     const avgPrice = Math.round(quoteRefPrice*(0.98+Math.random()*0.04));
@@ -927,6 +1097,9 @@
     // 解锁所有可信度和资讯
     hasSubmittedToday = true;
     unlockAllCredibility();
+
+    // 更新进度
+    updateProgress();
 
     lucide.createIcons();
   }
