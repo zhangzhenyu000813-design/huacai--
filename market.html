@@ -134,11 +134,36 @@
         </div>
       </div>
 
+      <!-- 价格采集 -->
+      <div class="px-5 pb-4">
+        <div class="rounded-2xl bg-gradient-to-br from-secondary/10 to-primary/5 border border-secondary/20 p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
+                <i data-lucide="pen-line" class="w-4 h-4 text-white"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-on-surface">价格采集</h3>
+                <p class="text-xs text-on-surface-variant">提交报价，获取可信度评估</p>
+              </div>
+            </div>
+            <button onclick="openQuoteModal()" class="px-3 py-1.5 rounded-lg bg-secondary text-white text-sm font-medium active:scale-95 transition-transform">我要报价</button>
+          </div>
+          <div class="flex items-center gap-4 text-xs text-on-surface-variant">
+            <span class="flex items-center gap-1"><i data-lucide="users" class="w-3.5 h-3.5"></i> 今日 <b class="text-secondary">47</b> 人参与</span>
+            <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 提交越多可信度越高</span>
+          </div>
+        </div>
+      </div>
+
       <!-- 规格成交价 -->
       <div class="px-5 pb-4">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-sm font-semibold text-on-surface">规格成交价</h3>
-          <span class="text-sm text-on-surface-variant/60">截止 2024.12.20</span>
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-on-surface-variant/60">截止 2024.12.20</span>
+            <span class="px-1.5 py-0.5 rounded text-xs bg-secondary/10 text-secondary font-medium">含采集价</span>
+          </div>
         </div>
         <div class="flex flex-col gap-3">
 
@@ -152,29 +177,65 @@
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">300g 以下</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥19,800</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥19,800</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">12人报价</span>
+                      <span class="text-xs font-medium text-emerald-600">可信度 92%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-emerald-600">+2.1%</span>
+                  <button onclick="openQuoteModal('赤道原条','300g 以下',19800)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">300-500g</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥24,500</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥24,500</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">23人报价</span>
+                      <span class="text-xs font-medium text-emerald-600">可信度 96%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-emerald-600">+3.2%</span>
+                  <button onclick="openQuoteModal('赤道原条','300-500g',24500)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">500-800g</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥28,200</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥28,200</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">18人报价</span>
+                      <span class="text-xs font-medium text-emerald-600">可信度 89%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-emerald-600">+4.1%</span>
+                  <button onclick="openQuoteModal('赤道原条','500-800g',28200)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5">
                 <span class="text-sm text-on-surface-variant">800g 以上</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥33,600</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥33,600</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">8人报价</span>
+                      <span class="text-xs font-medium text-amber-600">可信度 72%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-emerald-600">+5.3%</span>
+                  <button onclick="openQuoteModal('赤道原条','800g 以上',33600)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -190,29 +251,65 @@
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">200g 以下</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥26,500</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥26,500</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">9人报价</span>
+                      <span class="text-xs font-medium text-amber-600">可信度 78%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-red-500">-2.3%</span>
+                  <button onclick="openQuoteModal('阿根廷原条','200g 以下',26500)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">200-300g</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥29,800</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥29,800</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">15人报价</span>
+                      <span class="text-xs font-medium text-emerald-600">可信度 88%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-red-500">-1.5%</span>
+                  <button onclick="openQuoteModal('阿根廷原条','200-300g',29800)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">300-500g</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥32,400</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥32,400</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">11人报价</span>
+                      <span class="text-xs font-medium text-amber-600">可信度 81%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-red-500">-0.8%</span>
+                  <button onclick="openQuoteModal('阿根廷原条','300-500g',32400)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5">
                 <span class="text-sm text-on-surface-variant">500g 以上</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥36,100</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥36,100</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">5人报价</span>
+                      <span class="text-xs font-medium text-red-500">可信度 58%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-amber-600">持平</span>
+                  <button onclick="openQuoteModal('阿根廷原条','500g 以上',36100)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -228,22 +325,49 @@
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">21-30支</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥42,800</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥42,800</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">20人报价</span>
+                      <span class="text-xs font-medium text-emerald-600">可信度 91%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-emerald-600">+2.5%</span>
+                  <button onclick="openQuoteModal('南美白虾 带头','21-30支',42800)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5 border-b border-outline-variant/10">
                 <span class="text-sm text-on-surface-variant">31-40支</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥36,500</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥36,500</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">26人报价</span>
+                      <span class="text-xs font-medium text-emerald-600">可信度 95%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-emerald-600">+1.8%</span>
+                  <button onclick="openQuoteModal('南美白虾 带头','31-40支',36500)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
               <div class="flex items-center justify-between py-2.5">
                 <span class="text-sm text-on-surface-variant">41-50支</span>
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-on-surface">¥30,200</span>
+                  <div class="text-right">
+                    <span class="text-sm font-medium text-on-surface">¥30,200</span>
+                    <div class="flex items-center gap-1 mt-0.5">
+                      <span class="text-xs text-on-surface-variant">14人报价</span>
+                      <span class="text-xs font-medium text-amber-600">可信度 85%</span>
+                    </div>
+                  </div>
                   <span class="text-sm text-amber-600">持平</span>
+                  <button onclick="openQuoteModal('南美白虾 带头','41-50支',30200)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
+                    <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -631,6 +755,137 @@
   </div>
 </div>
 
+<!-- ===== 报价采集弹窗 ===== -->
+<div id="modal-quote" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/40" onclick="closeModal('modal-quote')"></div>
+  <div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-2xl p-5 max-h-[85vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-base font-bold text-on-surface">提交报价</h3>
+      <button onclick="closeModal('modal-quote')" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container"><i data-lucide="x" class="w-4 h-4"></i></button>
+    </div>
+
+    <!-- 选中规格 -->
+    <div class="rounded-xl bg-surface-container p-3 mb-4">
+      <div class="flex items-center gap-2 mb-2">
+        <i data-lucide="tag" class="w-4 h-4 text-primary"></i>
+        <span id="q-category" class="text-sm font-semibold text-on-surface">赤道原条</span>
+        <span id="q-spec" class="text-sm text-on-surface-variant">300-500g</span>
+      </div>
+      <div class="flex items-center gap-3 text-sm">
+        <span class="text-on-surface-variant">当前市场参考价</span>
+        <span id="q-ref-price" class="font-bold text-primary">¥24,500</span>
+        <span class="text-on-surface-variant">元/吨</span>
+      </div>
+    </div>
+
+    <!-- 报价输入 -->
+    <div class="mb-4">
+      <label class="text-sm font-medium text-on-surface mb-1.5 block">您的报价（元/吨）</label>
+      <div class="rounded-xl bg-surface-container px-4 py-3 flex items-center gap-2">
+        <span class="text-lg font-bold text-on-surface-variant">¥</span>
+        <input id="q-price" type="number" placeholder="请输入您了解的市场价格" class="w-full bg-transparent text-base font-semibold outline-none text-on-surface" oninput="updateCredibility()">
+      </div>
+    </div>
+
+    <!-- 信息来源 -->
+    <div class="mb-4">
+      <label class="text-sm font-medium text-on-surface mb-1.5 block">信息来源</label>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="selectSource(this,'实际成交')" class="source-btn rounded-lg py-2 text-sm font-medium bg-surface-container text-on-surface-variant active:scale-95 transition-all">实际成交</button>
+        <button onclick="selectSource(this,'市场询价')" class="source-btn rounded-lg py-2 text-sm font-medium bg-surface-container text-on-surface-variant active:scale-95 transition-all">市场询价</button>
+        <button onclick="selectSource(this,'供应商报价')" class="source-btn rounded-lg py-2 text-sm font-medium bg-surface-container text-on-surface-variant active:scale-95 transition-all">供应商报价</button>
+        <button onclick="selectSource(this,'行业资讯')" class="source-btn rounded-lg py-2 text-sm font-medium bg-surface-container text-on-surface-variant active:scale-95 transition-all">行业资讯</button>
+      </div>
+    </div>
+
+    <!-- 可信度实时预估 -->
+    <div id="q-credibility-preview" class="rounded-xl bg-surface-container p-4 mb-4 hidden">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm font-medium text-on-surface">预估可信度</span>
+        <span id="q-cred-value" class="text-lg font-bold text-emerald-600">--</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+        <div id="q-cred-bar" class="h-full rounded-full bg-emerald-500 transition-all duration-500" style="width:0%"></div>
+      </div>
+      <p id="q-cred-desc" class="text-xs text-on-surface-variant mt-2">提交报价后系统将计算可信度</p>
+    </div>
+
+    <!-- 激励说明 -->
+    <div class="rounded-lg bg-secondary/5 border border-secondary/20 p-3 mb-4">
+      <div class="flex items-start gap-2">
+        <i data-lucide="info" class="w-4 h-4 text-secondary shrink-0 mt-0.5"></i>
+        <div class="text-xs text-on-surface-variant">
+          <p class="font-medium text-on-surface mb-1">提交报价的好处</p>
+          <p>报价越多人参与，可信度越高。您的报价将帮助更多同行判断行情，同时您也能看到更精准的市场价格。连续提交可获得「行情达人」标识。</p>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="submitQuote()" class="w-full py-3 rounded-xl bg-secondary text-white text-sm font-bold active:scale-[0.98] transition-transform">提交报价</button>
+  </div>
+</div>
+
+<!-- ===== 可信度结果弹窗 ===== -->
+<div id="modal-credibility" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-black/40" onclick="closeModal('modal-credibility')"></div>
+  <div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-2xl p-5">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-base font-bold text-on-surface">报价可信度</h3>
+      <button onclick="closeModal('modal-credibility')" class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container"><i data-lucide="x" class="w-4 h-4"></i></button>
+    </div>
+
+    <!-- 可信度主展示 -->
+    <div class="text-center py-4 mb-4">
+      <div class="w-24 h-24 rounded-full mx-auto mb-3 flex items-center justify-center border-4 border-emerald-400 bg-emerald-50">
+        <span id="c-score" class="text-2xl font-bold text-emerald-600">92%</span>
+      </div>
+      <p id="c-level" class="text-base font-semibold text-emerald-700 mb-1">高可信</p>
+      <p id="c-desc" class="text-sm text-on-surface-variant">您的报价与市场均价偏差小，可信度高</p>
+    </div>
+
+    <!-- 价格对比 -->
+    <div class="rounded-xl bg-surface-container p-4 mb-4">
+      <div class="grid grid-cols-3 gap-3 text-center">
+        <div>
+          <p class="text-xs text-on-surface-variant mb-1">您的报价</p>
+          <p id="c-your-price" class="text-sm font-bold text-on-surface">¥24,000</p>
+        </div>
+        <div class="border-x border-outline-variant/10">
+          <p class="text-xs text-on-surface-variant mb-1">市场均价</p>
+          <p id="c-avg-price" class="text-sm font-bold text-primary">¥24,500</p>
+        </div>
+        <div>
+          <p class="text-xs text-on-surface-variant mb-1">偏差</p>
+          <p id="c-deviation" class="text-sm font-bold text-emerald-600">-2.0%</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 采集统计 -->
+    <div class="rounded-xl bg-surface-container p-4 mb-4">
+      <p class="text-sm font-medium text-on-surface mb-2">该规格采集统计</p>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="flex items-center gap-2">
+          <i data-lucide="users" class="w-4 h-4 text-secondary"></i>
+          <div>
+            <p id="c-count" class="text-sm font-bold text-on-surface">23人</p>
+            <p class="text-xs text-on-surface-variant">已提交报价</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <i data-lucide="trending-up" class="w-4 h-4 text-secondary"></i>
+          <div>
+            <p id="c-range" class="text-sm font-bold text-on-surface">¥23,000-26,000</p>
+            <p class="text-xs text-on-surface-variant">报价区间</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="closeModal('modal-credibility')" class="w-full py-3 rounded-xl bg-primary text-white text-sm font-bold active:scale-[0.98] transition-transform">知道了</button>
+  </div>
+</div>
+
 <!-- ===== 货盘详情弹窗 ===== -->
 <div id="modal-detail" class="fixed inset-0 z-50 hidden">
   <div class="absolute inset-0 bg-black/40" onclick="closeModal('modal-detail')"></div>
@@ -825,6 +1080,116 @@
 
   function showFilter() {
     showToast('筛选功能开发中');
+  }
+
+  // Quote submission
+  let selectedSource = '';
+  let quoteCategory = '';
+  let quoteSpec = '';
+  let quoteRefPrice = 0;
+
+  function openQuoteModal(category, spec, refPrice) {
+    quoteCategory = category || '';
+    quoteSpec = spec || '';
+    quoteRefPrice = refPrice || 0;
+    document.getElementById('q-category').textContent = category || '请选择品类';
+    document.getElementById('q-spec').textContent = spec || '请选择规格';
+    document.getElementById('q-ref-price').textContent = refPrice ? '¥' + refPrice.toLocaleString() : '--';
+    document.getElementById('q-price').value = '';
+    document.getElementById('q-credibility-preview').classList.add('hidden');
+    selectedSource = '';
+    document.querySelectorAll('.source-btn').forEach(b => {
+      b.className = 'source-btn rounded-lg py-2 text-sm font-medium bg-surface-container text-on-surface-variant active:scale-95 transition-all';
+    });
+    document.getElementById('modal-quote').classList.remove('hidden');
+    lucide.createIcons();
+  }
+
+  function selectSource(el, source) {
+    selectedSource = source;
+    document.querySelectorAll('.source-btn').forEach(b => {
+      b.className = 'source-btn rounded-lg py-2 text-sm font-medium bg-surface-container text-on-surface-variant active:scale-95 transition-all';
+    });
+    el.className = 'source-btn rounded-lg py-2 text-sm font-medium bg-secondary text-white active:scale-95 transition-all';
+    updateCredibility();
+  }
+
+  function updateCredibility() {
+    const price = parseInt(document.getElementById('q-price').value);
+    const preview = document.getElementById('q-credibility-preview');
+    if (!price || !quoteRefPrice) {
+      preview.classList.add('hidden');
+      return;
+    }
+    preview.classList.remove('hidden');
+    const deviation = Math.abs(price - quoteRefPrice) / quoteRefPrice;
+    let cred, color, desc;
+    if (deviation <= 0.03) {
+      cred = Math.round(90 + (1 - deviation / 0.03) * 10);
+      color = 'emerald'; desc = '您的报价接近市场均价，可信度高';
+    } else if (deviation <= 0.08) {
+      cred = Math.round(70 + (1 - (deviation - 0.03) / 0.05) * 20);
+      color = 'amber'; desc = '您的报价与市场均价有一定偏差，可信度中等';
+    } else {
+      cred = Math.round(Math.max(30, 70 - (deviation - 0.08) * 200));
+      color = 'red'; desc = '您的报价与市场均价偏差较大，可信度偏低';
+    }
+    if (selectedSource === '实际成交') cred = Math.min(99, cred + 5);
+    document.getElementById('q-cred-value').textContent = cred + '%';
+    document.getElementById('q-cred-value').className = 'text-lg font-bold text-' + color + '-600';
+    document.getElementById('q-cred-bar').style.width = cred + '%';
+    document.getElementById('q-cred-bar').className = 'h-full rounded-full bg-' + color + '-500 transition-all duration-500';
+    document.getElementById('q-cred-desc').textContent = desc;
+    lucide.createIcons();
+  }
+
+  function submitQuote() {
+    const price = parseInt(document.getElementById('q-price').value);
+    if (!price) { showToast('请输入报价'); return; }
+    if (!selectedSource) { showToast('请选择信息来源'); return; }
+    closeModal('modal-quote');
+
+    // Calculate credibility result
+    const deviation = quoteRefPrice ? Math.abs(price - quoteRefPrice) / quoteRefPrice : 0;
+    let cred, level, desc;
+    if (deviation <= 0.03) {
+      cred = Math.round(90 + (1 - deviation / 0.03) * 10);
+      level = '高可信'; desc = '您的报价与市场均价偏差小，可信度高';
+    } else if (deviation <= 0.08) {
+      cred = Math.round(70 + (1 - (deviation - 0.03) / 0.05) * 20);
+      level = '中等可信'; desc = '您的报价与市场均价有一定偏差，可信度中等';
+    } else {
+      cred = Math.round(Math.max(30, 70 - (deviation - 0.08) * 200));
+      level = '低可信'; desc = '您的报价与市场均价偏差较大，建议核实后再提交';
+    }
+    if (selectedSource === '实际成交') cred = Math.min(99, cred + 5);
+
+    const deviationPct = ((price - quoteRefPrice) / quoteRefPrice * 100).toFixed(1);
+    const avgPrice = Math.round(quoteRefPrice * (0.98 + Math.random() * 0.04));
+    const minPrice = Math.round(quoteRefPrice * 0.92);
+    const maxPrice = Math.round(quoteRefPrice * 1.06);
+    const count = Math.round(8 + Math.random() * 25);
+
+    document.getElementById('c-score').textContent = cred + '%';
+    document.getElementById('c-level').textContent = level;
+    document.getElementById('c-desc').textContent = desc;
+    document.getElementById('c-your-price').textContent = '¥' + price.toLocaleString();
+    document.getElementById('c-avg-price').textContent = '¥' + avgPrice.toLocaleString();
+    document.getElementById('c-deviation').textContent = (deviationPct >= 0 ? '+' : '') + deviationPct + '%';
+
+    const colors = cred >= 85 ? ['emerald-400','emerald-50','emerald-600','emerald-700'] :
+                   cred >= 60 ? ['amber-400','amber-50','amber-600','amber-700'] :
+                   ['red-400','red-50','red-600','red-700'];
+    document.getElementById('c-score').className = 'text-2xl font-bold text-' + colors[2];
+    const circle = document.getElementById('c-score').parentElement;
+    circle.className = 'w-24 h-24 rounded-full mx-auto mb-3 flex items-center justify-center border-4 border-' + colors[0] + ' bg-' + colors[1];
+    document.getElementById('c-level').className = 'text-base font-semibold text-' + colors[3] + ' mb-1';
+
+    document.getElementById('c-count').textContent = count + '人';
+    document.getElementById('c-range').textContent = '¥' + minPrice.toLocaleString() + '-' + maxPrice.toLocaleString();
+
+    document.getElementById('modal-credibility').classList.remove('hidden');
+    lucide.createIcons();
   }
 </script>
 </body>
