@@ -158,17 +158,23 @@
             </div>
           </div>
 
-          <!-- 今日报价进度条 -->
+          <!-- 今日连续报价进度 -->
           <div id="quote-progress" class="hidden mb-2">
             <div class="flex items-center justify-between mb-1">
               <div class="flex items-center gap-1.5">
-                <span id="quote-badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700">行情新手</span>
-                <span class="text-xs text-on-surface-variant">今日 <b id="today-count" class="text-secondary">0</b>/5 次</span>
+                <span id="quote-badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-gray-100 text-gray-600">连续1天</span>
+                <span class="text-xs text-on-surface-variant">今日已报 <b id="today-count" class="text-secondary">0</b> 次</span>
               </div>
-              <span id="next-reward" class="text-[10px] text-secondary font-medium">再报3次 → 行情达人</span>
+              <span id="next-reward" class="text-[10px] text-secondary font-medium">再连续2天 → 解锁7日环比</span>
             </div>
             <div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
               <div id="progress-bar" class="h-full rounded-full bg-secondary transition-all duration-500" style="width:0%"></div>
+            </div>
+            <!-- 环比解锁进度 -->
+            <div class="flex items-center gap-3 mt-1.5">
+              <span id="unlock-daily" class="flex items-center gap-1 text-[10px] text-on-surface-variant"><i data-lucide="check-circle" class="w-3 h-3 text-on-surface-variant/30"></i>日环比</span>
+              <span id="unlock-weekly" class="flex items-center gap-1 text-[10px] text-on-surface-variant"><i data-lucide="lock" class="w-3 h-3 text-on-surface-variant/30"></i>7日环比</span>
+              <span id="unlock-monthly" class="flex items-center gap-1 text-[10px] text-on-surface-variant"><i data-lucide="lock" class="w-3 h-3 text-on-surface-variant/30"></i>30日环比</span>
             </div>
           </div>
 
@@ -212,8 +218,15 @@
                       <span class="text-xs text-on-surface-variant">12人报价</span>
                       <span class="text-xs font-medium text-emerald-600">可信度 92%</span>
                     </div>
+                    <!-- 环比标签 -->
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-emerald-600 font-medium">日 +2.1%</span>
+                      <span id="wow-1-locked" class="text-[10px] text-on-surface-variant locked-blur">周 +4.5%</span>
+                      <span id="wow-1-unlocked" class="text-[10px] text-primary font-medium hidden">周 +4.5%</span>
+                      <span id="mom-1-locked" class="text-[10px] text-on-surface-variant locked-blur">月 +8.2%</span>
+                      <span id="mom-1-unlocked" class="text-[10px] text-primary font-medium hidden">月 +8.2%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-emerald-600">+2.1%</span>
                   <button onclick="openQuoteModal('赤道原条','300g 以下',19800)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -233,8 +246,14 @@
                       <span class="text-xs text-on-surface-variant">23人报价</span>
                       <span class="text-xs font-medium text-emerald-600">可信度 96%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-emerald-600 font-medium">日 +3.2%</span>
+                      <span id="wow-2-locked" class="text-[10px] text-on-surface-variant locked-blur">周 +5.1%</span>
+                      <span id="wow-2-unlocked" class="text-[10px] text-primary font-medium hidden">周 +5.1%</span>
+                      <span id="mom-2-locked" class="text-[10px] text-on-surface-variant locked-blur">月 +9.8%</span>
+                      <span id="mom-2-unlocked" class="text-[10px] text-primary font-medium hidden">月 +9.8%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-emerald-600">+3.2%</span>
                   <button onclick="openQuoteModal('赤道原条','300-500g',24500)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -254,8 +273,14 @@
                       <span class="text-xs text-on-surface-variant">18人报价</span>
                       <span class="text-xs font-medium text-emerald-600">可信度 89%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-emerald-600 font-medium">日 +4.1%</span>
+                      <span id="wow-3-locked" class="text-[10px] text-on-surface-variant locked-blur">周 +6.3%</span>
+                      <span id="wow-3-unlocked" class="text-[10px] text-primary font-medium hidden">周 +6.3%</span>
+                      <span id="mom-3-locked" class="text-[10px] text-on-surface-variant locked-blur">月 +11.5%</span>
+                      <span id="mom-3-unlocked" class="text-[10px] text-primary font-medium hidden">月 +11.5%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-emerald-600">+4.1%</span>
                   <button onclick="openQuoteModal('赤道原条','500-800g',28200)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -275,8 +300,14 @@
                       <span class="text-xs text-on-surface-variant">8人报价</span>
                       <span class="text-xs font-medium text-amber-600">可信度 72%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-emerald-600 font-medium">日 +5.3%</span>
+                      <span id="wow-4-locked" class="text-[10px] text-on-surface-variant locked-blur">周 +7.8%</span>
+                      <span id="wow-4-unlocked" class="text-[10px] text-primary font-medium hidden">周 +7.8%</span>
+                      <span id="mom-4-locked" class="text-[10px] text-on-surface-variant locked-blur">月 +14.2%</span>
+                      <span id="mom-4-unlocked" class="text-[10px] text-primary font-medium hidden">月 +14.2%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-emerald-600">+5.3%</span>
                   <button onclick="openQuoteModal('赤道原条','800g 以上',33600)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -306,8 +337,14 @@
                       <span class="text-xs text-on-surface-variant">9人报价</span>
                       <span class="text-xs font-medium text-amber-600">可信度 78%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-red-500 font-medium">日 -2.3%</span>
+                      <span id="wow-5-locked" class="text-[10px] text-on-surface-variant locked-blur">周 -4.1%</span>
+                      <span id="wow-5-unlocked" class="text-[10px] text-primary font-medium hidden">周 -4.1%</span>
+                      <span id="mom-5-locked" class="text-[10px] text-on-surface-variant locked-blur">月 -6.5%</span>
+                      <span id="mom-5-unlocked" class="text-[10px] text-primary font-medium hidden">月 -6.5%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-red-500">-2.3%</span>
                   <button onclick="openQuoteModal('阿根廷原条','200g 以下',26500)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -327,8 +364,14 @@
                       <span class="text-xs text-on-surface-variant">15人报价</span>
                       <span class="text-xs font-medium text-emerald-600">可信度 88%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-red-500 font-medium">日 -1.5%</span>
+                      <span id="wow-6-locked" class="text-[10px] text-on-surface-variant locked-blur">周 -3.2%</span>
+                      <span id="wow-6-unlocked" class="text-[10px] text-primary font-medium hidden">周 -3.2%</span>
+                      <span id="mom-6-locked" class="text-[10px] text-on-surface-variant locked-blur">月 -5.8%</span>
+                      <span id="mom-6-unlocked" class="text-[10px] text-primary font-medium hidden">月 -5.8%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-red-500">-1.5%</span>
                   <button onclick="openQuoteModal('阿根廷原条','200-300g',29800)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -348,8 +391,14 @@
                       <span class="text-xs text-on-surface-variant">11人报价</span>
                       <span class="text-xs font-medium text-amber-600">可信度 81%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-red-500 font-medium">日 -0.8%</span>
+                      <span id="wow-7-locked" class="text-[10px] text-on-surface-variant locked-blur">周 -2.1%</span>
+                      <span id="wow-7-unlocked" class="text-[10px] text-primary font-medium hidden">周 -2.1%</span>
+                      <span id="mom-7-locked" class="text-[10px] text-on-surface-variant locked-blur">月 -3.5%</span>
+                      <span id="mom-7-unlocked" class="text-[10px] text-primary font-medium hidden">月 -3.5%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-red-500">-0.8%</span>
                   <button onclick="openQuoteModal('阿根廷原条','300-500g',32400)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -369,8 +418,14 @@
                       <span class="text-xs text-on-surface-variant">5人报价</span>
                       <span class="text-xs font-medium text-red-500">可信度 58%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-amber-600 font-medium">日 持平</span>
+                      <span id="wow-8-locked" class="text-[10px] text-on-surface-variant locked-blur">周 +0.5%</span>
+                      <span id="wow-8-unlocked" class="text-[10px] text-primary font-medium hidden">周 +0.5%</span>
+                      <span id="mom-8-locked" class="text-[10px] text-on-surface-variant locked-blur">月 -1.2%</span>
+                      <span id="mom-8-unlocked" class="text-[10px] text-primary font-medium hidden">月 -1.2%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-amber-600">持平</span>
                   <button onclick="openQuoteModal('阿根廷原条','500g 以上',36100)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -400,8 +455,14 @@
                       <span class="text-xs text-on-surface-variant">20人报价</span>
                       <span class="text-xs font-medium text-emerald-600">可信度 91%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-emerald-600 font-medium">日 +2.5%</span>
+                      <span id="wow-9-locked" class="text-[10px] text-on-surface-variant locked-blur">周 +3.8%</span>
+                      <span id="wow-9-unlocked" class="text-[10px] text-primary font-medium hidden">周 +3.8%</span>
+                      <span id="mom-9-locked" class="text-[10px] text-on-surface-variant locked-blur">月 +6.2%</span>
+                      <span id="mom-9-unlocked" class="text-[10px] text-primary font-medium hidden">月 +6.2%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-emerald-600">+2.5%</span>
                   <button onclick="openQuoteModal('南美白虾 带头','21-30支',42800)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -421,8 +482,14 @@
                       <span class="text-xs text-on-surface-variant">26人报价</span>
                       <span class="text-xs font-medium text-emerald-600">可信度 95%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-emerald-600 font-medium">日 +1.8%</span>
+                      <span id="wow-10-locked" class="text-[10px] text-on-surface-variant locked-blur">周 +2.5%</span>
+                      <span id="wow-10-unlocked" class="text-[10px] text-primary font-medium hidden">周 +2.5%</span>
+                      <span id="mom-10-locked" class="text-[10px] text-on-surface-variant locked-blur">月 +4.1%</span>
+                      <span id="mom-10-unlocked" class="text-[10px] text-primary font-medium hidden">月 +4.1%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-emerald-600">+1.8%</span>
                   <button onclick="openQuoteModal('南美白虾 带头','31-40支',36500)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -442,8 +509,14 @@
                       <span class="text-xs text-on-surface-variant">14人报价</span>
                       <span class="text-xs font-medium text-amber-600">可信度 85%</span>
                     </div>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                      <span class="text-[10px] text-amber-600 font-medium">日 持平</span>
+                      <span id="wow-11-locked" class="text-[10px] text-on-surface-variant locked-blur">周 -1.2%</span>
+                      <span id="wow-11-unlocked" class="text-[10px] text-primary font-medium hidden">周 -1.2%</span>
+                      <span id="mom-11-locked" class="text-[10px] text-on-surface-variant locked-blur">月 +2.3%</span>
+                      <span id="mom-11-unlocked" class="text-[10px] text-primary font-medium hidden">月 +2.3%</span>
+                    </div>
                   </div>
-                  <span class="text-sm text-amber-600">持平</span>
                   <button onclick="openQuoteModal('南美白虾 带头','41-50支',30200)" class="w-7 h-7 rounded-full bg-secondary/10 flex items-center justify-center shrink-0 active:scale-90 transition-transform" title="提交报价">
                     <i data-lucide="pen-line" class="w-3.5 h-3.5 text-secondary"></i>
                   </button>
@@ -669,7 +742,7 @@
       <!-- 交换提示 -->
       <div class="rounded-lg bg-secondary/5 border border-secondary/15 p-2.5 mb-3 flex items-center gap-2">
         <i data-lucide="repeat" class="w-4 h-4 text-secondary shrink-0"></i>
-        <p class="text-xs text-on-surface-variant">提交报价即可解锁：报价人数 · 可信度 · 深度资讯</p>
+        <p class="text-xs text-on-surface-variant">提交报价解锁详情 · 连续3天解锁7日环比 · 连续7天解锁30日环比</p>
       </div>
 
       <button onclick="submitQuote()" class="w-full py-2.5 rounded-xl bg-secondary text-white text-sm font-bold active:scale-[0.98] transition-transform">提交报价</button>
@@ -1118,6 +1191,22 @@
       const unlocked = document.getElementById('cred-'+i+'-unlocked');
       if (locked) { locked.classList.add('hidden'); }
       if (unlocked) { unlocked.classList.remove('hidden'); }
+    }
+
+    // 解锁周环比（模拟：提交后即解锁，实际需连续3天）
+    for (let i = 1; i <= 11; i++) {
+      const wowLocked = document.getElementById('wow-'+i+'-locked');
+      const wowUnlocked = document.getElementById('wow-'+i+'-unlocked');
+      if (wowLocked) { wowLocked.classList.add('hidden'); }
+      if (wowUnlocked) { wowUnlocked.classList.remove('hidden'); }
+    }
+
+    // 解锁月环比（模拟：提交后即解锁，实际需连续7天）
+    for (let i = 1; i <= 11; i++) {
+      const momLocked = document.getElementById('mom-'+i+'-locked');
+      const momUnlocked = document.getElementById('mom-'+i+'-unlocked');
+      if (momLocked) { momLocked.classList.add('hidden'); }
+      if (momUnlocked) { momUnlocked.classList.remove('hidden'); }
     }
 
     // 解锁资讯
